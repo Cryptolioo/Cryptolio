@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/landing.css';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 export class Landing extends React.Component {
@@ -12,9 +13,9 @@ export class Landing extends React.Component {
                     Enter Introduction for Cryptolio here.
                 </p>
                 <br></br>
-                <Button variant="success">Login</Button>
+                <Link to="/login" className="btn btn-success btn-lg">Login</Link>
                 <br></br><br></br>
-                <Button variant="outline-success">Register</Button>
+                <Link to="/register" className="btn btn-outline-success btn-lg">Register</Link>
             </div>
         );
     }

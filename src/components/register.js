@@ -9,6 +9,15 @@ export class Register extends React.Component {
     render() {
         return(
               <Form  className="register-form">
+                   <Navbar id="loginNavbar" width="100%">
+                    <img
+                        src={logo}
+                        width="50"
+                        height="50"
+                        className="d-inline-block align-top"
+                    />
+                    <h1 id="brand">Cryptolio</h1>
+                </Navbar>
                 
                  <FormGroup>
                     <Label className="fname" >First Name</Label>

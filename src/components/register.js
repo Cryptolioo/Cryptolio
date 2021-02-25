@@ -18,7 +18,7 @@ export class Register extends React.Component {
                     />
                     <h1 id="brand">Cryptolio</h1>
                 </Navbar>
-                
+
                  <FormGroup>
                     <Label className="fname" >First Name</Label>
                     <Input type="fname" placeholder="First Name"/>
@@ -38,6 +38,11 @@ export class Register extends React.Component {
                     <Label className="password">Password</Label>
                     <Input type="password" placeholder = "password"/>
                 </FormGroup>
+
+                <Button className = "btn-lg btn-dark btn-block">Register</Button>
+                <div className = "text-center">
+                <a href = "/sign-up"> Log in</a>
+                </div>
 
                
               </Form>

@@ -29,3 +29,25 @@ body {
     padding: 50px;
 }
 
+.login-form{
+    width: 100%;
+    max-width:330px;
+    padding: 15px;
+    margin: auto;
+    height:10;
+}
+
+.email{
+    font-weight:bold;
+    text-align:left;
+    float:left;
+}
+
+.password{
+    font-weight:bold;
+    text-align:left;
+    float:left;
+}
+
+
+

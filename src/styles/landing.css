@@ -1,6 +1,9 @@
 body {
     background-color: black;
     color: white;
+    background-image: url('../images/landingbackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #brand {

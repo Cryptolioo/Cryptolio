@@ -1,0 +1,8 @@
+#crypto_table {
+    width: 90%;
+    margin-left: 5vw;
+    text-align: right;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-family: sans-serif;
+}

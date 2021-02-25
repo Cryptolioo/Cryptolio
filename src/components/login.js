@@ -8,6 +8,9 @@ export class Login extends React.Component {
                 <h1>
                     <span className = "font-weight-bold">Cryptolioo</span>
                 </h1>
+                <h3>
+                    <span className = "font-weight-bold">Welcome Back!</span>
+                </h3>
                 <FormGroup>
                     <Label className="email" >Email</Label>
                     <Input type="email" placeholder="Email"/>

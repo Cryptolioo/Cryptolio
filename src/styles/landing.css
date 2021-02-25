@@ -37,6 +37,14 @@ body {
     height:10;
 }
 
+.register-form{
+    width: 100%;
+    max-width:330px;
+    padding: 15px;
+    margin: auto;
+    height:10; 
+}
+
 .email{
     font-weight:bold;
     text-align:left;
@@ -44,6 +52,18 @@ body {
 }
 
 .password{
+    font-weight:bold;
+    text-align:left;
+    float:left;
+}
+
+.fname{
+    font-weight:bold;
+    text-align:left;
+    float:left;
+}
+
+.sname{
     font-weight:bold;
     text-align:left;
     float:left;

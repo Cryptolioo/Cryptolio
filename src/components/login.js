@@ -3,9 +3,15 @@ import React from 'react';
 export class Login extends React.Component {
     render() {
         return(
-            <div className="login">
-                <h1>Cryptolio</h1>
-            </div>
+            <form>
+                <h3>Login</h3>
+
+                <div className="form-group">
+                    <label>Email address</label>
+                    <input type="email" className="form-control" placeholder="Enter email" />
+                </div>
+                
+            </form>        
         );
     }
 }

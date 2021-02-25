@@ -1,8 +1,24 @@
 import React from 'react';
 import logo from '../images/logo.png';
 import '../styles/portfolio.css';
+import { Cryptos } from './cryptos';
 
 export class Portfolio extends React.Component {
+
+    state = {
+        cryptos: [
+            {
+                "Ticker": "BTC",
+                "Price": "54000",
+                "Holdings": "34"
+            },
+            {
+                "Ticker": "ETH",
+                "Price": "1700",
+                "Holdings": "127"
+            }
+        ]
+    }
 
     render() {
         return(
@@ -31,6 +47,7 @@ export class Portfolio extends React.Component {
                         <td width="18%"></td>
                     </tr>
                 </table>
+                <Cryptos cryptos={this.state.cryptos}></Cryptos>
             </div>
         );
     }

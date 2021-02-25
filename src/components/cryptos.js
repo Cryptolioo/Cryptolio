@@ -3,10 +3,8 @@ import { Crypto } from './crypto';
 
 export class Cryptos extends React.Component {
     render() {
-        return(
-            <div className="cryptos">
-                <Crypto></Crypto>
-            </div>
-        );
+        return this.props.cryptos.map((crypto) => {
+            return <Crypto crypto={crypto}></Crypto>
+        })
     }
 }

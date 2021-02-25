@@ -21,11 +21,10 @@ export class Landing extends React.Component {
                     <h1 id="brand">Cryptolio</h1>
                     <Nav.Link as={Link} to="/login" className="login btn btn-success ml-auto">Login</Nav.Link>
                 </Navbar>
-                <br></br><br></br><br></br><br></br><br></br>
-                <h1>
+                <h1 id="intro">
                     Track all your Crypto in the one place from <br></br>anywhere in the world.
                 </h1>
-                <Link to="/register" className="register btn btn-outline-success">Register</Link>
+                <Link to="/register" className="register btn btn-success">Register</Link>
             </div>
         );
     }

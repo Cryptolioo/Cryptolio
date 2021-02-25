@@ -19,16 +19,22 @@ body {
     border-radius: 50px;
     margin-right: 1vw;
     padding: 5px 20px 5px 20px;
+    font-size: larger;
 }
 
 .register {
-    margin-top: 5vh;
+    margin-top: 3vh;
     border-radius: 50px;
     padding: 10px 40px 10px 40px;
-    font-size: larger;
+    font-size: xx-large;
 }
 
 #navbar {
     padding: 50px;
+}
+
+#intro {
+    margin-top: 20vh;
+    font-size: 300%;
 }
 

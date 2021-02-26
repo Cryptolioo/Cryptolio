@@ -8,19 +8,15 @@
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .popup-inner {
     position: relative;
-    padding: 32px;
+    padding: 10vh;
     width: 100%;
+    bottom: 20px;
     max-width: 640px;
     background-color: #000;
-}
-
-.popup-inner .close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
+    border-radius: 50px;
 }

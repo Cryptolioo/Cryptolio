@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 
 export class Register extends React.Component {
+
+    fname = document.getElementById('fname')
+
+
+
+
     render() {
         return(
               <Form  className="register-form">
@@ -19,6 +25,8 @@ export class Register extends React.Component {
                     <h1 id="brand">Cryptolio</h1>
                 </Navbar>
 
+                <div className = "paddingBox">
+    
                  <FormGroup>
                     <Label className="fname" >First Name</Label>
                     <Input type="fname" placeholder="First Name"/>
@@ -39,10 +47,14 @@ export class Register extends React.Component {
                     <Input type="password" placeholder = "password"/>
                 </FormGroup>
 
-                <Button className = "btn-lg btn-dark btn-block">Register</Button>
-                <div className = "text-center">
-                <a href = "/sign-up"> Log in</a>
-                </div>
+                <Nav.Link as={Link} to="/login"  className = "btn-lg btn-dark btn-block">Register</Nav.Link>
+
+             <div className = "text-center">
+              <p> Already have an account?</p>
+              <a href = "/forgot-password">Log in</a>
+              </div>
+
+              </div>
 
                
               </Form>

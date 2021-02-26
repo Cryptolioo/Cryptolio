@@ -7,11 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 
 export class Register extends React.Component {
 
-    fname = document.getElementById('fname')
-
-
-
-
     render() {
         return(
               <Form  className="register-form">
@@ -47,16 +42,14 @@ export class Register extends React.Component {
                     <Input type="password" placeholder = "password"/>
                 </FormGroup>
 
-                <Nav.Link as={Link} to="/login"  className = "btn-lg btn-dark btn-block">Register</Nav.Link>
+                <Nav.Link as={Link} to="/login"  className = "btn-lg btn-dark btn-block" type="submit">Register</Nav.Link>
 
              <div className = "text-center">
               <p> Already have an account?</p>
               <a href = "/forgot-password">Log in</a>
               </div>
 
-              </div>
-
-               
+              </div>               
               </Form>
         );
     }

@@ -1,6 +1,18 @@
 const express = require('express')
 const app = express()
 const port = 4000
+const cors = require('cors')
+
+// Use cors to read JSON data from the Node/Express server
+// This code will avoid a CORS error
+app.use(cors())
+app.use(function (req, res, next) {
+    res.header("Access-control-Allow-Origin", "*")
+    res.header("Access-control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+    res.header("Access-control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept")
+    next()
+})
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -19,7 +31,8 @@ app.get('/api/cryptos', (req, res) => {
       "Holdings": "127"
     }
   ];
-  res.json({cryptos:mycryptos})
+  console.log(mycryptos)
+  res.json({mycryptos})
 })
 
 app.listen(port, () => {

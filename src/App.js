@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Landing } from './components/landing';
 import { Login } from './components/login';
 import { Register } from './components/register';
-import { Portfolio } from './components/portfolio';
+import Portfolio from './components/portfolio';
 
 
 class App extends Component {

@@ -8,28 +8,25 @@ import Link from 'react-router-dom/Link';
 import Popup from './Popup';
 import { useState } from 'react';
 
-export class Portfolio extends React.Component {
+function Portfolio() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            buttonPopup: false,
-            cryptos: [
-                {
-                    "Ticker": "BTC",
-                    "Price": "54000",
-                    "Holdings": "34"
-                },
-                {
-                    "Ticker": "ETH",
-                    "Price": "1700",
-                    "Holdings": "127"
-                }
-            ]
-        };
+    const [buttonPopup, setButtonPopup] = useState(false);
+    
+    let state = {
+        cryptos: [
+            {
+                "Ticker": "BTC",
+                "Price": "54000",
+                "Holdings": "34"
+            },
+            {
+                "Ticker": "ETH",
+                "Price": "1700",
+                "Holdings": "127"
+            }
+        ]
     }
 
-    render() {
         return(
             <div className="portfolio">
                 <img
@@ -56,17 +53,18 @@ export class Portfolio extends React.Component {
                         <td width="18%"></td>
                     </tr>
                 </table>
-                <Cryptos cryptos={this.state.cryptos}></Cryptos>
-                <Link onClick={() => this.setState({buttonPopup: true})}>
+                <Cryptos cryptos={state.cryptos}></Cryptos>
+                <Link onClick={() => setButtonPopup(true)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style={{position: "absolute", bottom: "20px", color: "white"}}>
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
                 </Link>
-                <Popup trigger={this.state.buttonPopup}>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                     <h3>My Popup</h3>
                 </Popup>
             </div>
         );
-    }
 }
+
+export default Portfolio

@@ -3,6 +3,7 @@ const app = express()
 const port = 4000
 const cors = require('cors')
 const bodyParser = require("body-parser")
+const mongoose = require('mongoose')
 
 // Use cors to read JSON data from the Node/Express server
 // This code will avoid a CORS error
@@ -20,6 +21,18 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+
+const myConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/cryptos?retryWrites=true&w=majority'
+var conn = mongoose.createConnection(myConnectionString)
+
+const Schema = mongoose.Schema
+
+var cryptoSchema = new Schema({
+  ticker: String,
+  holdings: String
+})
+
+var CryptoModel = conn.model('testportfolio', cryptoSchema)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

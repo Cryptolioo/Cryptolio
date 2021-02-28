@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/create.css';
 import Popup from './Popup';
 import Link from 'react-router-dom/Link';
+import axios from 'axios';
 
 export class Create extends React.Component {
 
@@ -42,7 +43,20 @@ export class Create extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         this.closePopup();
-        alert("Add: " + this.state.Holdings + " " + this.state.Ticker);
+        
+        const newCrypto = {
+            ticker: this.state.Ticker,
+            price: this.state.Price,
+            holdings: this.state.Holdings
+        }
+        
+        axios.post('http://localhost:4000/api/cryptos', newCrypto)
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
 
     render() {

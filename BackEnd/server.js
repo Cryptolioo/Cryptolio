@@ -44,6 +44,14 @@ app.get('/api/cryptos', (req, res) => {
   })
 })
 
+app.get('/api/cryptos/:id', (req,res) => {
+  console.log(req.params.id);
+
+  CryptoModel.findById(req.params.id, (err,data) => {
+    res.json(data);
+  })
+})
+
 app.post('/api/cryptos', (req, res) => {
   console.log("Crypto Received!");
   console.log(req.body.ticker);

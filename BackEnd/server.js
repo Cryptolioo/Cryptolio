@@ -32,7 +32,7 @@ var cryptoSchema = new Schema({
   holdings: String
 })
 
-var CryptoModel = conn.model('testportfolio', cryptoSchema)
+var CryptoModel = conn.model('tests', cryptoSchema)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -57,8 +57,14 @@ app.get('/api/cryptos', (req, res) => {
 app.post('/api/cryptos', (req, res) => {
   console.log("Crypto Received!");
   console.log(req.body.ticker);
-  console.log(req.body.price);
   console.log(req.body.holdings);
+
+  CryptoModel.create({
+    ticker:req.body.ticker,
+    holdings:req.body.holdings
+  })
+
+  res.send('Crypto Added');
 })
 
 app.listen(port, () => {

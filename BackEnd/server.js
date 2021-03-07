@@ -39,19 +39,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/cryptos', (req, res) => {
-  const mycryptos = [
-    {
-      "Ticker": "BTC",
-      "Price": "54000",
-      "Holdings": "34"
-    },
-    {
-      "Ticker": "ETH",
-      "Price": "1700",
-      "Holdings": "127"
-    }
-  ];
-  res.json({mycryptos})
+  CryptoModel.find((err, data) => {
+    res.json(data);
+  })
 })
 
 app.post('/api/cryptos', (req, res) => {

@@ -20,7 +20,7 @@ export class Portfolio extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:4000/api/cryptos')
         .then((response) => {
-            this.setState({ cryptos: response.data.mycryptos})
+            this.setState({ cryptos: response.data})
         })
         .catch((error) => {
             console.log(error)

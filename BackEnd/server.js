@@ -45,10 +45,17 @@ app.get('/api/cryptos', (req, res) => {
 })
 
 app.get('/api/cryptos/:id', (req,res) => {
-  console.log(req.params.id);
-
   CryptoModel.findById(req.params.id, (err,data) => {
     res.json(data);
+  })
+})
+
+app.delete('/api/cryptos/:id', (req, res) => {
+  CryptoModel.findByIdAndDelete(req.params.id, (err, data) => {
+      if (err) {
+          console.log(err)
+      }
+      res.send(data)
   })
 })
 

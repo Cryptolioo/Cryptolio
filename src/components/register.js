@@ -110,10 +110,9 @@ export class Register extends React.Component {
                         onChange = {this.onChangePassword}></Input>
                     </FormGroup>
  
-                    {/* <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Nav.Link> */}
+                     <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Nav.Link> 
  
-                    <Button className="btn-lg btn-dark btn-block"  onClick={this.onSubmit}> Register</Button>
-                    <div className="text-center">
+                     <div className="text-center">
                         <p> Already have an account?</p>
                         <a href="/forgot-password">Log in</a>
                     </div>

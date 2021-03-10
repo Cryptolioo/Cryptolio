@@ -83,7 +83,7 @@ app.post('/register',
       email: req.body.email,
       password: req.body.password
     })
-    console.log("Successfull")
+    res.send("User Registration Successfull");
   }
 )
 

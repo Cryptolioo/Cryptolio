@@ -5,6 +5,7 @@ const cors = require('cors')
 const port = 4000
 const bodyParser = require("body-parser");
 const { check, validationResult } = require('express-validator')
+const mongoose = require ('mongoose');
 
 //PARSE APPLICATION /x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -12,13 +13,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+//add mongo connection String here
+//mongoose.connect(myConnectionString, { useNewUrlParser: true })
+
+const Schema = mongoose.Schema;
+
+var cryptolioSchema = new Schema({
+  fname: String,
+  sname: String,
+  email:String,
+  password:String
+});
+
+var cryptolioModel = mongoose.model("cryptolio", cryptolioSchema);
+
 app.use(cors())
 app.use(function (req, res, next) {
-    res.header("Access-control-Allow-Origin", "*")
-    res.header("Access-control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-    res.header("Access-control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept")
-    next()
+  res.header("Access-control-Allow-Origin", "*")
+  res.header("Access-control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+  res.header("Access-control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept")
+  next()
 })
 
 app.get('/', (req, res) => {
@@ -29,39 +44,51 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-
-// app.post('/register' , (req,res) => {
-//   //for database--not added yet
-//  // register.create({
-//     fname: req.body.fname,
-//     sname: req.body.sname,
-//     email: req.body.email,
-//     password: req.body.password,
-//   }).then(register => res.json(user));
-// })
-
-app.post('/api/register',
+app.post('/register',
   //fname cannot be empty
-  check('fname').not().isEmpty(),
+  check('fname', 'Firt name is required.')
+    .notEmpty(),
+  //.withMessage("Firt name is required."),
   //sname cannot be empty
-  check('sname').not().isEmpty(),
+  check('sname', 'Surname cannot be empty.')
+    .notEmpty(),
+  // .withMessage("Text field cannot be empty."),
   //email must be an email
-  check('email').isEmail(),
+  check('email')
+    .notEmpty()
+    .isEmail()
+    .withMessage({message: "Invalid Email address", errorCode:2}),
   //password mujst be 5 characters
-  check('password').isLength({ min: 5 }),
+  check('password')
+    .notEmpty()
+    .isLength({ min: 5 })
+    .withMessage({ message:"Password must be more than 5 charcaters long", errorCode: 3}),
   (req, res) => {
     //finds validation erros in this request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log("SOmething");
-      return res.status(400).json({ errors: errors.array() });
-  
+      console.log("text field is empty");
+      return res.status(422).json({ errors: errors.array() });
     }
     console.log("User created");
-    console.log(req.body.fname);
-    console.log(req.body.sname);
-    console.log(req.body.email);
-    console.log(req.body.password);
   }
 )
+
+
+//registering user in DB
+app.post('/register', (req, res) => {
+  console.log(req.body.fname);
+  console.log(req.body.sname);
+  console.log(req.body.email);
+  console.log(req.body.password);
+
+  cryptolioModel.create({
+    fname: req.body.fname,
+    sname: req.body.sname,
+    email: req.body.email,
+    password: req.body.password
+  })
+
+  res.send('Item Added')
+})
 

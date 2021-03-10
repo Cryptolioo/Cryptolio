@@ -33,7 +33,7 @@ export class Register extends React.Component {
             password: this.state.password
         }
  
-        axios.post('http://localhost:4000/api/register', newUser)
+        axios.post('http://localhost:4000/register', newUser)
         .then((res)=>{
             console.log(res);
         })

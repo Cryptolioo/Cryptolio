@@ -56,15 +56,17 @@ export class Edit extends React.Component {
         const newCrypto = {
             ticker: this.state.Ticker,
             price: this.state.Price,
-            holdings: this.state.Holdings
+            holdings: this.state.Holdings,
+            _id: this.state._id
         }
         
-        axios.post('http://localhost:4000/api/cryptos', newCrypto)
-        .then((res) => {
+        axios.put('http://localhost:4000/api/cryptos/' + this.state._id, newCrypto)
+        .then(res => {
+            console.log(res)
             this.props.ReloadData();
         })
         .catch((err) => {
-            console.log(err);
+            console.log(err)
         });
     }
 

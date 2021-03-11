@@ -40,15 +40,23 @@ app.get('/', (req, res) => {
 
 app.get('/api/cryptos', (req, res) => {
   CryptoModel.find((err, data) => {
-    res.json(data);
+    res.json(data)
   })
 })
 
 app.get('/api/cryptos/:id', (req,res) => {
   CryptoModel.findById(req.params.id, (err,data) => {
-    res.json(data);
+    res.json(data)
   })
 })
+
+app.put('/api/cryptos/:id', (req, res) => {
+    CryptoModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
+      (err) => {
+        if (err) console.log(err)
+      })
+      res.sendStatus(200)
+  })
 
 app.delete('/api/cryptos/:id', (req, res) => {
   CryptoModel.findByIdAndDelete(req.params.id, (err, data) => {
@@ -60,16 +68,16 @@ app.delete('/api/cryptos/:id', (req, res) => {
 })
 
 app.post('/api/cryptos', (req, res) => {
-  console.log("Crypto Received!");
-  console.log(req.body.ticker);
-  console.log(req.body.holdings);
+  console.log("Crypto Received!")
+  console.log(req.body.ticker)
+  console.log(req.body.holdings)
 
   CryptoModel.create({
     ticker:req.body.ticker,
     holdings:req.body.holdings
   })
 
-  res.send('Crypto Added');
+  res.send('Crypto Added')
 })
 
 app.listen(port, () => {

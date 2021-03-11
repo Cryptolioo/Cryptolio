@@ -60,7 +60,7 @@ export class Crypto extends React.Component {
                     </td>
                 </tr>
             </table>
-            {this.state.showEdit ? <Edit changeHandler={this.editCrypto.bind(this)} id={this.props.crypto._id}/> : null}
+            {this.state.showEdit ? <Edit changeHandler={this.editCrypto.bind(this)} id={this.props.crypto._id} ReloadData={this.props.ReloadData}/> : null}
             </div>
             
         )

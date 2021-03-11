@@ -19,14 +19,14 @@ mongoose.connect(myConnectionString, { useNewUrlParser: true });
 
 const Schema = mongoose.Schema;
 
-var cryptolioSchema = new Schema({
+var UserSchema = new Schema({
   fname: String,
   sname: String,
   email: String,
   password: String
 });
 
-var cryptolioModel = mongoose.model("registerDetails", cryptolioSchema);
+var User = mongoose.model("registerDetails", UserSchema);
 
 app.use(cors())
 app.use(function (req, res, next) {
@@ -47,46 +47,57 @@ app.listen(port, () => {
 
 app.post('/register',
   //fname cannot be empty
-  check('fname', 'Firt name is required.')
-    .notEmpty(),
-  //.withMessage("Firt name is required."),
+  check('fname')
+    .notEmpty()
+    .withMessage("First name is required."),
   //sname cannot be empty
-  check('sname', 'Surname cannot be empty.')
-    .notEmpty(),
-  // .withMessage("Text field cannot be empty."),
+  check('sname')
+    .notEmpty()
+    .withMessage("Surname is required."),
   //email must be an email
   check('email')
     .notEmpty()
     .isEmail()
-    .withMessage({ message: "Invalid Email address", errorCode: 2 }),
+    .withMessage("Invalid email address"),
   //password mujst be 5 characters
   check('password')
     .notEmpty()
     .isLength({ min: 5 })
-    .withMessage({ message: "Password must be more than 5 charcaters long", errorCode: 3 }),
+    .withMessage("PAssword must be more than 5 characters long"),
   (req, res) => {
-    //finds validation erros in this request
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log("text field is empty");
       return res.status(422).json({ errors: errors.array() });
     }
-    console.log("User created");
-    console.log(req.body.fname);
-    console.log(req.body.sname);
-    console.log(req.body.email);
-    console.log(req.body.password);
 
-    cryptolioModel.create({
-      fname: req.body.fname,
-      sname: req.body.sname,
-      email: req.body.email,
-      password: req.body.password
-    })
-    res.send("User Registration Successfull");
+    User.findOne({ email: req.body.email }, function (err, users) {
+      if (err) console.log(err);
+      // object of all the users
+      console.log(users)
+      if (users) {
+        res.status(408).send();
+        console.log("USer exists");
+      }
+      else {
+        //finds validation erros in this request
+        console.log("User created");
+        console.log(req.body.fname);
+        console.log(req.body.sname);
+        console.log(req.body.email);
+        console.log(req.body.password);
+
+        User.create({
+          fname: req.body.fname,
+          sname: req.body.sname,
+          email: req.body.email,
+          password: req.body.password
+        })
+        res.send("User Registration Successfull");
+      }
+
+    }
+    )
   }
 )
-
-
-
-

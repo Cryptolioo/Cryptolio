@@ -52,7 +52,7 @@ export class Create extends React.Component {
         
         axios.post('http://localhost:4000/api/cryptos', newCrypto)
         .then((res) => {
-            console.log(res);
+            this.props.ReloadData();
         })
         .catch((err) => {
             console.log(err);

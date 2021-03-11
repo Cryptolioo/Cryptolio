@@ -17,10 +17,11 @@ export class Crypto extends React.Component {
 
         axios.delete("http://localhost:4000/api/cryptos/" + this.props.crypto._id)
         .then(() => {
-            console.log("Successfully deleted");
+            this.props.ReloadData();
         })
         .catch();
     }
+    
     render() {
         return (
             <table id="crypto_table">

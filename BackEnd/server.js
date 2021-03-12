@@ -81,8 +81,6 @@ app.post('/register',
         console.log("USer exists");
       }
       else {
-        //finds validation erros in this request
-        console.log("User created");
         console.log(req.body.fname);
         console.log(req.body.sname);
         console.log(req.body.email);

@@ -29,6 +29,8 @@ export class Login extends React.Component {
             .catch((err) => {
                 console.log(err);
             });
+
+        
     }
 
     onChangeEmail(e) {

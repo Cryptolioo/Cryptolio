@@ -45,10 +45,12 @@ export class Register extends React.Component {
 
                     {/* <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Nav.Link> */}
 
+
+                    {/* add in if on  */}
                     <Button className="btn-lg btn-dark btn-block" > Register</Button>
                     <div className="text-center">
-                        <p> Already have an account?</p>
-                        <a href="/forgot-password">Log in</a>
+                        <p> Already have an account?<a href="/forgot-password">Log in</a></p>
+                        
                     </div>
 
                 </div>

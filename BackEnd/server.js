@@ -46,10 +46,6 @@ var logoSchema = new Schema({
 var CryptoModel = conn.model('tests', cryptoSchema)
 var LogoModel = conn2.model('logos', logoSchema)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 app.get('/api/cryptos', (req, res) => {
   CryptoModel.find((err, data) => {
     res.json(data)
@@ -80,13 +76,21 @@ app.delete('/api/cryptos/:id', (req, res) => {
 })
 
 app.post('/api/cryptos', (req, res) => {
-  console.log("Crypto Received!")
-  console.log(req.body.ticker)
-  console.log(req.body.holdings)
-
-  CryptoModel.create({
-    ticker:req.body.ticker,
-    holdings:req.body.holdings
+  LogoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
+    if (err) {
+      console.log(err)
+  }
+  else if (result == null) { // Could not find ticker
+      res.sendStatus(402)
+  }
+  else {
+    CryptoModel.create({
+      ticker:req.body.ticker,
+      name: result.name,
+      holdings:req.body.holdings,
+      logo: result.logo,
+    })
+  }
   })
 
   res.send('Crypto Added')

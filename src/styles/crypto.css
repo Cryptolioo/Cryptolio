@@ -6,3 +6,18 @@
     color: white;
     font-family: sans-serif;
 }
+
+#logo {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+#name {
+    text-align: left;
+}
+
+#ticker {
+    padding-left: 10px;
+    opacity: 0.5;
+}

@@ -42,7 +42,6 @@ export class Create extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.closePopup();
         
         const newCrypto = {
             ticker: this.state.Ticker,
@@ -52,10 +51,17 @@ export class Create extends React.Component {
         
         axios.post('http://localhost:4000/api/cryptos', newCrypto)
         .then((res) => {
+            this.closePopup();
             this.props.ReloadData();
         })
         .catch((err) => {
-            console.log(err);
+            if(err.response.status == 402) { // Ticker is not currently supported
+                document.getElementById('invalidTicker').innerHTML = "Crypto not currently supported!"
+            }
+            else if(err.response.status == 404) { // Holdings was an invalid vaue
+                
+                document.getElementById('invalidHoldings').innerHTML = "Holdings must be greater than 0!"
+            }
         });
     }
 
@@ -63,6 +69,9 @@ export class Create extends React.Component {
         return (
             <Popup trigger={this.buttonPopup}>
                 <h2 id="create_header">Add Crypto</h2>
+                <label id='invalidTicker'></label>
+                <br></br>
+                <label id='invalidHoldings'></label>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Add Ticker: </label>

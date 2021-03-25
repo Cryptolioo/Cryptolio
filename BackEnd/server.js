@@ -4,6 +4,7 @@ const port = 4000
 const cors = require('cors')
 const bodyParser = require("body-parser")
 const mongoose = require('mongoose')
+const { body, validationResult, check } = require('express-validator');
 
 // Use cors to read JSON data from the Node/Express server
 // This code will avoid a CORS error
@@ -75,25 +76,32 @@ app.delete('/api/cryptos/:id', (req, res) => {
   })
 })
 
-app.post('/api/cryptos', (req, res) => {
-  LogoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
-    if (err) {
-      console.log(err)
-  }
-  else if (result == null) { // Could not find ticker
-      res.sendStatus(402)
-  }
-  else {
-    CryptoModel.create({
-      ticker:req.body.ticker,
-      name: result.name,
-      holdings:req.body.holdings,
-      logo: result.logo,
+app.post('/api/cryptos',
+  check('holdings').isFloat({ min: 0 }),
+  (req, res) => {
+    LogoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
+      if (err) {
+        console.log(err)
+      }
+      else if (result == null) {
+          res.sendStatus(402)
+      }
+      else {
+        var errors = validationResult(req)
+        if (!errors.isEmpty()) {
+          res.sendStatus(404)
+        }
+        else {
+          CryptoModel.create({
+            ticker:req.body.ticker,
+            name: result.name,
+            holdings:req.body.holdings,
+            logo: result.logo,
+          })
+          res.sendStatus(200)
+        }
+      }
     })
-  }
-  })
-
-  res.send('Crypto Added')
 })
 
 app.listen(port, () => {

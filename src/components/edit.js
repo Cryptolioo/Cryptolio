@@ -51,7 +51,6 @@ export class Edit extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.closePopup();
         
         const newCrypto = {
             ticker: this.state.Ticker,
@@ -62,11 +61,13 @@ export class Edit extends React.Component {
         
         axios.put('http://localhost:4000/api/cryptos/' + this.state._id, newCrypto)
         .then(res => {
-            console.log(res)
+            console.log(res);
+            this.closePopup();
             this.props.ReloadData();
         })
         .catch((err) => {
-            console.log(err)
+            document.getElementById('invalidInput').innerHTML = "Holdings must be greater than 0!";
+            console.log(err);
         });
     }
 
@@ -74,6 +75,7 @@ export class Edit extends React.Component {
         return (
             <Popup trigger={this.buttonPopup}>
                 <h2 id="create_header">Edit {this.state.Ticker}</h2>
+                <label id='invalidInput'></label>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Edit Holdings: </label>

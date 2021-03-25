@@ -59,19 +59,26 @@ app.get('/api/cryptos/:id', (req,res) => {
   })
 })
 
-app.put('/api/cryptos/:id', (req, res) => {
-    CryptoModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
-      (err) => {
-        if (err) console.log(err)
-      })
+app.put('/api/cryptos/:id', 
+  check('holdings').isFloat({ min: 0 }), // Check holdings is a valid value
+  (req, res) => {
+    var errors = validationResult(req)
+    if (!errors.isEmpty()) { // errors is not empty
+      res.sendStatus(404)
+    }
+    else {
+      req.body.holdings = parseFloat(req.body.holdings).toFixed(2)
+      CryptoModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
+        (err) => {
+          if (err) console.log(err)
+        })
       res.sendStatus(200)
+    }
   })
 
 app.delete('/api/cryptos/:id', (req, res) => {
   CryptoModel.findByIdAndDelete(req.params.id, (err, data) => {
-      if (err) {
-          console.log(err)
-      }
+      if (err) console.log(err)
       res.send(data)
   })
 })
@@ -79,27 +86,48 @@ app.delete('/api/cryptos/:id', (req, res) => {
 app.post('/api/cryptos',
   check('holdings').isFloat({ min: 0 }),
   (req, res) => {
-    LogoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
+    CryptoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
       if (err) {
-        console.log(err)
+          console.log(err)
       }
       else if (result == null) {
-          res.sendStatus(402)
+        LogoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
+          if (err) {
+            console.log(err)
+          }
+          else if (result == null) {
+              res.sendStatus(402)
+          }
+          else {
+            var errors = validationResult(req)
+            if (!errors.isEmpty()) {
+              res.sendStatus(404)
+            }
+            else {
+              let holdings = parseFloat(req.body.holdings).toFixed(2)
+
+              CryptoModel.create({
+                ticker:req.body.ticker,
+                name: result.name,
+                holdings:holdings,
+                logo: result.logo,
+              })
+              res.sendStatus(200)
+            }
+          }
+        })
       }
       else {
-        var errors = validationResult(req)
-        if (!errors.isEmpty()) {
-          res.sendStatus(404)
-        }
-        else {
-          CryptoModel.create({
-            ticker:req.body.ticker,
-            name: result.name,
-            holdings:req.body.holdings,
-            logo: result.logo,
-          })
-          res.sendStatus(200)
-        }
+        let updatedHoldings = parseFloat(result.holdings) + parseFloat(req.body.holdings)
+        updatedHoldings = parseFloat(updatedHoldings).toFixed(2)
+        CryptoModel.findOneAndUpdate({ ticker: req.body.ticker }, { $set: { holdings: updatedHoldings } }, (err, result) => {
+          if (err) {
+              console.log(err)
+          }
+          else {
+              res.sendStatus(200) // Success
+          }
+        })
       }
     })
 })

@@ -43,7 +43,7 @@ export class Crypto extends React.Component {
                         <h5 id="name">{this.props.crypto.name}<span id="ticker">{this.props.crypto.ticker}</span></h5>
                     </td>
                     <td width="18%">
-                        <h5>$</h5>
+                        <h5>${this.props.crypto.price}</h5>
                     </td>
                     <td width="18%">
                         <h5>{this.props.crypto.holdings}</h5>

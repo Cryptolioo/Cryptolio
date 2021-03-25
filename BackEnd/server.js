@@ -5,6 +5,10 @@ const cors = require('cors')
 const bodyParser = require("body-parser")
 const mongoose = require('mongoose')
 const { body, validationResult, check } = require('express-validator');
+const CoinMarketCap = require('coinmarketcap-api')
+
+const apiKey = 'f0dee9b3-a51d-44a4-90d6-630c961c7169'
+const client = new CoinMarketCap(apiKey)
 
 // Use cors to read JSON data from the Node/Express server
 // This code will avoid a CORS error
@@ -34,6 +38,7 @@ const Schema = mongoose.Schema
 var cryptoSchema = new Schema({
   ticker: String,
   name: String,
+  price: String,
   holdings: String,
   logo: String
 })
@@ -49,6 +54,20 @@ var LogoModel = conn2.model('logos', logoSchema)
 
 app.get('/api/cryptos', (req, res) => {
   CryptoModel.find((err, data) => {
+    data.forEach(crypto => {
+      client.getQuotes({ symbol: crypto.ticker, option: 'USD' })
+      .then((res) => {
+        let ticker = "res.data." + crypto.ticker + ".quote.USD.price"
+        let tickerPrice = parseFloat(eval(ticker)).toFixed(3)
+        CryptoModel.findByIdAndUpdate(crypto.id, { price: tickerPrice },
+          (err, data) => {
+              if (err) console.log(err)
+          })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    })
     res.json(data)
   })
 })
@@ -109,6 +128,7 @@ app.post('/api/cryptos',
               CryptoModel.create({
                 ticker:req.body.ticker,
                 name: result.name,
+                price: req.body.price,
                 holdings:holdings,
                 logo: result.logo,
               })

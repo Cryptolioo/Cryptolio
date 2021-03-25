@@ -6,6 +6,7 @@ const port = 4000
 const bodyParser = require("body-parser");
 const { check, validationResult } = require('express-validator')
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 //PARSE APPLICATION /x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -62,13 +63,12 @@ app.post('/register',
   //password mujst be 5 characters
   check('password')
     .notEmpty()
-    .isLength({ min: 5 })
+    .isLength({ min: 5 , max:9})
     .withMessage("PAssword must be more than 5 characters long"),
-  (req, res) => {
+    (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log("text field is empty");
       return res.status(422).json({ errors: errors.array() });
     }
 
@@ -81,18 +81,27 @@ app.post('/register',
         console.log("USer exists");
       }
       else {
-        console.log(req.body.fname);
-        console.log(req.body.sname);
-        console.log(req.body.email);
-        console.log(req.body.password);
-
-        User.create({
-          fname: req.body.fname,
-          sname: req.body.sname,
-          email: req.body.email,
-          password: req.body.password
-        })
-        res.send("User Registration Successfull");
+        bcrypt.hash(req.body.password,10).then((hash)=>{
+          try{
+             console.log(req.body.fname);
+             console.log(req.body.sname);
+             console.log(req.body.email);
+             console.log(hash);
+     
+             User.create({
+               fname: req.body.fname,
+               sname: req.body.sname,
+               email: req.body.email,
+               password: hash
+             })
+             res.send("User Registration Successfull");
+   
+           }catch(e){
+             res.status(500).send(e);
+           }
+        });
+       
+      
       }
 
     }

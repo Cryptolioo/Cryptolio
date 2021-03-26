@@ -5,6 +5,7 @@ const cors = require('cors')
 const bodyParser = require("body-parser");
 const { check, validationResult } = require('express-validator')
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 //add mongo connection String here
 const myConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/register?retryWrites=true&w=majority';
@@ -49,13 +50,12 @@ app.post('/api/login',
   // //password mujst be 5 characters
   // check('password').isLength({ min: 5 }),
   (req, res) => {
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log("text field is empty");
       return res.status(422).json({ errors: errors.array() });
     }
+
 
     User.findOne({ email: req.body.email }, function (err, users) {
       if (err) console.log(err);
@@ -63,18 +63,18 @@ app.post('/api/login',
       if (users) {
         console.log("User exists");
 
-        if(users.password != req.body.password){
-          console.log("Invalid password")
-        }
-        else{
-          console.log("Logged in")
-        }
+        const validPassword = bcrypt.compare(req.body.password , users.password);
+         if(validPassword){
+           console.log("Valid email and password");
+         }
+         else{
+           console.log("Invalid password")
+         }
       }
 
       else{
         console.log("Email does not exist.")
       }
     })
-  }
-)
+  })
 

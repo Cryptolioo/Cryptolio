@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Landing } from './components/landing';
 import { Login } from './components/login';
 import { Register } from './components/register';
+import {ForgotPassword} from './components/forgotPassword';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route path='/' component={Landing} exact/>
             <Route path='/login' component={Login} exact/>
             <Route path='/register' component={Register} exact/>
+            <Route path='/forgotPassword' component={ForgotPassword} exact/>
           </Switch>
         </div>
       </Router>

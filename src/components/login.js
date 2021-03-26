@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import logo from '../images/logo.png';
 import axios from 'axios';
 
 export class Login extends React.Component {
@@ -47,13 +48,25 @@ export class Login extends React.Component {
 
     render() {
         return (
-            <Form className="login-form"  onSubmit={this.onSubmit}>
-                <h1>
-                    <span className="font-weight-bold">Cryptolioo</span>
-                </h1>
-                <h3>
-                    <span className="font-weight-bold">Welcome Back!</span>
-                </h3>
+            <Form class="form" id="form" onSubmit={this.onSubmit} >
+                 <header>
+                    <div class="row">
+                        <div class="logo-row">
+                        
+                         <h1 id="brand"><img
+                        src={logo}
+                        width="50"
+                        height="50"
+                        className="logo"
+                        />Cryptolio</h1>
+                        </div>
+                    </div>
+                </header>
+
+                <div className="container">
+                <header className="header">
+                            <Label>Sign In</Label>
+                </header>
                 <FormGroup>
                     <Label className="email" >Email</Label>
                     <Input type="email" placeholder="Email"
@@ -71,11 +84,11 @@ export class Login extends React.Component {
                 <Button className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit} >Log in</Button>
 
                 <div className="text-center">
-                    <a href="/sign-up"> Sign up</a>
+                    <a href="/register"> Sign up</a>
                     <span className="p-2">|</span>
-                    <a href="/forgot-password">Forgot Password</a>
+                    <a href="/forgotPassword">Forgot Password</a>
                 </div>
-
+            </div>
             </Form>
 
 

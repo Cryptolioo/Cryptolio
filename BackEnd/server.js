@@ -9,7 +9,10 @@ const { check, validationResult } = require('express-validator')
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
 const crypto = require('crypto');
+
+//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
 
 //PARSE APPLICATION /x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,8 +37,11 @@ var RegisterSchema = new Schema({
 
 var User = mongoose.model("registerDetails", RegisterSchema);
 
-
-
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+      api_key:"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"
+    }
+}))
 
 app.use(cors())
 
@@ -74,58 +80,66 @@ app.post('/register',
 
     const errors = validationResult(req);
 
-
-
-
-    app.post('/api/login',
-      // //email must be an email
-      // check('email').isEmail(),
-      // //password mujst be 5 characters
-      // check('password').isLength({ min: 5 }),
-      (req, res) => {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-          return res.status(422).json({ errors: errors.array() });
-        }
-
-        User.findOne({ email: req.body.email }, function (err, users) {
-          if (err) console.log(err);
-          // object of all the users
-          console.log(users)
-          if (users) {
-            res.status(408).send();
-            console.log("USer exists");
-          }
-          else {
-            bcrypt.hash(req.body.password, 10).then((hash) => {
-              try {
-                console.log(req.body.fname);
-                console.log(req.body.sname);
-                console.log(req.body.email);
-                console.log(hash);
-
-                User.create({
-                  fname: req.body.fname,
-                  sname: req.body.sname,
-                  email: req.body.email,
-                  password: hash
-                })
-                res.send("User Registration Successfull");
-
-              } catch (e) {
-                res.status(500).send(e);
-              }
-            });
-
-
-          }
-
-        }
-        )
+    User.findOne({ email: req.body.email }, function (err, users) {
+      if (err) console.log(err);
+      // object of all the users
+      console.log(users)
+      if (users) {
+        res.status(408).send();
+        console.log("USer exists");
       }
-    )
-    
+      else {
+        bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+          try {
+            console.log(req.body.fname);
+            console.log(req.body.sname);
+            console.log(req.body.email);
+            console.log(hash);
+
+            User.create({
+              fname: req.body.fname,
+              sname: req.body.sname,
+              email: req.body.email,
+              password: hash
+            })
+            .then(users=>{
+              transporter.sendMail({
+                to:users.email,
+                from: "g00376678@gmit.ie",
+                subject:"Sign up successful",
+                html:`<h1>Welcome to cryptolio!</h1>
+                <h5>Thank you for signing up! Come and get started here <a href="http://localhost:3000/" </<h5>
+                `
+                
+              })
+              .catch(err=>{
+                console.log(err);
+              })
+            })
+            
+            res.send("User Registration Successfull");
+
+          } catch (e) {
+            res.status(500).send(e);
+          }
+        });
+      }
+    })
+
+
+
+  app.post('/api/login',
+  //email must be an email
+  check('email').isEmail(),
+  //password mujst be 5 characters
+  check('password').isLength({ min: 5 }),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
 
     User.findOne({ email: req.body.email }, function (err, users) {
       if (err) console.log(err);
@@ -147,12 +161,8 @@ app.post('/register',
       }
     })
   })
-
-
-
-
-
-
+  }
+)
 
 
 app.post('/api/forgotPassword', (req, res) => {
@@ -174,7 +184,7 @@ app.post('/api/forgotPassword', (req, res) => {
         user.save().then((result) => {
           transporter.sendMail({
             to: user.email,
-            from: "no-reply@cryptolio.com",
+            from: "g00376678@gmit.ie",
             subject: "Password reset",
             html: `
             <p>You requested password reset</p>

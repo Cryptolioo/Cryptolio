@@ -123,7 +123,7 @@ export class Register extends React.Component {
                         <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Nav.Link>
 
                         <div className="text-center">
-                            <p> Already have an account?<a href="/forgot-password">Log in</a></p>
+                            <p> Already have an account?<a href="/login">Log in</a></p>
 
                         </div>
 

@@ -8,7 +8,6 @@ import { Login } from './components/login';
 import { Register } from './components/register';
 import {ForgotPassword} from './components/forgotPassword';
 
-
 class App extends Component {
   render() {
     return (

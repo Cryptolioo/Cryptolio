@@ -123,15 +123,23 @@ app.post('/api/cryptos',
               res.sendStatus(404)
             }
             else {
-              let holdings = parseFloat(req.body.holdings).toFixed(2)
-
-              CryptoModel.create({
-                ticker:req.body.ticker,
-                name: result.name,
-                price: req.body.price,
-                holdings:holdings,
-                logo: result.logo,
-              })
+              client.getQuotes({ symbol: req.body.ticker, option: 'USD' })
+                .then((res) => {
+                  let ticker = "res.data." + req.body.ticker + ".quote.USD.price"
+                  let tickerPrice = parseFloat(eval(ticker)).toFixed(3)
+                  let holdings = parseFloat(req.body.holdings).toFixed(2)
+                
+                  CryptoModel.create({
+                    ticker:req.body.ticker,
+                    name: result.name,
+                    price: tickerPrice,
+                    holdings:holdings,
+                    logo: result.logo,
+                  })
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
               res.sendStatus(200)
             }
           }

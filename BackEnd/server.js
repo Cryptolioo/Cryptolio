@@ -1,11 +1,16 @@
+
 const express = require('express')
 const app = express()
-const port = 4000
 const cors = require('cors')
+const port = 4000
 const bodyParser = require("body-parser")
 const mongoose = require('mongoose')
 const { body, validationResult, check } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
 const CoinMarketCap = require('coinmarketcap-api')
+const crypto = require('crypto');
 
 const apiKey = 'f0dee9b3-a51d-44a4-90d6-630c961c7169'
 const client = new CoinMarketCap(apiKey)
@@ -27,13 +32,34 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-const myConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/cryptos?retryWrites=true&w=majority'
-var conn = mongoose.createConnection(myConnectionString)
+//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
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+  auth:{
+    api_key:"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"
+  }
+}))
+
+//add mongo connection String here
+const myConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/register?retryWrites=true&w=majority';
+mongoose.connect(myConnectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const myCryptoConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/cryptos?retryWrites=true&w=majority'
+var conn = mongoose.createConnection(myCryptoConnectionString)
 
 const myLogoConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/cryptologos?retryWrites=true&w=majority'
 var conn2 = mongoose.createConnection(myLogoConnectionString)
 
 const Schema = mongoose.Schema
+
+var RegisterSchema = new Schema({
+  fname: String,
+  sname: String,
+  email: String,
+  password: String,
+  resetToken: String,
+  expireToken: String
+});
 
 var cryptoSchema = new Schema({
   ticker: String,
@@ -49,9 +75,153 @@ var logoSchema = new Schema({
   logo: String
 })
 
+var User = mongoose.model("registerDetails", RegisterSchema);
 var CryptoModel = conn.model('tests', cryptoSchema)
 var LogoModel = conn2.model('logos', logoSchema)
 
+app.post('/register',
+  //fname cannot be empty
+  check('fname')
+    .notEmpty()
+    .withMessage("First name is required."),
+  //sname cannot be empty
+  check('sname')
+    .notEmpty()
+    .withMessage("Surname is required."),
+  //email must be an email
+  check('email')
+    .notEmpty()
+    .isEmail()
+    .withMessage("Invalid email address"),
+  //password mujst be 5 characters
+  check('password')
+    .notEmpty()
+    .isLength({ min: 5, max: 9 })
+    .withMessage("Password must be more than 5 characters long"),
+  (req, res) => {
+
+    const errors = validationResult(req);
+
+    User.findOne({ email: req.body.email }, function (err, users) {
+      if (err) console.log(err);
+      // object of all the users
+      console.log(users)
+      if (users) {
+        res.status(408).send();
+        console.log("USer exists");
+      }
+      else {
+        bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+          try {
+            console.log(req.body.fname);
+            console.log(req.body.sname);
+            console.log(req.body.email);
+            console.log(hash);
+
+            User.create({
+              fname: req.body.fname,
+              sname: req.body.sname,
+              email: req.body.email,
+              password: hash
+            })
+            .then(users=>{
+              transporter.sendMail({
+                to:users.email,
+                from: "g00376678@gmit.ie",
+                subject:"Sign up successful",
+                html:`<h1>Welcome to cryptolio!</h1>
+                <h5>Thank you for signing up! Come and get started here <a href="http://localhost:3000/" </<h5>
+                `
+                
+              })
+              .catch(err=>{
+                console.log(err);
+              })
+            })
+            
+            res.send("User Registration Successfull");
+
+          } catch (e) {
+            res.status(500).send(e);
+          }
+        });
+      }
+    })
+  })
+
+
+
+    app.post('/api/login',
+      //email must be an email
+      check('email').isEmail(),
+      //password mujst be 5 characters
+      check('password').isLength({ min: 5 }),
+      (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() });
+        }
+
+        User.findOne({ email: req.body.email }, function (err, users) {
+          if (err) console.log(err);
+
+          if (users) {
+        console.log("User exists");
+
+        const validPassword = bcrypt.compare(req.body.password, users.password);
+        if (validPassword) {
+          console.log("Valid email and password");
+        }
+        else {
+          console.log("Invalid password")
+        }
+      }
+
+      else {
+        console.log("Email does not exist.")
+      }
+    })
+  })
+
+
+app.post('/api/forgotPassword', (req, res) => {
+
+  crypto.randomBytes(32, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+
+    const token = data.toString("hex");
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) {
+          return res.status(422).json({ error: "User with that email does not exist" })
+        }
+        console.log("User found")
+        user.resetToken = token;
+        user.expireToken = Date.now() + 3600000;
+        user.save().then((result) => {
+          transporter.sendMail({
+            to: user.email,
+            from: "g00376678@gmit.ie",
+            subject: "Password reset",
+            html: `
+            <p>You requested password reset</p>
+            <h5>click this <a href="http://localhost:3000/reset/${token}">link </a> for password reset</h5>
+            `
+          })
+          res.json({ message: "Check your email" })
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  })
+})
+
+// Portfolio
 app.get('/api/cryptos', (req, res) => {
   CryptoModel.find((err, data) => {
     data.forEach(crypto => {
@@ -158,8 +328,12 @@ app.post('/api/cryptos',
         })
       }
     })
-})
+  })
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+
+

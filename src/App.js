@@ -7,7 +7,7 @@ import { Landing } from './components/landing';
 import { Login } from './components/login';
 import { Register } from './components/register';
 import { Portfolio } from './components/portfolio';
-
+import {ForgotPassword} from './components/forgotPassword';
 
 class App extends Component {
   render() {
@@ -19,6 +19,7 @@ class App extends Component {
             <Route path='/login' component={Login} exact/>
             <Route path='/register' component={Register} exact/>
             <Route path='/portfolio' component={Portfolio} exact/>
+            <Route path='/forgotPassword' component={ForgotPassword} exact/>
           </Switch>
         </div>
       </Router>

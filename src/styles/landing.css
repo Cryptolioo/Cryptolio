@@ -93,7 +93,7 @@ body {
     display: inline;
 }
 
-pm .email {
+.email {
     font-weight: bold;
     text-align: left;
     float: left;

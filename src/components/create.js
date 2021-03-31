@@ -51,9 +51,9 @@ export class Create extends React.Component {
 
         axios.post('http://localhost:4000/api/cryptos', newCrypto)
             .then((res) => {
+                console.log("close popup");
                 this.props.ReloadData();
                 this.closePopup();
-                
             })
             .catch((err) => {
                 if (err.response.status == 402) { // Ticker is not currently supported

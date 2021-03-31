@@ -288,8 +288,8 @@ app.post('/api/cryptos',
                             res.sendStatus(404)
                         } else {
                             client.getQuotes({ symbol: req.body.ticker, option: 'USD' })
-                                .then((res) => {
-                                    let ticker = "res.data." + req.body.ticker + ".quote.USD.price"
+                                .then((response) => {
+                                    let ticker = "response.data." + req.body.ticker + ".quote.USD.price"
                                     let tickerPrice = parseFloat(eval(ticker)).toFixed(3)
                                     let holdings = parseFloat(req.body.holdings).toFixed(2)
 
@@ -300,6 +300,8 @@ app.post('/api/cryptos',
                                         holdings: holdings,
                                         logo: result.logo,
                                     })
+
+                                    //console.log(req.body.ticker, tickerPrice, holdings);
                                     res.sendStatus(200)
                                 })
                                 .catch((err) => {

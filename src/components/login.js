@@ -8,8 +8,8 @@ import axios from 'axios';
 
 export class Login extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -29,12 +29,11 @@ export class Login extends React.Component {
         axios.post('http://localhost:4000/api/login', newUser)
             .then((res) => {
                 console.log(res);
+                this.props.history.push('/path')
             })
             .catch((err) => {
                 console.log(err);
             });
-
-        
     }
 
     onChangeEmail(e) {

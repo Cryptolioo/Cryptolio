@@ -301,7 +301,6 @@ app.post('/api/cryptos',
                                         logo: result.logo,
                                     })
 
-                                    //console.log(req.body.ticker, tickerPrice, holdings);
                                     res.sendStatus(200)
                                 })
                                 .catch((err) => {

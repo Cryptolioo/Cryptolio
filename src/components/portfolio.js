@@ -20,22 +20,22 @@ export class Portfolio extends React.Component {
 
     componentDidMount() {
         axios.get('http://localhost:4000/api/cryptos')
-        .then((response) => {
-            this.setState({ cryptos: response.data })
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+            .then((response) => {
+                this.setState({ cryptos: response.data })
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     ReloadData() {
         axios.get('http://localhost:4000/api/cryptos')
-        .then((response) => {
-            this.setState({ cryptos: response.data })
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+            .then((response) => {
+                this.setState({ cryptos: response.data })
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     addCrypto(show) {
@@ -45,10 +45,10 @@ export class Portfolio extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div className="portfolio">
                 <img src={logo} width="70" height="70"
-                     className="logo d-inline-block align-top"/>
+                    className="logo d-inline-block align-top"/>
                 <table width="90%" style={{textAlign: "right", color: "rgba(255, 255, 255, 0.5)", marginLeft: "5vw", marginTop: "2vh", marginBottom: "-2vh", fontFamily: "monospace"}}>
                     <tr>
                         <td width="10%"></td>

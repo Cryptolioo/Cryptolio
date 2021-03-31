@@ -42,27 +42,27 @@ export class Create extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        
+
         const newCrypto = {
             ticker: this.state.Ticker,
             price: this.state.Price,
             holdings: this.state.Holdings
         }
-        
+
         axios.post('http://localhost:4000/api/cryptos', newCrypto)
-        .then((res) => {
-            this.closePopup();
-            this.props.ReloadData();
-        })
-        .catch((err) => {
-            if(err.response.status == 402) { // Ticker is not currently supported
-                document.getElementById('invalidTicker').innerHTML = "Crypto not currently supported!"
-            }
-            else if(err.response.status == 404) { // Holdings was an invalid vaue
+            .then((res) => {
+                this.props.ReloadData();
+                this.closePopup();
                 
-                document.getElementById('invalidHoldings').innerHTML = "Holdings must be greater than 0!"
-            }
-        });
+            })
+            .catch((err) => {
+                if (err.response.status == 402) { // Ticker is not currently supported
+                    document.getElementById('invalidTicker').innerHTML = "Crypto not currently supported!"
+                } else if (err.response.status == 404) { // Holdings was an invalid vaue
+
+                    document.getElementById('invalidHoldings').innerHTML = "Holdings must be greater than 0!"
+                }
+            });
     }
 
     render() {

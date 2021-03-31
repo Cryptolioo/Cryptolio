@@ -1,3 +1,26 @@
 .logo {
-    margin: 20px 0px 60px 0px;
+    width: 70px;
+    height: 70px;
+    margin: 20px 0px 20px 0px;
+}
+
+.total_container {
+    background-color: gray;
+    width: 90%;
+    height: 70px;
+    margin: auto;
+    border-radius: 15px;
+}
+
+.value_text {
+    color:white;
+    font-family: monospace;
+    font-size: 80%;
+    margin-bottom: 5px;
+    padding-top: 7px;
+}
+
+#portfolioValueID {
+    color: white;
+    font-family: sans-serif;
 }

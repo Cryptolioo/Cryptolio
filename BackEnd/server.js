@@ -296,7 +296,6 @@ app.post('/api/cryptos',
                                         holdings: holdings,
                                         logo: result.logo,
                                     })
-
                                     res.sendStatus(200)
                                 })
                                 .catch((err) => {

@@ -11,6 +11,7 @@ export class Portfolio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            portfolioValue: 0,
             showCreate: false,
             cryptos: []
         };
@@ -21,7 +22,8 @@ export class Portfolio extends React.Component {
     componentDidMount() {
         axios.get('http://localhost:4000/api/cryptos')
             .then((response) => {
-                this.setState({ cryptos: response.data })
+                this.setState({ cryptos: response.data });
+                this.getPortfolioValue(response);
             })
             .catch((error) => {
                 console.log(error)
@@ -31,11 +33,20 @@ export class Portfolio extends React.Component {
     ReloadData() {
         axios.get('http://localhost:4000/api/cryptos')
             .then((response) => {
-                this.setState({ cryptos: response.data })
+                this.setState({ cryptos: response.data });
+                this.getPortfolioValue(response);
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
             });
+    }
+
+    getPortfolioValue(cryptos) {
+        this.state.portfolioValue = 0;
+        cryptos.data.forEach(crypto => {
+            this.state.portfolioValue += crypto.price * crypto.holdings;
+        });
+        document.getElementById('portfolioValueID').innerHTML = '$' + parseFloat(this.state.portfolioValue).toFixed(2);//Math.round(this.state.portfolioValue);
     }
 
     addCrypto(show) {
@@ -47,8 +58,11 @@ export class Portfolio extends React.Component {
     render() {
         return (
             <div className="portfolio">
-                <img src={logo} width="70" height="70"
-                    className="logo d-inline-block align-top"/>
+                <img src={logo} className="logo d-inline-block align-top"/>
+                <div className="total_container">
+                    <h6 className="value_text">Portfolio Value</h6>
+                    <h3 id="portfolioValueID"></h3>
+                </div>
                 <table width="90%" style={{textAlign: "right", color: "rgba(255, 255, 255, 0.5)", marginLeft: "5vw", marginTop: "2vh", marginBottom: "-2vh", fontFamily: "monospace"}}>
                     <tr>
                         <td width="10%"></td>

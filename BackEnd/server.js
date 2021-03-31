@@ -43,13 +43,14 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 const myConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/register?retryWrites=true&w=majority';
 mongoose.connect(myConnectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const myCryptoConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/cryptos?retryWrites=true&w=majority'
+const myCryptoConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/portfolios?retryWrites=true&w=majority'
 var conn = mongoose.createConnection(myCryptoConnectionString)
 
 const myLogoConnectionString = 'mongodb+srv://admin:admin@cluster0.3oxak.mongodb.net/cryptologos?retryWrites=true&w=majority'
 var conn2 = mongoose.createConnection(myLogoConnectionString)
 
 const Schema = mongoose.Schema
+var userID;
 
 var RegisterSchema = new Schema({
     fname: String,
@@ -75,7 +76,7 @@ var logoSchema = new Schema({
 })
 
 var User = mongoose.model("registerDetails", RegisterSchema);
-var CryptoModel = conn.model('tests', cryptoSchema)
+var CryptoModel;
 var LogoModel = conn2.model('logos', logoSchema)
 
 app.post('/register',
@@ -129,9 +130,9 @@ app.post('/register',
                                             from: "g00376678@gmit.ie",
                                             subject: "Sign up successful",
                                             html: `<h1>Welcome to cryptolio!</h1>
-                <h5>Thank you for signing up! Come and get started here <a href="http://localhost:3000/" </<h5>
-                `
-
+                                                    <h5>Thank you for signing up! 
+                                                    Come and get started here <a 
+                                                    href="http://localhost:3000/" </<h5>`
                                         })
                                         .catch(err => {
                                             console.log(err);
@@ -139,7 +140,7 @@ app.post('/register',
                                 })
 
                             res.send("User Registration Successfull");
-
+                            
                         } catch (e) {
                             res.status(500).send(e);
                         }
@@ -171,6 +172,9 @@ app.post('/api/login',
                 const validPassword = bcrypt.compare(req.body.password, users.password);
                 if (validPassword) {
                     console.log("Valid email and password");
+                    // Stringify the id and use that as collection
+                    let id = users._id.toString();
+                    CryptoModel = conn.model(id, cryptoSchema);
                 } else {
                     console.log("Invalid password")
                 }

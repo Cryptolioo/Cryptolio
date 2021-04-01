@@ -80,24 +80,10 @@ var CryptoModel;
 var LogoModel = conn2.model('logos', logoSchema)
 
 app.post('/register',
-    //fname cannot be empty
-    check('fname')
-    .notEmpty()
-    .withMessage("First name is required."),
-    //sname cannot be empty
-    check('sname')
-    .notEmpty()
-    .withMessage("Surname is required."),
-    //email must be an email
-    check('email')
-    .notEmpty()
-    .isEmail()
-    .withMessage("Invalid email address"),
-    //password mujst be 5 characters
-    check('password')
-    .notEmpty()
-    .isLength({ min: 5, max: 9 })
-    .withMessage("Password must be more than 5 characters long"),
+    check('fname').notEmpty().withMessage("First name is required."),//fname cannot be empty
+    check('sname').notEmpty().withMessage("Surname is required."),//sname cannot be empty
+    check('email').notEmpty().isEmail().withMessage("Invalid email address"),//email must be an email
+    check('password').notEmpty().isLength({ min: 5, max: 9 }).withMessage("Password must be more than 5 characters long"),//password must be 5 characters
     (req, res) => {
 
         const errors = validationResult(req);
@@ -119,28 +105,27 @@ app.post('/register',
                             console.log(hash);
 
                             User.create({
-                                    fname: req.body.fname,
-                                    sname: req.body.sname,
-                                    email: req.body.email,
-                                    password: hash
-                                })
-                                .then(users => {
-                                    transporter.sendMail({
-                                            to: users.email,
-                                            from: "g00376678@gmit.ie",
-                                            subject: "Sign up successful",
-                                            html: `<h1>Welcome to cryptolio!</h1>
-                                                    <h5>Thank you for signing up! 
-                                                    Come and get started here <a 
-                                                    href="http://localhost:3000/" </<h5>`
-                                        })
-                                        .catch(err => {
-                                            console.log(err);
-                                        })
-                                })
+                                fname: req.body.fname,
+                                sname: req.body.sname,
+                                email: req.body.email,
+                                password: hash
+                            })
 
-                            res.send("User Registration Successfull");
-                            
+                            .then(users => {
+                                transporter.sendMail({
+                                    to: users.email,
+                                    from: "g00376678@gmit.ie",
+                                    subject: "Sign up successful",
+                                    html: `<h1>Welcome to cryptolio!</h1>
+                                            <h5>Thank you for signing up! 
+                                            Come and get started here <a 
+                                            href="http://localhost:3000/" </<h5>`
+                                })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                            res.sendStatus(200);
                         } catch (e) {
                             res.status(500).send(e);
                         }
@@ -152,10 +137,8 @@ app.post('/register',
 
 
 app.post('/api/login',
-    //email must be an email
-    check('email').isEmail(),
-    //password mujst be 5 characters
-    check('password').isLength({ min: 5 }),
+    check('email').isEmail(), //email must be an email
+    check('password').isLength({ min: 5 }), //password must be 5 characters
     (req, res) => {
         const errors = validationResult(req);
 
@@ -207,10 +190,9 @@ app.post('/api/forgotPassword', (req, res) => {
                         to: user.email,
                         from: "g00376678@gmit.ie",
                         subject: "Password reset",
-                        html: `
-            <p>You requested password reset</p>
-            <h5>click this <a href="http://localhost:3000/reset/${token}">link </a> for password reset</h5>
-            `
+                        html: `<p>You requested password reset</p>
+                            <h5>click this <a href="http://localhost:3000/reset/${token}">
+                            link </a> for password reset</h5>`
                     })
                     res.json({ message: "Check your email" })
                 })
@@ -242,12 +224,14 @@ app.get('/api/cryptos', (req, res) => {
     })
 })
 
+// Return details of crypto specified
 app.get('/api/cryptos/:id', (req, res) => {
     CryptoModel.findById(req.params.id, (err, data) => {
         res.json(data)
     })
 })
 
+// Update crypto
 app.put('/api/cryptos/:id',
     check('holdings').isFloat({ min: 0 }), // Check holdings is a valid value
     (req, res) => {
@@ -262,8 +246,9 @@ app.put('/api/cryptos/:id',
                 })
             res.sendStatus(200)
         }
-    })
+})
 
+// Delete crypto
 app.delete('/api/cryptos/:id', (req, res) => {
     CryptoModel.findByIdAndDelete(req.params.id, (err, data) => {
         if (err) console.log(err)
@@ -271,6 +256,7 @@ app.delete('/api/cryptos/:id', (req, res) => {
     })
 })
 
+// Add crypto
 app.post('/api/cryptos',
     check('holdings').isFloat({ min: 0 }),
     (req, res) => {

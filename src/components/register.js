@@ -26,6 +26,8 @@ export class Register extends React.Component {
     }
 
     onSubmit(e) {
+        e.preventDefault();
+
         const newUser = {
             fname: this.state.fname,
             sname: this.state.sname,
@@ -35,7 +37,9 @@ export class Register extends React.Component {
 
         axios.post('http://localhost:4000/register', newUser)
             .then((res) => {
-                console.log(res);
+                if (res.status == 200) {
+                    this.props.history.push('/login');
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -120,7 +124,7 @@ export class Register extends React.Component {
                                 onChange={this.onChangePassword}></Input>
                         </FormGroup>
 
-                        <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Nav.Link>
+                        <Button className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Button>
 
                         <div className="text-center">
                             <p> Already have an account?<a href="/login">Log in</a></p>

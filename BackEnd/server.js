@@ -108,7 +108,7 @@ app.post('/register',
             console.log(users)
             if (users) {
                 res.status(408).send();
-                console.log("USer exists");
+                console.log("User exists");
             } else {
                 bcrypt.hash(req.body.password, 10)
                     .then((hash) => {
@@ -175,7 +175,7 @@ app.post('/api/login',
                     // Stringify the id and use that as collection
                     let id = users._id.toString();
                     CryptoModel = conn.model(id, cryptoSchema)
-                    res.sendStatus(200)
+                    return res.sendStatus(200)
                 } else {
                     console.log("Invalid password")
                 }

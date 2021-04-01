@@ -22,6 +22,8 @@ export class Login extends React.Component {
     }
 
     onSubmit(e) {
+        e.preventDefault()
+        
         const newUser = {
             email: this.state.email,
             password: this.state.password

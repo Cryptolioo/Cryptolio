@@ -23,7 +23,7 @@ export class Login extends React.Component {
 
     onSubmit(e) {
         e.preventDefault()
-        
+
         const newUser = {
             email: this.state.email,
             password: this.state.password
@@ -36,7 +36,18 @@ export class Login extends React.Component {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                if(err.response.status == 422) {
+                    err.response.data.errors.forEach(error => {
+                        if(error.param == 'email')
+                        {
+                            document.getElementById("email-error").innerHTML = error.msg;
+                        }
+                        else if(error.param == 'password')
+                        {
+                            document.getElementById("password-error").innerHTML = error.msg;
+                        }
+                    });
+                }
             });
     }
 
@@ -44,12 +55,14 @@ export class Login extends React.Component {
         this.setState({
             email: e.target.value
         })
+        document.getElementById("email-error").innerHTML = "";
     }
 
     onChangePassword(e) {
         this.setState({
             password: e.target.value
         })
+        document.getElementById("password-error").innerHTML = "";
     }
 
     render() {
@@ -73,13 +86,14 @@ export class Login extends React.Component {
                 <header className="header">
                             <Label>Sign In</Label>
                 </header>
+                <h5 id="email-error"></h5>
                 <FormGroup>
                     <Label className="email" >Email</Label>
                     <Input type="email" placeholder="Email"
                         value={this.state.email}
                         onChange={this.onChangeEmail}></Input>
                 </FormGroup>
-
+                <h5 id="password-error"></h5>
                 <FormGroup>
                     <Label className="password" >Password</Label>
                     <Input type="password" placeholder="Password"

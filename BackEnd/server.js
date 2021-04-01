@@ -137,8 +137,8 @@ app.post('/register',
 
 
 app.post('/api/login',
-    check('email').isEmail(), //email must be an email
-    check('password').isLength({ min: 5 }), //password must be 5 characters
+    check('email').isEmail().withMessage('Please enter a valid email address'), //email must be an email
+    check('password').isLength({ min: 5 }).withMessage('Password must be 5 characters minimum'), //password must be 5 characters
     (req, res) => {
         const errors = validationResult(req);
 

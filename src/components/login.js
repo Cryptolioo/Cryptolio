@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../images/logo.png';
 import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export class Login extends React.Component {
@@ -16,7 +16,8 @@ export class Login extends React.Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            loginSuccess: false
         }
     }
 
@@ -28,8 +29,9 @@ export class Login extends React.Component {
 
         axios.post('http://localhost:4000/api/login', newUser)
             .then((res) => {
-                console.log(res);
-                this.props.history.push('/path')
+                if (res.status == 200) {
+                    this.props.history.push('/portfolio')
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -92,7 +94,6 @@ export class Login extends React.Component {
                 </div>
             </div>
             </Form>
-
 
         );
     }

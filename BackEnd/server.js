@@ -174,7 +174,8 @@ app.post('/api/login',
                     console.log("Valid email and password");
                     // Stringify the id and use that as collection
                     let id = users._id.toString();
-                    CryptoModel = conn.model(id, cryptoSchema);
+                    CryptoModel = conn.model(id, cryptoSchema)
+                    res.sendStatus(200)
                 } else {
                     console.log("Invalid password")
                 }

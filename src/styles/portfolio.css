@@ -4,6 +4,12 @@
     margin: 20px 0px 20px 0px;
 }
 
+#dropdown-menu { 
+    position: absolute;
+    right: 100px;
+    margin-top: -70px;
+}
+
 .total_container {
     background-color: gray;
     width: 90%;

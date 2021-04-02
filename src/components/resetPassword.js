@@ -19,7 +19,7 @@ export class ResetPassword extends Component {
     }
     onSubmit(e) {
 
-        axios.post('http://localhost:4000/api/resetPassword/' + this.props.)
+        axios.post('http://localhost:4000/api/resetPassword/')
             .then((res) => {
                 console.log(res);
             })

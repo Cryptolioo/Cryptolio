@@ -187,13 +187,14 @@ app.post('/api/forgotPassword', (req, res) => {
                 console.log("User found")
                 user.resetToken = token;
                 user.expireToken = Date.now() + 3600000;
+
                 user.save().then((result) => {
                     transporter.sendMail({
                         to: user.email,
                         from: "g00376678@gmit.ie",
                         subject: "Password reset",
                         html: `<p>You requested password reset</p>
-                            <h5>click this <a href="http://localhost:3000/reset/${token}">
+                            <h5>click this <a href="http://localhost:3000/resetPassword/${token}">
                             link </a> for password reset</h5>`
                     })
                     res.json({ message: "Check your email" })
@@ -202,6 +203,26 @@ app.post('/api/forgotPassword', (req, res) => {
             .catch(err => {
                 console.log(err);
             })
+    })
+})
+
+app.post('/api/resetPassword/:token',(req,res)=>{
+    console.log("Here")
+    const newPassword = req.body.password;
+    const sentToken = req.body.token
+    User.findOne({resetToken:sentToken, expireToken:{$gt:Date.now()}})
+    .then(user=>{
+        if(!user){
+            return res.status(422).json({error:"Try again session expired"})
+        }
+        bcrypt.hash(newPassword,10).then(hash=>{
+            user.password = hash
+            user.resetToken = undefined
+            user.expireToken = undefined
+            user.save().then((savedUSer)=>{
+                res.json({message:"password successfully updated"})
+            })
+        })
     })
 })
 

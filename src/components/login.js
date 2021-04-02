@@ -10,6 +10,7 @@ export class Login extends React.Component {
 
     constructor(props) {
         super(props)
+        
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);

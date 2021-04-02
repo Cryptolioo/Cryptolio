@@ -89,9 +89,11 @@ app.post('/register',
         const errors = validationResult(req);
 
         User.findOne({ email: req.body.email }, function(err, users) {
-            if (err) console.log(err);
-            // object of all the users
-            console.log(users)
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ errors: errors.array() });
+            }
             if (users) {
                 res.status(408).send();
                 console.log("User exists");
@@ -138,7 +140,7 @@ app.post('/register',
 
 app.post('/api/login',
     check('email').isEmail().withMessage('Please enter a valid email address'), //email must be an email
-    check('password').isLength({ min: 5 }).withMessage('Password must be 5 characters minimum'), //password must be 5 characters
+    check('password').isLength({ min: 5 }).withMessage('Password must be more than 5 characters long'), //password must be 5 characters
     (req, res) => {
         const errors = validationResult(req);
 

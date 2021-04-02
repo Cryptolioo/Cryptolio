@@ -9,6 +9,7 @@ import { Register } from './components/register';
 import { Portfolio } from './components/portfolio';
 import {ForgotPassword} from './components/forgotPassword';
 import {Calculator} from './components/calculator';
+import { ResetPassword } from './components/resetPassword';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route path='/portfolio' component={Portfolio} exact/>
             <Route path='/forgotPassword' component={ForgotPassword} exact/>
             <Route path='/calculator' component={Calculator} exact/>
+            <Route path='/resetPassword/:token' component={ResetPassword} exact/>
           </Switch>
         </div>
       </Router>

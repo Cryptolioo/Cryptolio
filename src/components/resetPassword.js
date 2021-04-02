@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 import logo from '../images/logo.png';
 import axios from 'axios';
 
 export class ResetPassword extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         // this.token = props.match, params.token;
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -17,15 +17,23 @@ export class ResetPassword extends Component {
             password: ''
         }
     }
+
+    componentDidMount() {
+      const token = this.props.match.params;
+      console.log(token)
+    }
+
+
     onSubmit(e) {
 
-        axios.post('http://localhost:4000/api/resetPassword/')
+        axios.post('http://localhost:4000/api/resetPassword/'+ this.token )
             .then((res) => {
                 console.log(res);
             })
             .catch((err) => {
                 console.log(err);
             });
+            
     }
 
     onChangePassword(e) {
@@ -33,6 +41,8 @@ export class ResetPassword extends Component {
             password: e.target.value
         })
     }
+
+  
 
     render() {
         // const search = this.props.location.search;

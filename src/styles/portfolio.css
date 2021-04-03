@@ -32,8 +32,11 @@
 }
 
 .add-crypto {
-    position: relative;
-    margin-bottom: -70vh;
+    position: absolute;
+    bottom: 15px;
+    right: 25%;
+    left: 50%;
+    margin-left: -33px;
     color: white;
     z-index: 1;
 }

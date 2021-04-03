@@ -57,7 +57,7 @@ export class Calculator extends React.Component {
             let riskAmount = (this.state.risk / 100) * this.state.capital;
             let riskPerCoin = this.state.entry - this.state.stopLoss;
             let newPositionSize = riskAmount / riskPerCoin;
-            document.getElementById("size-label").value = Math.abs(newPositionSize).toFixed(4);   
+            document.getElementById("size-label").value = Math.abs(newPositionSize).toFixed(2);   
         }
     }
 

@@ -67,6 +67,7 @@ export class Portfolio extends React.Component {
                         </svg>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
+                        <Dropdown.Item href="/calculator">Position Size Calculator</Dropdown.Item>
                         <Dropdown.Item href="/profile">Profile</Dropdown.Item>
                         <Dropdown.Item href="/">Logout</Dropdown.Item>
                     </Dropdown.Menu>

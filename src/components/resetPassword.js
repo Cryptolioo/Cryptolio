@@ -4,29 +4,75 @@ import Nav from 'react-bootstrap/Nav';
 import { Link,withRouter } from 'react-router-dom';
 import logo from '../images/logo.png';
 import axios from 'axios';
+import { response } from 'express';
 
 export class ResetPassword extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         // this.token = props.match, params.token;
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
 
         this.state = {
+            email:'',
             password: ''
         }
     }
 
-    componentDidMount() {
-      const token = this.props.match.params;
-      console.log(token)
-    }
+    // async componentDidMount(){
+    //     const {
+    //         match: {
+    //           params: { token },
+    //         },
+    //       } = this.props;
+    //       try{
+    //           const response = await axios.get('http://localhost3000/resetPassword',{
+    //             params:{
+    //                 resetToken : this.props.match.params.token,
+    //             },
+    //           })
+    //           if(response.data.message === 'Password reset link is ok'){
+    //               this.setState({
+    //                 email: response.data.email
+    //               });
+    //           }
+    //       }catch(err){
+    //           console.log(err)
+    //       }
+  
+          
+    // }
+
+    // updatePassword = async (e) => {
+    //     e.preventDefault();
+    //     const { email, password } = this.state;
+    //     const {
+    //       match: {
+    //         params: { token },
+    //       },
+    //     } = this.props;
+    //     try {
+    //       const response = await axios.put(
+    //         'http://localhost:3003/resetPassword',
+    //         {
+    //           email,
+    //           password,
+    //           resetPasswordToken: token,
+    //         },
+    //       );
+    //       console.log(response.data);
+    //     } catch (error) {
+    //       console.log(error.response.data);
+    //     }
+    //   };
+
+    
 
 
     onSubmit(e) {
 
-        axios.post('http://localhost:4000/api/resetPassword/'+ this.token )
+        axios.post('http://localhost:4000/api/resetPassword' )
             .then((res) => {
                 console.log(res);
             })

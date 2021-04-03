@@ -179,7 +179,9 @@ app.post('/api/forgotPassword', (req, res) => {
         }
 
         const token = data.toString("hex");
+       // const email;
         User.findOne({ email: req.body.email })
+       
             .then(user => {
                 if (!user) {
                     return res.status(422).json({ error: "User with that email does not exist" })
@@ -187,6 +189,7 @@ app.post('/api/forgotPassword', (req, res) => {
                 console.log("User found")
                 user.resetToken = token;
                 user.expireToken = Date.now() + 3600000;
+            //    user.email = email;
 
                 user.save().then((result) => {
                     transporter.sendMail({

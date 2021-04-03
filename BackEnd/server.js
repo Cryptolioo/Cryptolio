@@ -220,6 +220,10 @@ app.post('/api/forgotPassword', (req, res) => {
     })
 })
 
+app.post('/api/profile', (req,res)=>{
+    
+})
+
 // Portfolio
 app.get('/api/cryptos', (req, res) => {
     CryptoModel.find((err, data) => {

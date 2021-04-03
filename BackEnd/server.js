@@ -331,7 +331,13 @@ app.post('/api/cryptos',
                 })
             }
         })
-    })
+})
+
+app.post('/api/contact-us', (req, res) => {
+    console.log(req.body.email)
+    console.log(req.body.issue)
+    console.log(req.body.details)
+})
 
 
 app.listen(port, () => {

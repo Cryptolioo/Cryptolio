@@ -67,7 +67,7 @@ export class Calculator extends React.Component {
                 <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
                 <h2>Position Size Calculator</h2>
                 <div className="input">
-                <label htmlFor="basic-url">What is your total account capital?</label>
+                    <label htmlFor="basic-url">What is your total account capital?</label>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1">$</InputGroup.Text>

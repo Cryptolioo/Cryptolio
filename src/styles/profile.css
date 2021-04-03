@@ -1,0 +1,57 @@
+.header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+ 
+ 
+.oldPassword {
+    text-align: left;
+    float: left;
+}
+ 
+.newPassword {
+    text-align: left;
+    float: left;
+}
+ 
+.oldEmail {
+    text-align: left;
+    float: left;
+}
+ 
+.newEmail {
+    text-align: left;
+    float: left;
+}
+.li {
+    text-align: left;
+    float: left;
+}
+ 
+.container2{
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 450px;
+    max-width: 80%;
+    color: black;
+}
+ 
+.changePassword{
+    text-align: left;
+    float: left;
+}
+ 
+.changeEmail{
+    text-align: left;
+    float: left;
+}
+
+.message{
+    text-align: left;
+    float: left;
+}

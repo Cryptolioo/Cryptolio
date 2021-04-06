@@ -221,7 +221,7 @@ app.post('/api/forgotPassword', (req, res) => {
 })
 
 app.post('/api/profile', (req,res)=>{
-    
+    res.sendStatus(200)
 })
 
 // Portfolio

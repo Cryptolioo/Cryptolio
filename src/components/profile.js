@@ -34,7 +34,7 @@ export class Profile extends React.Component {
             newPassword: this.state.newPassword
         }
 
-        axios.post('http://localhost:4000/register', newDetails)
+        axios.post('http://localhost:4000/api/profile', newDetails)
             .then((res) => {
                 console.log(res);
             })

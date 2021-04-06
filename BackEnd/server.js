@@ -184,38 +184,9 @@ app.post('/api/login',
         })
     })
 
+
+app.get('/api/profile', (req, res) => {
     
-app.post('/api/profile', (req, res) => {
-    //Check does current email match logged in email 
-    //if true - update current email to newEmail.
-
-
-    //if password matchs the password of logged in account
-    //change current password to new password
-
-    console.log("Hello")
-    User.findOne({ email: req.body.currentEmail}) 
-        .then(user=>{
-            if (!user) {
-                return res.status(422).json({ error: "User with that email does not exist" })
-            }
-            User.updateOne({
-                email: req.body.newEmail
-            })
-
-        })
-        .catch(err=>{
-            console.log(err);
-        }) 
-
-     //     if(err)console.log(err);
-
-    //     if (user) {
-    //         User.updateOne({
-    //             email: req.body.newEmail
-    //         });
-    //     }
-    // })
 })
 
 

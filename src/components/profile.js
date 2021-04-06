@@ -27,6 +27,7 @@ export class Profile extends React.Component {
     }
 
     onSubmit(e) {
+        e.preventDefault();
         const newDetails = {
             currentEmail: this.state.currentEmail,
             newEmail: this.state.newEmail,

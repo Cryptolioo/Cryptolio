@@ -17,7 +17,7 @@ const client = new CoinMarketCap(apiKey)
 // Use cors to read JSON data from the Node/Express server
 // This code will avoid a CORS error
 app.use(cors())
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-control-Allow-Origin", "*")
     res.header("Access-control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
     res.header("Access-control-Allow-Headers",
@@ -82,27 +82,27 @@ var LogoModel = conn2.model('logos', logoSchema)
 app.post('/register',
     //fname cannot be empty
     check('fname')
-    .notEmpty()
-    .withMessage("First name is required."),
+        .notEmpty()
+        .withMessage("First name is required."),
     //sname cannot be empty
     check('sname')
-    .notEmpty()
-    .withMessage("Surname is required."),
+        .notEmpty()
+        .withMessage("Surname is required."),
     //email must be an email
     check('email')
-    .notEmpty()
-    .isEmail()
-    .withMessage("Invalid email address"),
+        .notEmpty()
+        .isEmail()
+        .withMessage("Invalid email address"),
     //password mujst be 5 characters
     check('password')
-    .notEmpty()
-    .isLength({ min: 5, max: 9 })
-    .withMessage("Password must be more than 5 characters long"),
+        .notEmpty()
+        .isLength({ min: 5, max: 9 })
+        .withMessage("Password must be more than 5 characters long"),
     (req, res) => {
 
         const errors = validationResult(req);
 
-        User.findOne({ email: req.body.email }, function(err, users) {
+        User.findOne({ email: req.body.email }, function (err, users) {
             if (err) console.log(err);
             // object of all the users
             console.log(users)
@@ -119,28 +119,28 @@ app.post('/register',
                             console.log(hash);
 
                             User.create({
-                                    fname: req.body.fname,
-                                    sname: req.body.sname,
-                                    email: req.body.email,
-                                    password: hash
-                                })
+                                fname: req.body.fname,
+                                sname: req.body.sname,
+                                email: req.body.email,
+                                password: hash
+                            })
                                 .then(users => {
                                     transporter.sendMail({
-                                            to: users.email,
-                                            from: "g00376678@gmit.ie",
-                                            subject: "Sign up successful",
-                                            html: `<h1>Welcome to cryptolio!</h1>
+                                        to: users.email,
+                                        from: "g00376678@gmit.ie",
+                                        subject: "Sign up successful",
+                                        html: `<h1>Welcome to cryptolio!</h1>
                                                     <h5>Thank you for signing up! 
                                                     Come and get started here <a 
                                                     href="http://localhost:3000/" </<h5>`
-                                        })
+                                    })
                                         .catch(err => {
                                             console.log(err);
                                         })
                                 })
 
                             res.send("User Registration Successfull");
-                            
+
                         } catch (e) {
                             res.status(500).send(e);
                         }
@@ -163,7 +163,7 @@ app.post('/api/login',
             return res.status(422).json({ errors: errors.array() });
         }
 
-        User.findOne({ email: req.body.email }, function(err, users) {
+        User.findOne({ email: req.body.email }, function (err, users) {
             if (err) console.log(err);
 
             if (users) {
@@ -183,6 +183,40 @@ app.post('/api/login',
             }
         })
     })
+
+    
+app.post('/api/profile', (req, res) => {
+    //Check does current email match logged in email 
+    //if true - update current email to newEmail.
+
+
+    //if password matchs the password of logged in account
+    //change current password to new password
+
+    console.log("Hello")
+    User.findOne({ email: req.body.currentEmail}) 
+        .then(user=>{
+            if (!user) {
+                return res.status(422).json({ error: "User with that email does not exist" })
+            }
+            User.updateOne({
+                email: req.body.newEmail
+            })
+
+        })
+        .catch(err=>{
+            console.log(err);
+        }) 
+
+     //     if(err)console.log(err);
+
+    //     if (user) {
+    //         User.updateOne({
+    //             email: req.body.newEmail
+    //         });
+    //     }
+    // })
+})
 
 
 app.post('/api/forgotPassword', (req, res) => {

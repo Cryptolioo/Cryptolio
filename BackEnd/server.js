@@ -334,9 +334,23 @@ app.post('/api/cryptos',
 })
 
 app.post('/api/contact-us', (req, res) => {
-    console.log(req.body.email)
-    console.log(req.body.issue)
-    console.log(req.body.details)
+    console.log("Email: " + req.body.email)
+    console.log("Issue: " + req.body.issue)
+    console.log("Details: " + req.body.details)
+
+    var email = {
+        to: ["patrickmurray7878@gmail.com", "coryodonoghue1@gmail.com"],
+        from: "g00376678@gmit.ie",
+        subject: req.body.issue,
+        text: req.body.details + " - " + req.body.email
+    }
+
+    transporter.sendMail(email, function(err, res) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(res);
+    })
 })
 
 

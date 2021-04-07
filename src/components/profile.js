@@ -72,7 +72,22 @@ export class Profile extends React.Component {
                 })
             })
             .catch((err) => {
-                console.log(err);
+                if(err.response.status == 422) {
+                    err.response.data.errors.forEach(error => {
+                        if(error.param == 'fname')
+                        {
+                            document.getElementById("fname").innerHTML = error.msg;
+                        }
+                        else if(error.param == 'sname')
+                        {
+                            document.getElementById("sname").innerHTML = error.msg;
+                        }
+                        else if(error.param == 'email')
+                        {
+                            document.getElementById("email").innerHTML = error.msg;
+                        }
+                    });
+                }
             });
     }
 
@@ -80,18 +95,21 @@ export class Profile extends React.Component {
         this.setState({
             fname: e.target.value
         })
+        document.getElementById("fname").innerHTML = "First Name";
     }
 
     onChangeSname(e) {
         this.setState({
             sname: e.target.value
         })
+        document.getElementById("sname").innerHTML = "Last Name";
     }
 
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
         })
+        document.getElementById("email").innerHTML = "Email";
     }
 
     render() {
@@ -101,19 +119,21 @@ export class Profile extends React.Component {
                 <h2>My Profile</h2>
                 <Form className="profile-form">
                     <Form.Group controlId="formFName">
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control type="text" value={this.state.fname} disabled={this.state.disabled} onChange={this.onChangeFname}/>
+                        <Form.Label id="fname">First Name</Form.Label>
+                        <Form.Control type="text" value={this.state.fname} disabled={this.state.disabled} onChange={this.onChangeFname} required/>
                     </Form.Group>
                     <Form.Group controlId="formLName">
-                        <Form.Label>Last Name</Form.Label>
+                        <Form.Label id="sname">Last Name</Form.Label>
                         <Form.Control type="text" value={this.state.sname} disabled={this.state.disabled} onChange={this.onChangeSname}/>
                     </Form.Group>
                     <Form.Group controlId="formEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label id="email">Email address</Form.Label>
                         <Form.Control type="email" value={this.state.email} disabled={this.state.disabled} onChange={this.onChangeEmail}/>
                     </Form.Group>
                     <Button variant="light" onClick={this.enableEdit.bind(this)} disabled={!this.state.disabled}>Edit Details</Button>
                     <Button variant="light" type="submit" onClick={this.onSubmit} disabled={this.state.disabled}>Save Changes</Button>
+                    <br></br><br></br>
+                    <Button variant="light" href="/change-password">Change Password</Button>
                 </Form>
             </div>
         )

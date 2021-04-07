@@ -374,17 +374,29 @@ app.get('/api/profile/:id', (req,res) => {
     })
 })
 
-app.post('/api/profile', (req,res) => {
-    CryptoModel = conn.model(req.body.id, cryptoSchema)
+app.post('/api/profile', 
+check('fname').notEmpty().withMessage('First name required'),
+check('sname').notEmpty().withMessage('Surname required'),
+check('email').isEmail().withMessage('Please enter a valid email address'),
+(req,res) => {
+    const errors = validationResult(req);
 
-    User.findByIdAndUpdate(req.body.id, req.body, (err, data) => {
-        if(err) {
-            console.log(err)
-        }
-        else {
-            res.sendStatus(200)
-        }
-    })
+    if (!errors.isEmpty()) {
+        res.status(422).json({ errors: errors.array() });
+    
+    
+    } else {
+        CryptoModel = conn.model(req.body.id, cryptoSchema)
+
+        User.findByIdAndUpdate(req.body.id, req.body, (err, data) => {
+            if(err) {
+                console.log(err)
+            }
+            else {
+                res.sendStatus(200)
+            }
+        })
+    }
 })
 
 

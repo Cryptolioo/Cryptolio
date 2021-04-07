@@ -360,10 +360,7 @@ app.post('/api/contact-us', (req, res) => {
     })
 })
 
-app.get('/api/profile/:id', (req,res) => {
-    CryptoModel = conn.model(req.params.id, cryptoSchema)
-    
-    User.findById(req.params.id, (err, data) => {
+app.get('/api/profile/:id', (req,res) => {User.findById(req.params.id, (err, data) => {
         if(err) {
             console.log(err)
         }
@@ -386,8 +383,6 @@ check('email').isEmail().withMessage('Please enter a valid email address'),
     
     
     } else {
-        CryptoModel = conn.model(req.body.id, cryptoSchema)
-
         User.findByIdAndUpdate(req.body.id, req.body, (err, data) => {
             if(err) {
                 console.log(err)
@@ -397,6 +392,22 @@ check('email').isEmail().withMessage('Please enter a valid email address'),
             }
         })
     }
+})
+
+app.post('/api/change-password', (req, res) => {
+    User.findById(req.body.id, (err, data) => {
+        bcrypt.compare(req.body.password, data.password)
+            .then((response) => {
+                if(response == true)
+                {
+                    res.sendStatus(200)
+                }
+                else {
+                    res.sendStatus(401)
+                }
+            })
+            .catch((err) => {console.log(err)});
+    })
 })
 
 

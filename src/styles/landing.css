@@ -77,25 +77,21 @@ body {
 }
 
 .email {
-    font-weight: bold;
     text-align: left;
     float: left;
 }
 
 .password {
-    font-weight: bold;
     text-align: left;
     float: left;
 }
 
 .fname {
-    font-weight: bold;
     text-align: left;
     float: left;
 }
 
 .sname {
-    font-weight: bold;
     text-align: left;
     float: left;
 }

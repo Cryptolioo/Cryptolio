@@ -374,6 +374,19 @@ app.get('/api/profile/:id', (req,res) => {
     })
 })
 
+app.post('/api/profile', (req,res) => {
+    CryptoModel = conn.model(req.body.id, cryptoSchema)
+
+    User.findByIdAndUpdate(req.body.id, req.body, (err, data) => {
+        if(err) {
+            console.log(err)
+        }
+        else {
+            res.sendStatus(200)
+        }
+    })
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

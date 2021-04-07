@@ -14,11 +14,13 @@ export class Profile extends React.Component {
     constructor() {
         super();
 
+        this.onSubmit = this.onSubmit.bind(this);
         this.onChangeFname = this.onChangeFname.bind(this);
         this.onChangeSname = this.onChangeSname.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
 
         this.state = {
+            id: '',
             fname: '',
             sname: '',
             email: '',
@@ -32,6 +34,7 @@ export class Profile extends React.Component {
         axios.get('http://localhost:4000/api/profile/' + userID)
         .then((res) => {
             this.setState({
+                id: userID,
                 fname: res.data.fname,
                 sname: res.data.sname,
                 email: res.data.email,
@@ -45,10 +48,32 @@ export class Profile extends React.Component {
     }
 
     enableEdit() {
-        console.log("Enable");
         this.setState({
             disabled: false
         })
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        const user = {
+            id: this.state.id,
+            fname: this.state.fname,
+            sname: this.state.sname,
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        axios.post('http://localhost:4000/api/profile', user)
+            .then((res) => {
+                console.log(res);
+                this.setState({
+                    disabled: true
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     onChangeFname(e) {
@@ -71,7 +96,7 @@ export class Profile extends React.Component {
 
     render() {
         return (
-            <div className="profile" >
+            <div className="profile" onSubmit={this.onSubmit}>
                 <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
                 <h2>My Profile</h2>
                 <Form className="profile-form">
@@ -87,8 +112,8 @@ export class Profile extends React.Component {
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" value={this.state.email} disabled={this.state.disabled} onChange={this.onChangeEmail}/>
                     </Form.Group>
-                    <Button variant="light" onClick={this.enableEdit.bind(this)}>Edit Details</Button>
-                    <Button variant="light" type="submit">Save Changes</Button>
+                    <Button variant="light" onClick={this.enableEdit.bind(this)} disabled={!this.state.disabled}>Edit Details</Button>
+                    <Button variant="light" type="submit" onClick={this.onSubmit} disabled={this.state.disabled}>Save Changes</Button>
                 </Form>
             </div>
         )

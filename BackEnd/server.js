@@ -360,6 +360,20 @@ app.post('/api/contact-us', (req, res) => {
     })
 })
 
+app.get('/api/profile/:id', (req,res) => {
+    CryptoModel = conn.model(req.params.id, cryptoSchema)
+    
+    User.findById(req.params.id, (err, data) => {
+        if(err) {
+            console.log(err)
+        }
+        else {
+            //bcrypt.compare(req.body.password, users.password);
+            res.status(200).send(data)
+        }
+    })
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

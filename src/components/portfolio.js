@@ -65,6 +65,11 @@ export class Portfolio extends React.Component {
         });
     }
 
+    logout() {
+        localStorage.removeItem("token");
+        this.props.history.push('/')
+    }
+
     render() {
         return (
             <div className="portfolio">
@@ -78,8 +83,8 @@ export class Portfolio extends React.Component {
                     <Dropdown.Menu>
                         <Dropdown.Item href="/calculator">Position Size Calculator</Dropdown.Item>
                         <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
-                        <Dropdown.Item href="/contactUs">Contact Us</Dropdown.Item>
-                        <Dropdown.Item href="/">Logout</Dropdown.Item>
+                        <Dropdown.Item href="/contact-us">Contact Us</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.logout()}>Logout</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className="total_container">

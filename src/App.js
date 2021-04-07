@@ -11,6 +11,7 @@ import {ForgotPassword} from './components/forgotPassword';
 import {Calculator} from './components/calculator';
 import { ResetPassword } from './components/resetPassword';
 import {ContactUs} from './components/contactUs';
+import {Profile} from './components/profile';
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
             <Route path='/calculator' component={Calculator} exact/>
             <Route path='/resetPassword/:token' component={ResetPassword} exact/>
             <Route path='/contact-us' component={ContactUs} exact/>
+            <Route path='/profile' component={Profile} exact/>
           </Switch>
         </div>
       </Router>

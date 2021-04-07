@@ -33,6 +33,10 @@ export class Login extends React.Component {
         axios.post('http://localhost:4000/api/login', newUser)
             .then((res) => {
                 if (res.status == 200) {
+                    const token = res.data.token;
+                    const userID = res.data.userID;
+                    localStorage.setItem("token", token);
+                    localStorage.setItem("userID", userID);
                     this.props.history.push('/portfolio')
                 }
             })

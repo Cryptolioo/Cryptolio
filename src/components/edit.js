@@ -21,7 +21,16 @@ export class Edit extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/api/cryptos/' + this.props.id)
+        const userID = localStorage.getItem("userID");
+        var params = new URLSearchParams();
+        params.append("userID", userID);
+        params.append("id", this.props.id);
+        var request = {
+            params: params
+        };
+        
+
+        axios.get('http://localhost:4000/api/cryptos/', request)
         .then((response) => {
             this.setState({
                 _id: response.data._id,

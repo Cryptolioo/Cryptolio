@@ -11,6 +11,7 @@ export class Portfolio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userID: '',
             portfolioValue: 0,
             showCreate: false,
             cryptos: []
@@ -20,7 +21,10 @@ export class Portfolio extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/api/cryptos')
+        if(localStorage.getItem("token")) {
+            this.state.userID = localStorage.getItem("userID");
+
+            axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
             .then((response) => {
                 this.setState({ cryptos: response.data });
                 this.getPortfolioValue(response);
@@ -28,17 +32,22 @@ export class Portfolio extends React.Component {
             .catch((error) => {
                 console.log(error)
             });
+        }  
     }
 
     ReloadData() {
-        axios.get('http://localhost:4000/api/cryptos')
+        if(localStorage.getItem("token")) {
+            this.state.userID = localStorage.getItem("userID");
+
+            axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
             .then((response) => {
                 this.setState({ cryptos: response.data });
                 this.getPortfolioValue(response);
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error)
             });
+        }
     }
 
     getPortfolioValue(cryptos) {

@@ -145,7 +145,7 @@ app.post('/api/login',
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
+            res.status(422).json({ errors: errors.array() });
         }
 
         User.findOne({ email: req.body.email }, function(err, users) {
@@ -159,8 +159,10 @@ app.post('/api/login',
                     console.log("Valid email and password");
                     // Stringify the id and use that as collection
                     let id = users._id.toString();
-                    CryptoModel = conn.model(id, cryptoSchema)
-                    return res.sendStatus(200)
+                    res.status(200).json({
+                        token: 1,
+                        userID: id
+                    })
                 } else {
                     console.log("Invalid password")
                 }
@@ -227,7 +229,9 @@ app.post('/api/resetPassword/:token',(req,res)=>{
 })
 
 // Portfolio
-app.get('/api/cryptos', (req, res) => {
+app.get('/api/cryptos/:id', (req, res) => {
+    CryptoModel = conn.model(req.params.id, cryptoSchema)
+
     CryptoModel.find((err, data) => {
         data.forEach(crypto => {
             client.getQuotes({ symbol: crypto.ticker, option: 'USD' })
@@ -248,8 +252,9 @@ app.get('/api/cryptos', (req, res) => {
 })
 
 // Return details of crypto specified
-app.get('/api/cryptos/:id', (req, res) => {
-    CryptoModel.findById(req.params.id, (err, data) => {
+app.get('/api/cryptos/', (req, res) => {
+    CryptoModel = conn.model(req.query.userID, cryptoSchema)
+    CryptoModel.findById(req.query.id, (err, data) => {
         res.json(data)
     })
 })
@@ -272,8 +277,9 @@ app.put('/api/cryptos/:id',
 })
 
 // Delete crypto
-app.delete('/api/cryptos/:id', (req, res) => {
-    CryptoModel.findByIdAndDelete(req.params.id, (err, data) => {
+app.delete('/api/cryptos/', (req, res) => {
+    CryptoModel = conn.model(req.query.userID, cryptoSchema)
+    CryptoModel.findByIdAndDelete(req.query.id, (err, data) => {
         if (err) console.log(err)
         res.send(data)
     })
@@ -283,6 +289,8 @@ app.delete('/api/cryptos/:id', (req, res) => {
 app.post('/api/cryptos',
     check('holdings').isFloat({ min: 0 }),
     (req, res) => {
+        CryptoModel = conn.model(req.body.userID, cryptoSchema)
+
         CryptoModel.findOne({ 'ticker': req.body.ticker }, (err, result) => {
             if (err) {
                 console.log(err)
@@ -295,7 +303,7 @@ app.post('/api/cryptos',
                     } else {
                         var errors = validationResult(req)
                         if (!errors.isEmpty()) {
-                            res.sendStatus(404)
+                            res.sendStatus(405)
                         } else {
                             client.getQuotes({ symbol: req.body.ticker, option: 'USD' })
                                 .then((response) => {
@@ -310,7 +318,6 @@ app.post('/api/cryptos',
                                         holdings: holdings,
                                         logo: result.logo,
                                     })
-
                                     res.sendStatus(200)
                                 })
                                 .catch((err) => {

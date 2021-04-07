@@ -16,9 +16,16 @@ export class Crypto extends React.Component {
 
     DeleteCrypto(e) {
         e.preventDefault();
-        console.log("Delete: " + this.props.crypto._id);
 
-        axios.delete("http://localhost:4000/api/cryptos/" + this.props.crypto._id)
+        const userID = localStorage.getItem("userID");
+        var params = new URLSearchParams();
+        params.append("userID", userID);
+        params.append("id", this.props.crypto._id);
+        var request = {
+            params: params
+        };
+
+        axios.delete("http://localhost:4000/api/cryptos/", request)
         .then(() => {
             this.props.ReloadData();
         })

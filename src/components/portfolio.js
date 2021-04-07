@@ -6,6 +6,7 @@ import { Cryptos } from './cryptos';
 import Link from 'react-router-dom/Link';
 import { Create } from './create';
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export class Portfolio extends React.Component {
     constructor(props) {
@@ -68,6 +69,19 @@ export class Portfolio extends React.Component {
         return (
             <div className="portfolio">
                 <img src={logo} className="logo d-inline-block align-top"/>
+                <Dropdown id="dropdown-menu">
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="/calculator">Position Size Calculator</Dropdown.Item>
+                        <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                        <Dropdown.Item href="/contactUs">Contact Us</Dropdown.Item>
+                        <Dropdown.Item href="/">Logout</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
                 <div className="total_container">
                     <h6 className="value_text">Portfolio Value</h6>
                     <h3 id="portfolioValueID"></h3>

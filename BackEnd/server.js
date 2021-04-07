@@ -221,7 +221,7 @@ app.post('/api/resetPassword/:token',(req,res)=>{
             user.password = hash
             user.resetToken = undefined
             user.expireToken = undefined
-            user.save().then((savedUSer)=>{
+            user.save().then((savedUser)=>{
                 res.json({message:"password successfully updated"})
             })
         })

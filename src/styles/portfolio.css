@@ -1,13 +1,14 @@
 
-.portfolio {
-    display: flex !important;
-    flex-direction: column;
-}
-
 .logo {
     width: 70px;
     height: 70px;
     margin: 20px 0px 20px 0px;
+}
+
+#dropdown-menu { 
+    position: absolute;
+    right: 100px;
+    margin-top: -70px;
 }
 
 .total_container {

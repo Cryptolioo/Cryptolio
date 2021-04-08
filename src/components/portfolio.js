@@ -22,33 +22,29 @@ export class Portfolio extends React.Component {
     }
 
     componentDidMount() {
-        if(localStorage.getItem("token")) {
-            this.state.userID = localStorage.getItem("userID");
+        this.state.userID = localStorage.getItem("userID");
 
-            axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
-            .then((response) => {
-                this.setState({ cryptos: response.data });
-                this.getPortfolioValue(response);
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-        }  
+        axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
+        .then((response) => {
+            this.setState({ cryptos: response.data });
+            this.getPortfolioValue(response);
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     }
 
     ReloadData() {
-        if(localStorage.getItem("token")) {
-            this.state.userID = localStorage.getItem("userID");
+        this.state.userID = localStorage.getItem("userID");
 
-            axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
-            .then((response) => {
-                this.setState({ cryptos: response.data });
-                this.getPortfolioValue(response);
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-        }
+        axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
+        .then((response) => {
+            this.setState({ cryptos: response.data });
+            this.getPortfolioValue(response);
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     }
 
     getPortfolioValue(cryptos) {

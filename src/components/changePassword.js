@@ -19,7 +19,6 @@ export class ChangePassword extends React.Component {
         this.onChangePswd = this.onChangePswd.bind(this);
         this.onChangePswd1 = this.onChangePswd1.bind(this);
         this.onChangePswd2 = this.onChangePswd2.bind(this);
-        this.showPassword = this.showPassword.bind(this);
 
         this.state = {
             id: '',

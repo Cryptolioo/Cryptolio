@@ -13,6 +13,7 @@ import { ResetPassword } from './components/resetPassword';
 import {ContactUs} from './components/contactUs';
 import {Profile} from './components/profile';
 import {ChangePassword} from './components/changePassword';
+import { PrivateRoute } from './helpers/privateRoute';
 
 class App extends Component {
   render() {
@@ -23,13 +24,13 @@ class App extends Component {
             <Route path='/' component={Landing} exact/>
             <Route path='/login' component={Login} exact/>
             <Route path='/register' component={Register} exact/>
-            <Route path='/portfolio' component={Portfolio} exact/>
+            <PrivateRoute path='/portfolio' component={Portfolio} exact/>
             <Route path='/forgotPassword' component={ForgotPassword} exact/>
             <Route path='/calculator' component={Calculator} exact/>
             <Route path='/resetPassword/:token' component={ResetPassword} exact/>
             <Route path='/contact-us' component={ContactUs} exact/>
-            <Route path='/profile' component={Profile} exact/>
-            <Route path='/change-password' component={ChangePassword} exact/>
+            <PrivateRoute path='/profile' component={Profile} exact/>
+            <PrivateRoute path='/change-password' component={ChangePassword} exact/>
           </Switch>
         </div>
       </Router>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import logo from '../images/logo.png';
 import axios from 'axios';
+import '../styles/forgot-password.css';
 
 export class ForgotPassword extends Component{
 
@@ -16,64 +17,51 @@ export class ForgotPassword extends Component{
     }
 
     onSubmit(e) {
+        e.preventDefault();
+
         const newEmail = {
             email: this.state.email
         }
 
         axios.post('http://localhost:4000/api/forgotPassword', newEmail)
             .then((res) => {
-                console.log(res);
+                if(res.status == 200)
+                {
+                    document.getElementById("header").innerHTML = "Check your email!";
+                }
             })
             .catch((err) => {
-                console.log(err);
+                if(err.response.status == 422) {
+                    document.getElementById("email").innerHTML = err.response.data.error;
+                }
             });
-
-        
     }
 
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
         })
+        document.getElementById("email").innerHTML = "Email";
     }
+
     render() {
         return (
-            <Form class="form" id="form" onSubmit={this.onSubmit} >
-                 <header>
-                    <div class="row">
-                        <div class="logo-row">
-                        
-                        <h1 id="brand"><img
-                        src={logo}
-                        width="50"
-                        height="50"
-                        className="logo"
-                        />Cryptolio</h1>
-                        </div>
+            <div className="forgot-password">
+                <a href="/"><img src={logo} className="logo align-top"/></a>
+                <Form class="form" id="form" onSubmit={this.onSubmit} >
+                    <div className="container">
+                        <header className="header">
+                            <Label id="header">Forgot password</Label>
+                        </header>
+                        <FormGroup>
+                            <Label className="email" id="email">Email</Label>
+                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} required></Input>
+                        </FormGroup>
+                        <Button  className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit}>Submit</Button>
+                        <br></br>
                     </div>
-                </header>
-
-                <div className="container">
-                     <header className="header">
-                        <Label>Forgot password</Label>
-                     </header>
-
-                <FormGroup>
-                    <Label className="email" >Email</Label>
-                    <Input
-                       type="email" placeholder="Email"
-                        value={this.state.email}
-                        onChange={this.onChangeEmail}>
-                     </Input>
-                </FormGroup>
-
-                <Button  className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit}   >Submit</Button>
-                <br></br>
-                  </div>
-                
-            </Form>
-
-
+                </Form>
+            </div>
         );
     }
 }

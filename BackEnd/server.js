@@ -79,13 +79,13 @@ var User = mongoose.model("registerDetails", RegisterSchema);
 var CryptoModel;
 var LogoModel = conn2.model('logos', logoSchema)
 
+// Register
 app.post('/register',
     check('fname').notEmpty().withMessage("First name is required."),//fname cannot be empty
     check('sname').notEmpty().withMessage("Surname is required."),//sname cannot be empty
     check('email').notEmpty().isEmail().withMessage("Invalid email address"),//email must be an email
     check('password').notEmpty().isLength({ min: 5 }).withMessage("Password must be more than 5 characters long"),//password must be 5 characters
     (req, res) => {
-
         const errors = validationResult(req);
 
         User.findOne({ email: req.body.email }, function(err, users) {
@@ -94,6 +94,7 @@ app.post('/register',
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
             }
+
             if (users) {
                 res.status(408).send();
                 console.log("User exists");
@@ -101,11 +102,6 @@ app.post('/register',
                 bcrypt.hash(req.body.password, 10)
                     .then((hash) => {
                         try {
-                            console.log(req.body.fname);
-                            console.log(req.body.sname);
-                            console.log(req.body.email);
-                            console.log(hash);
-
                             User.create({
                                 fname: req.body.fname,
                                 sname: req.body.sname,
@@ -121,7 +117,7 @@ app.post('/register',
                                     html: `<h1>Welcome to cryptolio!</h1>
                                             <h5>Thank you for signing up! 
                                             Come and get started here <a 
-                                            href="http://localhost:3000/" </<h5>`
+                                            href="http://localhost:3000/"</<h5>`
                                 })
                             })
                             .catch(err => {
@@ -150,7 +146,7 @@ app.post('/api/login',
 
         User.findOne({ email: req.body.email }, function(err, users) {
             if (err) console.log(err);
-            
+
             if (users) {
                 console.log("User exists");
                 bcrypt.compare(req.body.password, users.password)
@@ -178,17 +174,14 @@ app.post('/api/login',
 
 
 app.post('/api/forgotPassword', (req, res) => {
-
     crypto.randomBytes(32, (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-
+        if (err) console.log(err);
         const token = data.toString("hex");
+
         User.findOne({ email: req.body.email })
             .then(user => {
                 if (!user) {
-                    return res.status(422).json({ error: "User with that email does not exist" })
+                    res.status(422).json({ error: "User with that email does not exist" })
                 }
                 console.log("User found")
                 user.resetToken = token;
@@ -200,15 +193,31 @@ app.post('/api/forgotPassword', (req, res) => {
                         from: "g00376678@gmit.ie",
                         subject: "Password reset",
                         html: `<p>You requested password reset</p>
-                            <h5>click this <a href="http://localhost:3000/resetPassword/${token}">
+                            <h5>Click this <a href="http://localhost:3000/resetPassword/${token}">
                             link </a> for password reset</h5>`
                     })
-                    res.json({ message: "Check your email" })
+                    res.sendStatus(200)
                 })
             })
             .catch(err => {
                 console.log(err);
             })
+    })
+})
+
+app.get('/api/reset-password/:token', (req, res) => {
+    console.log(req.params.token)
+    User.findOne({resetToken:req.params.token, expireToken:{$gt:Date.now()}}, (err, user) => {
+        if(err) {
+            console.log(err)
+        }
+        else if(!user) {
+            res.status(422).json({error:"Session has expired. Please try again"})
+        }
+        else {
+            console.log(user)
+            res.sendStatus(200)
+        }
     })
 })
 
@@ -344,6 +353,7 @@ app.post('/api/cryptos',
         })
 })
 
+// Contact Us
 app.post('/api/contact-us', (req, res) => {
     var email = {
         to: ["patrickmurray7878@gmail.com", "coryodonoghue1@gmail.com"],

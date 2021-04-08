@@ -94,7 +94,7 @@ export class Register extends React.Component {
     render() {
         return (
             <div className="register">
-                <img src={logo} className="logo align-top"/>
+                <a href="/"><img src={logo} className="logo align-top"/></a>
                 <Form class="form" id="form" onSubmit={this.onSubmit}>
                     <div className="container">
                         <header className="header">

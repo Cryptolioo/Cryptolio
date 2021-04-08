@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/reset-password.css';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import Nav from 'react-bootstrap/Nav';
 import { Link,withRouter } from 'react-router-dom';
@@ -9,18 +10,30 @@ export class ResetPassword extends Component {
 
     constructor(props) {
         super(props);
-        // this.token = props.match, params.token;
+
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
 
         this.state = {
-            password: ''
+            password: '',
+            token: ''
         }
     }
 
     componentDidMount() {
-      const token = this.props.match.params;
-      console.log(token)
+      const token = this.props.match.params.token;
+
+      axios.get('http://localhost:4000/api/reset-password/' + token)
+        .then((res) => {
+            if(res.status == 200) {
+                console.log("Can change password")
+            }
+        })
+        .catch((err) => {
+            if(err.response.status == 422) {
+                document.getElementById("header").innerHTML = err.response.data.error;
+            }
+        })
     }
 
 
@@ -49,42 +62,23 @@ export class ResetPassword extends Component {
         // const token = new URLSearchParams(search).get("token");
 
         return (
-            <Form class="form" id="form">
-                <header>
-                    <div class="row">
-                        <div class="logo-row">
-
-                            <h1 id="brand"><img
-                                src={logo}
-                                width="50"
-                                height="50"
-                                className="logo"
-                            />Cryptolio</h1>
-                        </div>
+            <div className="reset-password">
+                <a href="/"><img src={logo} className="logo align-top"/></a>
+                <Form class="form" id="form">
+                    <div className="container">
+                        <header className="header">
+                            <Label id="header">Reset Password</Label>
+                        </header>
+                        <FormGroup>
+                            <Label className="password" id="password">New Password</Label>
+                            <Input type="password" placeholder="Enter new password" value={this.state.password} onChange={this.onChangePassword}
+                            ></Input>
+                        </FormGroup>
+                        <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Save</Nav.Link>
+                        <br></br>
                     </div>
-                </header>
-
-                <div className="container">
-
-                    <header className="header">
-                        <Label>reset Password</Label>
-                    </header>
-
-                    <FormGroup>
-                        <Label className="password" id="password">New Password</Label>
-                        <Input type="password" placeholder="Enter new password"
-                            value={this.state.password}
-                            onChange={this.onChangePassword}
-                        ></Input>
-                    </FormGroup>
-
-                    <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Save</Nav.Link>
-                    <br></br>
-                </div>
-
-            </Form>
-
-
+                </Form>
+            </div>
         );
     }
 }

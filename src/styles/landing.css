@@ -15,6 +15,16 @@ body {
     margin-left: 5px;
 }
 
+.calc-link {
+    color: white;
+
+}
+
+.contact-link {
+    color: white;
+    margin-right: 100px;
+}
+
 .about {
     color: white;
 }
@@ -45,7 +55,6 @@ body {
 .logo {
     width: 50px;
     height: 50px;
-    text-align: center;
 }
 
 

@@ -150,22 +150,26 @@ app.post('/api/login',
 
         User.findOne({ email: req.body.email }, function(err, users) {
             if (err) console.log(err);
-
+            
             if (users) {
                 console.log("User exists");
-
-                const validPassword = bcrypt.compare(req.body.password, users.password);
-                if (validPassword) {
-                    console.log("Valid email and password");
-                    // Stringify the id and use that as collection
-                    let id = users._id.toString();
-                    res.status(200).json({
-                        token: 1,
-                        userID: id
-                    })
-                } else {
-                    console.log("Invalid password")
-                }
+                bcrypt.compare(req.body.password, users.password)
+                .then((response) => {
+                    if(response == true)
+                    {
+                        console.log("Valid email and password");
+                        let id = users._id.toString();
+                        res.status(200).json({
+                            token: 1,
+                            userID: id
+                        })
+                    }
+                    else {
+                        console.log("Invalid password")
+                        res.sendStatus(401)
+                    }
+                })
+                .catch((err) => {console.log(err)});
             } else {
                 console.log("Email does not exist.")
             }

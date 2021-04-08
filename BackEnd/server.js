@@ -83,7 +83,7 @@ app.post('/register',
     check('fname').notEmpty().withMessage("First name is required."),//fname cannot be empty
     check('sname').notEmpty().withMessage("Surname is required."),//sname cannot be empty
     check('email').notEmpty().isEmail().withMessage("Invalid email address"),//email must be an email
-    check('password').notEmpty().isLength({ min: 5, max: 9 }).withMessage("Password must be more than 5 characters long"),//password must be 5 characters
+    check('password').notEmpty().isLength({ min: 5 }).withMessage("Password must be more than 5 characters long"),//password must be 5 characters
     (req, res) => {
 
         const errors = validationResult(req);
@@ -341,10 +341,6 @@ app.post('/api/cryptos',
 })
 
 app.post('/api/contact-us', (req, res) => {
-    console.log("Email: " + req.body.email)
-    console.log("Issue: " + req.body.issue)
-    console.log("Details: " + req.body.details)
-
     var email = {
         to: ["patrickmurray7878@gmail.com", "coryodonoghue1@gmail.com"],
         from: "g00376678@gmit.ie",
@@ -394,7 +390,7 @@ check('email').isEmail().withMessage('Please enter a valid email address'),
     }
 })
 
-app.post('/api/change-password', (req, res) => {
+app.post('/api/check-password', (req, res) => {
     User.findById(req.body.id, (err, data) => {
         bcrypt.compare(req.body.password, data.password)
             .then((response) => {
@@ -408,6 +404,29 @@ app.post('/api/change-password', (req, res) => {
             })
             .catch((err) => {console.log(err)});
     })
+})
+
+app.post('/api/change-password', 
+check('newPassword').notEmpty().isLength({ min: 5 }).withMessage("Password must be more than 5 characters long"),
+(req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        res.status(422).json({ errors: errors.array() });
+    }
+    else {
+        bcrypt.hash(req.body.newPassword, 10)
+    .then((hash) => {
+        User.findByIdAndUpdate(req.body.id, {$set: { password: hash }}, (err, data) => {
+            if(err) {
+                console.log(err)
+            }
+            else {
+                res.sendStatus(200);
+            }
+        })
+    }) 
+    }
 })
 
 

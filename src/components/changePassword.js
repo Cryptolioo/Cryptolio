@@ -19,6 +19,7 @@ export class ChangePassword extends React.Component {
         this.onChangePswd = this.onChangePswd.bind(this);
         this.onChangePswd1 = this.onChangePswd1.bind(this);
         this.onChangePswd2 = this.onChangePswd2.bind(this);
+        this.showPassword = this.showPassword.bind(this);
 
         this.state = {
             id: '',
@@ -132,7 +133,7 @@ export class ChangePassword extends React.Component {
                     <Form className="change-password-form" hidden={this.state.hidden}>
                         <Form.Group controlId="formPswd1">
                             <Form.Label id="pswd1">Please enter your new password</Form.Label>
-                            <Form.Control type="password"  onChange={this.onChangePswd1}/>
+                            <Form.Control type="password" id="pswd" onChange={this.onChangePswd1}/>
                         </Form.Group>
                         <Form.Group controlId="formPswd2">
                             <Form.Label id="pswd2">Confirm your new password</Form.Label>

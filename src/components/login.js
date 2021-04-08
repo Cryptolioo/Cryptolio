@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import Navbar from 'react-bootstrap/Navbar';
+import '../styles/login.css';
 import logo from '../images/logo.png';
-import Nav from 'react-bootstrap/Nav';
-import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export class Login extends React.Component {
@@ -72,48 +70,30 @@ export class Login extends React.Component {
 
     render() {
         return (
-            <Form class="form" id="form" onSubmit={this.onSubmit} >
-                 <header>
-                    <div class="row">
-                        <div class="logo-row">
-                        
-                         <h1 id="brand"><img
-                        src={logo}
-                        width="50"
-                        height="50"
-                        className="logo"
-                        />Cryptolio</h1>
+            <div className="login">
+                <img src={logo} className="logo align-top"/>
+                <Form class="form" id="form" onSubmit={this.onSubmit} >
+                    <div className="container">
+                        <header className="header">
+                            <Label>Sign In</Label>
+                        </header>
+                        <FormGroup>
+                            <Label className="email" id="email" >Email</Label>
+                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="password" id="password">Password</Label>
+                            <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
+                        </FormGroup>
+                        <Button className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit} >Log in</Button>
+                        <div className="text-center">
+                            <a href="/register"> Sign up</a>
+                            <span className="p-2">|</span>
+                            <a href="/forgotPassword">Forgot Password</a>
                         </div>
                     </div>
-                </header>
-
-                <div className="container">
-                <header className="header">
-                            <Label>Sign In</Label>
-                </header>
-                <FormGroup>
-                    <Label className="email" id="email" >Email</Label>
-                    <Input type="email" placeholder="Email"
-                        value={this.state.email}
-                        onChange={this.onChangeEmail}></Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label className="password" id="password">Password</Label>
-                    <Input type="password" placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.onChangePassword}></Input>
-                </FormGroup>
-
-                <Button className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit} >Log in</Button>
-
-                <div className="text-center">
-                    <a href="/register"> Sign up</a>
-                    <span className="p-2">|</span>
-                    <a href="/forgotPassword">Forgot Password</a>
-                </div>
+                </Form>
             </div>
-            </Form>
-
         );
     }
 }

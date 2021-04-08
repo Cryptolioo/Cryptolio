@@ -45,11 +45,11 @@ export class Login extends React.Component {
                     err.response.data.errors.forEach(error => {
                         if(error.param == 'email')
                         {
-                            document.getElementById("email-error").innerHTML = error.msg;
+                            document.getElementById("email").innerHTML = error.msg;
                         }
                         else if(error.param == 'password')
                         {
-                            document.getElementById("password-error").innerHTML = error.msg;
+                            document.getElementById("password").innerHTML = error.msg;
                         }
                     });
                 }
@@ -60,14 +60,14 @@ export class Login extends React.Component {
         this.setState({
             email: e.target.value
         })
-        document.getElementById("email-error").innerHTML = "";
+        document.getElementById("email").innerHTML = "Email";
     }
 
     onChangePassword(e) {
         this.setState({
             password: e.target.value
         })
-        document.getElementById("password-error").innerHTML = "";
+        document.getElementById("password").innerHTML = "Password";
     }
 
     render() {
@@ -91,16 +91,14 @@ export class Login extends React.Component {
                 <header className="header">
                             <Label>Sign In</Label>
                 </header>
-                <h5 id="email-error"></h5>
                 <FormGroup>
-                    <Label className="email" >Email</Label>
+                    <Label className="email" id="email" >Email</Label>
                     <Input type="email" placeholder="Email"
                         value={this.state.email}
                         onChange={this.onChangeEmail}></Input>
                 </FormGroup>
-                <h5 id="password-error"></h5>
                 <FormGroup>
-                    <Label className="password" >Password</Label>
+                    <Label className="password" id="password">Password</Label>
                     <Input type="password" placeholder="Password"
                         value={this.state.password}
                         onChange={this.onChangePassword}></Input>

@@ -46,19 +46,19 @@ export class Register extends React.Component {
                     err.response.data.errors.forEach(error => {
                         if(error.param == 'fname')
                         {
-                            document.getElementById("fname-error").innerHTML = error.msg;
+                            document.getElementById("fname").innerHTML = error.msg;
                         }
                         else if(error.param == 'sname')
                         {
-                            document.getElementById("sname-error").innerHTML = error.msg;
+                            document.getElementById("sname").innerHTML = error.msg;
                         }
                         else if(error.param == 'email')
                         {
-                            document.getElementById("email-error").innerHTML = error.msg;
+                            document.getElementById("email").innerHTML = error.msg;
                         }
                         else if(error.param == 'password')
                         {
-                            document.getElementById("password-error").innerHTML = error.msg;
+                            document.getElementById("password").innerHTML = error.msg;
                         }
                     });
                 }
@@ -69,28 +69,28 @@ export class Register extends React.Component {
         this.setState({
             fname: e.target.value
         })
-        document.getElementById("fname-error").innerHTML = "";
+        document.getElementById("fname").innerHTML = "First Name";
     }
 
     onChangeSname(e) {
         this.setState({
             sname: e.target.value
         })
-        document.getElementById("sname-error").innerHTML = "";
+        document.getElementById("sname").innerHTML = "Last Name";
     }
 
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
         })
-        document.getElementById("email-error").innerHTML = "";
+        document.getElementById("email").innerHTML = "Email";
     }
 
     onChangePassword(e) {
         this.setState({
             password: e.target.value
         })
-        document.getElementById("password-error").innerHTML = "";
+        document.getElementById("password").innerHTML = "Password";
     }
 
   
@@ -117,39 +117,31 @@ export class Register extends React.Component {
                         <header className="header">
                             <Label>Create Account</Label>
                         </header>
-                        <h5 id="fname-error"></h5>
                         <FormGroup class = "form-control" >
-                            <Label className="fname" id = "fname">First Name</Label>
+                            <Label className="fname" id="fname">First Name</Label>
                             <Input type="text" placeholder="First Name"
                                 value={this.state.fname}
                                 onChange={this.onChangeFname}>
                             </Input>
                         </FormGroup>
-
-                        <h5 id="sname-error"></h5>
                         <FormGroup>
-                            <Label className="sname" id = "sname" >Last Name</Label>
+                            <Label className="sname" id="sname">Last Name</Label>
                             <Input type="text" placeholder="Last Name"
                                 value={this.state.sname}
                                 onChange={this.onChangeSname}></Input>
                         </FormGroup>
-
-                        <h5 id="email-error"></h5>
                         <FormGroup>
                             <Label className="email" id = "email">Email</Label>
                             <Input type="email" placeholder="Email"
                                 value={this.state.email}
                                 onChange={this.onChangeEmail}></Input>
                         </FormGroup>
-
-                        <h5 id="password-error"></h5>
                         <FormGroup>
                             <Label className="password" id = "password">Password</Label>
-                            <Input type="password" placeholder="password"
+                            <Input type="password" placeholder="Password"
                                 value={this.state.password}
                                 onChange={this.onChangePassword}></Input>
                         </FormGroup>
-
                         <Button className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Button>
 
                         <div className="text-center">

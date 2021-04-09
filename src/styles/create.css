@@ -1,5 +1,5 @@
-#create_header {
-    margin-top: -80px;
+#header {
+    margin-top: -70px;
     padding-bottom: 20px;
     padding-top: 10px;
 }
@@ -9,5 +9,5 @@
 }
 
 .confirm-cancel {
-    margin-bottom: -50px;
+    margin-bottom: -70px;
 }

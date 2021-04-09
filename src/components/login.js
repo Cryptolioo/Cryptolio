@@ -51,6 +51,12 @@ export class Login extends React.Component {
                         }
                     });
                 }
+                else if(err.response.status == 401) {
+                    document.getElementById("password").innerHTML = "Password is incorrect";
+                }
+                else if(err.response.status == 402) {
+                    document.getElementById("email").innerHTML = "User does not exist";
+                }
             });
     }
 

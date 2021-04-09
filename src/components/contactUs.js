@@ -37,7 +37,10 @@ export class ContactUs extends React.Component {
                 console.log(res);
             })
             .catch((err) => {
-                console.log(err);
+                if(err.response.status == 422)
+                {
+                    document.getElementById("email-text").innerHTML = err.response.data.error;
+                }
             });
     }
 
@@ -45,6 +48,7 @@ export class ContactUs extends React.Component {
         this.setState({
             email: e.target.value
         })
+        document.getElementById("email-text").innerHTML = "Email address";
     }
 
     onChangeIssue(e) {
@@ -66,7 +70,7 @@ export class ContactUs extends React.Component {
                 <h2>Contact Us!</h2>
                 <Form className="contact-form" onSubmit={this.onSubmit}>
                     <Form.Group controlId="formEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label id="email-text">Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" onChange={this.onChangeEmail}/>
                         <Form.Text className="text-muted">
                         We'll never share your email with anyone else.

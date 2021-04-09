@@ -3,6 +3,7 @@ import '../styles/create.css';
 import Popup from './Popup';
 import Link from 'react-router-dom/Link';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
 
 export class Edit extends React.Component {
 
@@ -29,7 +30,6 @@ export class Edit extends React.Component {
             params: params
         };
         
-
         axios.get('http://localhost:4000/api/cryptos/', request)
         .then((response) => {
             this.setState({
@@ -75,25 +75,18 @@ export class Edit extends React.Component {
             this.props.ReloadData();
         })
         .catch((err) => {
-            document.getElementById('invalidInput').innerHTML = "Holdings must be greater than 0!";
-            console.log(err);
+            document.getElementById('holdings-text').innerHTML = "Holdings must be greater than 0!";
         });
     }
-
     render() {
         return (
             <Popup trigger={this.buttonPopup}>
-                <h2 id="create_header">Edit {this.state.Ticker}</h2>
-                <label id='invalidInput'></label>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Edit Holdings: </label>
-                        <input type='text'
-                            name='holdings'
-                            className='form-control'
-                            value={this.state.Holdings}
-                            onChange={this.onChangeHoldings}></input>
-                    </div>
+                <h2 id="header">Edit {this.state.Ticker}</h2>
+                <Form className="edit-form">
+                    <Form.Group controlId="formHoldings">
+                        <Form.Label id="holdings-text">Add Holdings</Form.Label>
+                        <Form.Control type="text" value={this.state.Holdings} onChange={this.onChangeHoldings}/>
+                    </Form.Group>
                     <div className="confirm-cancel">
                         <Link onClick={this.onSubmit}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style={{ color: "white" }}>
@@ -106,7 +99,7 @@ export class Edit extends React.Component {
                             </svg>
                         </Link>
                     </div>
-                </form>
+                </Form>
             </Popup>
         )
     }

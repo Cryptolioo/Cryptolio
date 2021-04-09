@@ -18,7 +18,6 @@ export class Portfolio extends React.Component {
             cryptos: []
         };
         this.ReloadData = this.ReloadData.bind(this);
-        //this.addCrypto = this.addCrypto.bind(this);
     }
 
     componentDidMount() {

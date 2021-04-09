@@ -168,6 +168,7 @@ app.post('/api/login',
                 .catch((err) => {console.log(err)});
             } else {
                 console.log("Email does not exist.")
+                res.sendStatus(402)
             }
         })
     })
@@ -334,20 +335,41 @@ app.post('/api/cryptos',
 })
 
 // Contact Us
-app.post('/api/contact-us', (req, res) => {
-    var email = {
-        to: ["patrickmurray7878@gmail.com", "coryodonoghue1@gmail.com"],
-        from: "g00376678@gmit.ie",
-        subject: req.body.issue,
-        text: req.body.details + " - " + req.body.email
-    }
+app.post('/api/contact-us', 
+    check('email').isEmail(),
+    (req, res) => {
+        const errors = validationResult(req);
 
-    transporter.sendMail(email, function(err, res) {
-        if (err) {
-            console.log(err);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ error: "Please enter a valid email address" });
         }
-        console.log(res);
-    })
+        else {
+            var email = {
+                to: ["patrickmurray7878@gmail.com", "coryodonoghue1@gmail.com"],
+                from: "g00376678@gmit.ie",
+                subject: req.body.issue,
+                text: req.body.details + " - " + req.body.email
+            }
+    
+            transporter.sendMail(email, function(err, res) {
+                if (err) {
+                    console.log(err);
+                }
+            })
+
+            var email = {
+                to: req.body.email,
+                from: "g00376678@gmit.ie",
+                subject: "Support Ticket",
+                text: "Your support ticket has been created. Expect a response within 24hrs"
+            }
+
+            transporter.sendMail(email, function(err, res) {
+                if (err) {
+                    console.log(err);
+                }
+            })
+        }
 })
 
 app.get('/api/profile/:id', (req,res) => {User.findById(req.params.id, (err, data) => {

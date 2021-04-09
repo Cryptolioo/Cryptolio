@@ -3,6 +3,7 @@ import '../styles/create.css';
 import Popup from './Popup';
 import Link from 'react-router-dom/Link';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
 
 export class Create extends React.Component {
 
@@ -57,10 +58,10 @@ export class Create extends React.Component {
             })
             .catch((err) => {
                 if (err.response.status == 402) { // Ticker is not currently supported
-                    document.getElementById('invalidTicker').innerHTML = "Crypto not currently supported!"
-                } else if (err.response.status == 405) { // Holdings was an invalid vaue
+                    document.getElementById('ticker-text').innerHTML = "Crypto not currently supported!"
+                } else if (err.response.status == 405) { // Holdings was an invalid value
 
-                    document.getElementById('invalidHoldings').innerHTML = "Holdings must be greater than 0!"
+                    document.getElementById('holdings-text').innerHTML = "Holdings must be greater than 0!"
                 }
             });
     }
@@ -68,26 +69,16 @@ export class Create extends React.Component {
     render() {
         return (
             <Popup trigger={this.buttonPopup}>
-                <h2 id="create_header">Add Crypto</h2>
-                <label id='invalidTicker'></label>
-                <br></br>
-                <label id='invalidHoldings'></label>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Add Ticker: </label>
-                        <input type='text'
-                            className='form-control'
-                            value={this.state.Ticker}
-                            onChange={this.onChangeTicker}></input>
-                    </div>
-                    <div className="form-group">
-                        <label>Add Holdings: </label>
-                        <input type='text'
-                            name='holdings'
-                            className='form-control'
-                            value={this.state.Holdings}
-                            onChange={this.onChangeHoldings}></input>
-                    </div>
+                <h2 id="header">Add Crypto</h2>
+                <Form className="create-form">
+                    <Form.Group controlId="formTicker">
+                        <Form.Label id="ticker-text">Add Ticker</Form.Label>
+                        <Form.Control type="text" value={this.state.ticker} onChange={this.onChangeTicker}/>
+                    </Form.Group>
+                    <Form.Group controlId="formHoldings">
+                        <Form.Label id="holdings-text">Add Holdings</Form.Label>
+                        <Form.Control type="text" value={this.state.holdings} onChange={this.onChangeHoldings}/>
+                    </Form.Group>
                     <div className="confirm-cancel">
                         <Link onClick={this.onSubmit}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style={{ color: "white" }}>
@@ -100,7 +91,7 @@ export class Create extends React.Component {
                             </svg>
                         </Link>
                     </div>
-                </form>
+                </Form>
             </Popup>
         )
     }

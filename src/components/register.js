@@ -95,32 +95,27 @@ export class Register extends React.Component {
         return (
             <div className="register">
                 <a href="/"><img src={logo} className="logo align-top"/></a>
-                <Form class="form" id="form" onSubmit={this.onSubmit}>
-                    <div className="container">
-                        <header className="header">
-                            <Label>Create Account</Label>
-                        </header>
-                        <FormGroup class = "form-control" >
-                            <Label className="fname" id="fname">First Name</Label>
-                            <Input type="text" placeholder="First Name" value={this.state.fname} onChange={this.onChangeFname}>
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label className="sname" id="sname">Last Name</Label>
-                            <Input type="text" placeholder="Last Name" value={this.state.sname} onChange={this.onChangeSname}></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label className="email" id = "email">Email</Label>
-                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label className="password" id = "password">Password</Label>
-                            <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
-                        </FormGroup>
-                        <Button className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Register</Button>
-                        <div className="text-center">
-                            <p> Already have an account?<a href="/login">Log in</a></p>
-                        </div>
+                <h2 id="header">Create Account</h2>
+                <Form className="register-form" id="form" onSubmit={this.onSubmit}>
+                    <FormGroup class = "form-control" >
+                        <Label className="fname" id="fname">First Name</Label>
+                        <Input type="text" placeholder="First Name" value={this.state.fname} onChange={this.onChangeFname}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label className="sname" id="sname">Last Name</Label>
+                        <Input type="text" placeholder="Last Name" value={this.state.sname} onChange={this.onChangeSname}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label className="email" id = "email">Email</Label>
+                        <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label className="password" id = "password">Password</Label>
+                        <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
+                    </FormGroup>
+                    <Button className="btn-light btn-block" onClick={this.onSubmit}>Register</Button>
+                    <div className="text-center">
+                        <p>Already have an account?<a href="/login" className="link"> Log in</a></p>
                     </div>
                 </Form>
             </div>

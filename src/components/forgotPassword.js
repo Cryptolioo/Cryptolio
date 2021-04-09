@@ -52,28 +52,18 @@ export class ForgotPassword extends Component{
             <div className="forgot-password">
                 {/* <a href="/"><img src={logo} className="logo align-top"/></a> */}
                 <Navbar id="navbar" width="100%">
-                    <img
-                        src={logo}
-                        width="50"
-                        height="50"
-                        className="d-inline-block align-top"
-                    />
-                    <h1 id="brand">Cryptolio</h1>
+                    
                     <Nav.Link as={Link} to="/" className="login-btn btn btn-success ml-auto">Home</Nav.Link>
                 </Navbar>
-                <Form class="form" id="form" onSubmit={this.onSubmit} >
-                    <div className="container">
-                        <header className="header">
-                            <Label id="header">Forgot password</Label>
-                        </header>
-                        <FormGroup>
-                            <Label className="email" id="email">Email</Label>
-                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} required></Input>
-                        </FormGroup>
-                        <Button  className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit}>Submit</Button>
-                        <br></br>
-                    </div>
-                </Form>
+                <a href="/"><img src={logo} className="logo align-top"/></a>
+                <h2 id="header">Forgot password</h2>
+                <Form className="forgot-password-form" id="form" onSubmit={this.onSubmit} >
+                    <FormGroup>
+                        <Label className="email" id="email">Email</Label>
+                        <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} required></Input>
+                    </FormGroup>
+                    <Button className="btn-light btn-block" onSubmit={this.onSubmit}>Submit</Button>
+                    </Form>
             </div>
         );
     }

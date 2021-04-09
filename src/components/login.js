@@ -72,25 +72,21 @@ export class Login extends React.Component {
         return (
             <div className="login">
                 <a href="/"><img src={logo} className="logo align-top"/></a>
-                <Form class="form" id="form" onSubmit={this.onSubmit} >
-                    <div className="container">
-                        <header className="header">
-                            <Label>Sign In</Label>
-                        </header>
-                        <FormGroup>
-                            <Label className="email" id="email" >Email</Label>
-                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label className="password" id="password">Password</Label>
-                            <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
-                        </FormGroup>
-                        <Button className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit} >Log in</Button>
-                        <div className="text-center">
-                            <a href="/register"> Sign up</a>
-                            <span className="p-2">|</span>
-                            <a href="/forgot-password">Forgot Password</a>
-                        </div>
+                <h2 id="header">Sign In</h2>
+                <Form className="login-form" id="form" onSubmit={this.onSubmit} >
+                    <FormGroup>
+                        <Label className="email" id="email" >Email</Label>
+                        <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label className="password" id="password">Password</Label>
+                        <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
+                    </FormGroup>
+                    <Button className="btn-light btn-block"  onSubmit={this.onSubmit} >Log in</Button>
+                    <div className="text-center">
+                        <a href="/register" className="link"> Sign up</a>
+                        <span className="p-2">|</span>
+                        <a href="/forgot-password" className="link">Forgot Password</a>
                     </div>
                 </Form>
             </div>

@@ -31,11 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-//single sender api
-//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
 
-//domain api
-//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
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
@@ -182,6 +178,7 @@ app.post('/api/forgot-password', (req, res) => {
         if (err) console.log(err);
         const token = data.toString("hex");
 
+        //finds a user from databse matching an email to req.body
         User.findOne({ email: req.body.email })
             .then(user => {
                 if (!user) {

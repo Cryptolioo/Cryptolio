@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import { Link } from 'react-router-dom';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import '../styles/forgot-password.css';
@@ -47,7 +50,17 @@ export class ForgotPassword extends Component{
     render() {
         return (
             <div className="forgot-password">
-                <a href="/"><img src={logo} className="logo align-top"/></a>
+                {/* <a href="/"><img src={logo} className="logo align-top"/></a> */}
+                <Navbar id="navbar" width="100%">
+                    <img
+                        src={logo}
+                        width="50"
+                        height="50"
+                        className="d-inline-block align-top"
+                    />
+                    <h1 id="brand">Cryptolio</h1>
+                    <Nav.Link as={Link} to="/" className="login-btn btn btn-success ml-auto">Home</Nav.Link>
+                </Navbar>
                 <Form class="form" id="form" onSubmit={this.onSubmit} >
                     <div className="container">
                         <header className="header">

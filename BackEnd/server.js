@@ -31,11 +31,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+//single sender api
 //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
+
+//domain api
+//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
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: "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"
+        api_key: "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"
     }
 }))
 
@@ -112,12 +116,12 @@ app.post('/register',
                             .then(users => {
                                 transporter.sendMail({
                                     to: users.email,
-                                    from: "g00376678@gmit.ie",
+                                    from: "no-reply@cryptolioo.com",
                                     subject: "Sign up successful",
                                     html: `<h1>Welcome to cryptolio!</h1>
                                             <h5>Thank you for signing up! 
-                                            Come and get started here <a 
-                                            href="http://localhost:3000/"</<h5>`
+                                            Come and get started <a 
+                                            href="http://localhost:3000/">here </a></h5>`
                                 })
                             })
                             .catch(err => {
@@ -190,7 +194,7 @@ app.post('/api/forgot-password', (req, res) => {
                 user.save().then((result) => {
                     transporter.sendMail({
                         to: user.email,
-                        from: "g00376678@gmit.ie",
+                        from: "no-reply@cryptolioo.com",
                         subject: "Password reset",
                         html: `<p>You requested password reset</p>
                             <h5>Click this <a href="http://localhost:3000/reset-password/${token}">

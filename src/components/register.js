@@ -95,7 +95,7 @@ export class Register extends React.Component {
         return (
             <div className="register">
                 <a href="/"><img src={logo} className="logo align-top"/></a>
-                <h2 id="header">Create Account</h2>
+                <h2>Create Account</h2>
                 <Form className="register-form" id="form" onSubmit={this.onSubmit}>
                     <FormGroup class = "form-control" >
                         <Label className="fname" id="fname">First Name</Label>

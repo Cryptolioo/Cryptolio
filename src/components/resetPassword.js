@@ -35,7 +35,7 @@ export class ResetPassword extends Component {
         })
         .catch((err) => {
             if(err.response.status == 422) {
-                document.getElementById("header").innerHTML = err.response.data.error;
+                document.getElementById("header-txt").innerHTML = err.response.data.error;
             }
         })
     }
@@ -78,7 +78,7 @@ export class ResetPassword extends Component {
         return (
             <div className="reset-password">
                 <a href="/forgot-password"><img src={logo} className="logo align-top"/></a>
-                <h2 id="header">Reset Password</h2>
+                <h2 id="header-txt">Reset Password</h2>
                 <Form className="reset-password-form" id="form">
                     <FormGroup>
                         <Label className="password" id="password">New Password</Label>

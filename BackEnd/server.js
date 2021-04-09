@@ -347,7 +347,7 @@ app.post('/api/contact-us',
         else {
             var email = {
                 to: ["patrickmurray7878@gmail.com", "coryodonoghue1@gmail.com"],
-                from: "g00376678@gmit.ie",
+                from: "no-reply@cryptolioo.com",
                 subject: req.body.issue,
                 text: req.body.details + " - " + req.body.email
             }
@@ -360,7 +360,7 @@ app.post('/api/contact-us',
 
             var email = {
                 to: req.body.email,
-                from: "g00376678@gmit.ie",
+                from: "no-reply@cryptolioo.com",
                 subject: "Support Ticket",
                 text: "Your support ticket has been created. Expect a response within 24hrs"
             }
@@ -463,7 +463,6 @@ check('newPassword').notEmpty().isLength({ min: 5 }),
         
     }
 })
-
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

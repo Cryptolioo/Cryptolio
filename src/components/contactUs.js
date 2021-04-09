@@ -3,7 +3,6 @@ import '../styles/contact-us.css';
 import Button from 'react-bootstrap/Button';
 import logo from '../images/logo.png';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import axios from 'axios';
 
 export class ContactUs extends React.Component {

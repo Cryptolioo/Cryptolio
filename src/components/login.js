@@ -78,7 +78,7 @@ export class Login extends React.Component {
         return (
             <div className="login">
                 <a href="/"><img src={logo} className="logo align-top"/></a>
-                <h2 id="header">Sign In</h2>
+                <h2>Sign In</h2>
                 <Form className="login-form" id="form" onSubmit={this.onSubmit} >
                     <FormGroup>
                         <Label className="email" id="email" >Email</Label>

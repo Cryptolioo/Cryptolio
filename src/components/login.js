@@ -89,7 +89,7 @@ export class Login extends React.Component {
                         <div className="text-center">
                             <a href="/register"> Sign up</a>
                             <span className="p-2">|</span>
-                            <a href="/forgotPassword">Forgot Password</a>
+                            <a href="/forgot-password">Forgot Password</a>
                         </div>
                     </div>
                 </Form>

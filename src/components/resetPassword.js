@@ -16,17 +16,21 @@ export class ResetPassword extends Component {
 
         this.state = {
             password: '',
-            token: ''
+            token: '',
+            disabled: true
         }
     }
 
     componentDidMount() {
-      const token = this.props.match.params.token;
+      const resetToken = this.props.match.params.token;
 
-      axios.get('http://localhost:4000/api/reset-password/' + token)
+      axios.get('http://localhost:4000/api/reset-password/' + resetToken)
         .then((res) => {
             if(res.status == 200) {
-                console.log("Can change password")
+                this.setState({
+                    token: resetToken,
+                    disabled: false
+                })
             }
         })
         .catch((err) => {
@@ -38,32 +42,41 @@ export class ResetPassword extends Component {
 
 
     onSubmit(e) {
+    const user = {
+        token: this.state.token,
+        newPassword: this.state.password
+    }
 
-        axios.post('http://localhost:4000/api/resetPassword/'+ this.token )
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-            
+    axios.post('http://localhost:4000/api/change-password', user)
+         .then((res) => {
+            if(res.status == 200)
+            {
+                this.props.history.push("/login");
+            }
+        })
+        .catch((err) => {
+            if(err.response.status == 422) {
+                document.getElementById("password").innerHTML = err.response.data.error;
+            }
+            else if(err.response.status == 414) {
+                document.getElementById("header").innerHTML = err.response.data.error;
+                this.setState({
+                    disabled: true
+                })
+            }
+        });   
     }
 
     onChangePassword(e) {
         this.setState({
             password: e.target.value
         })
+        document.getElementById("password").innerHTML = "Enter new password";
     }
 
-  
-
-    render() {
-        // const search = this.props.location.search;
-        // const token = new URLSearchParams(search).get("token");
-
-        return (
+    render() {return (
             <div className="reset-password">
-                <a href="/"><img src={logo} className="logo align-top"/></a>
+                <a href="/forgot-password"><img src={logo} className="logo align-top"/></a>
                 <Form class="form" id="form">
                     <div className="container">
                         <header className="header">
@@ -71,10 +84,14 @@ export class ResetPassword extends Component {
                         </header>
                         <FormGroup>
                             <Label className="password" id="password">New Password</Label>
-                            <Input type="password" placeholder="Enter new password" value={this.state.password} onChange={this.onChangePassword}
-                            ></Input>
+                            <Input type="password" placeholder="Enter new password" 
+                                value={this.state.password} onChange={this.onChangePassword}
+                                disabled={this.state.disabled}>
+                            </Input>
                         </FormGroup>
-                        <Nav.Link as={Link} to="/login" className="btn-lg btn-dark btn-block" onClick={this.onSubmit}>Save</Nav.Link>
+                        <Button className="btn-lg btn-dark btn-block" 
+                            onClick={this.onSubmit} disabled={this.state.disabled}>Save
+                        </Button>
                         <br></br>
                     </div>
                 </Form>

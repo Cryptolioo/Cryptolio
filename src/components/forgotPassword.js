@@ -23,7 +23,7 @@ export class ForgotPassword extends Component{
             email: this.state.email
         }
 
-        axios.post('http://localhost:4000/api/forgotPassword', newEmail)
+        axios.post('http://localhost:4000/api/forgot-password', newEmail)
             .then((res) => {
                 if(res.status == 200)
                 {

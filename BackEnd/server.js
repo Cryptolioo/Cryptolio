@@ -173,7 +173,7 @@ app.post('/api/login',
     })
 
 
-app.post('/api/forgotPassword', (req, res) => {
+app.post('/api/forgot-password', (req, res) => {
     crypto.randomBytes(32, (err, data) => {
         if (err) console.log(err);
         const token = data.toString("hex");
@@ -193,7 +193,7 @@ app.post('/api/forgotPassword', (req, res) => {
                         from: "g00376678@gmit.ie",
                         subject: "Password reset",
                         html: `<p>You requested password reset</p>
-                            <h5>Click this <a href="http://localhost:3000/resetPassword/${token}">
+                            <h5>Click this <a href="http://localhost:3000/reset-password/${token}">
                             link </a> for password reset</h5>`
                     })
                     res.sendStatus(200)
@@ -218,26 +218,6 @@ app.get('/api/reset-password/:token', (req, res) => {
             console.log(user)
             res.sendStatus(200)
         }
-    })
-})
-
-app.post('/api/resetPassword/:token',(req,res)=>{
-    console.log("Here")
-    const newPassword = req.body.password;
-    const sentToken = req.body.token
-    User.findOne({resetToken:sentToken, expireToken:{$gt:Date.now()}})
-    .then(user=>{
-        if(!user){
-            return res.status(422).json({error:"Try again session expired"})
-        }
-        bcrypt.hash(newPassword,10).then(hash=>{
-            user.password = hash
-            user.resetToken = undefined
-            user.expireToken = undefined
-            user.save().then((savedUser)=>{
-                res.json({message:"password successfully updated"})
-            })
-        })
     })
 })
 
@@ -375,7 +355,6 @@ app.get('/api/profile/:id', (req,res) => {User.findById(req.params.id, (err, dat
             console.log(err)
         }
         else {
-            //bcrypt.compare(req.body.password, users.password);
             res.status(200).send(data)
         }
     })
@@ -421,25 +400,44 @@ app.post('/api/check-password', (req, res) => {
 })
 
 app.post('/api/change-password', 
-check('newPassword').notEmpty().isLength({ min: 5 }).withMessage("Password must be more than 5 characters long"),
+check('newPassword').notEmpty().isLength({ min: 5 }),
 (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        res.status(422).json({ errors: errors.array() });
+        res.status(422).json({ error: "Password must be more than 5 characters long" });
     }
     else {
-        bcrypt.hash(req.body.newPassword, 10)
-    .then((hash) => {
-        User.findByIdAndUpdate(req.body.id, {$set: { password: hash }}, (err, data) => {
-            if(err) {
-                console.log(err)
-            }
-            else {
-                res.sendStatus(200);
-            }
-        })
-    }) 
+        if(req.body.token != null) {
+            User.findOne({resetToken:req.body.token, expireToken:{$gt:Date.now()}})
+            .then(user=>{
+                if(!user){
+                    res.status(414).json({error:"Try again session expired"})
+                }
+                bcrypt.hash(req.body.newPassword,10).then(hash=>{
+                    user.password = hash
+                    user.resetToken = undefined
+                    user.expireToken = undefined
+                    user.save().then(()=>{
+                        res.sendStatus(200)
+                    })
+                })
+            })
+        }
+        else {
+            bcrypt.hash(req.body.newPassword, 10)
+            .then((hash) => {
+                User.findByIdAndUpdate(req.body.id, {$set: { password: hash }}, (err, data) => {
+                    if(err) {
+                        console.log(err)
+                    }
+                    else {
+                        res.sendStatus(200);
+                    }
+                })
+            }) 
+        }
+        
     }
 })
 

@@ -27,6 +27,7 @@ export class Portfolio extends React.Component {
         .then((response) => {
             this.setState({ cryptos: response.data });
             this.getPortfolioValue(response);
+            setInterval(this.ReloadData, 30000);
         })
         .catch((error) => {
             console.log(error)

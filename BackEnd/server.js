@@ -242,7 +242,10 @@ app.get('/api/cryptos/:id', (req, res) => {
                     console.log(err)
                 })
         })
-        res.json(data)
+        CryptoModel.find((err, data) => {
+            if(err) console.log(err)
+            res.json(data)
+        })
     })
 })
 

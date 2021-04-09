@@ -74,26 +74,20 @@ export class ResetPassword extends Component {
         document.getElementById("password").innerHTML = "Enter new password";
     }
 
-    render() {return (
+    render() {
+        return (
             <div className="reset-password">
                 <a href="/forgot-password"><img src={logo} className="logo align-top"/></a>
-                <Form class="form" id="form">
-                    <div className="container">
-                        <header className="header">
-                            <Label id="header">Reset Password</Label>
-                        </header>
-                        <FormGroup>
-                            <Label className="password" id="password">New Password</Label>
-                            <Input type="password" placeholder="Enter new password" 
-                                value={this.state.password} onChange={this.onChangePassword}
-                                disabled={this.state.disabled}>
-                            </Input>
-                        </FormGroup>
-                        <Button className="btn-lg btn-dark btn-block" 
-                            onClick={this.onSubmit} disabled={this.state.disabled}>Save
-                        </Button>
-                        <br></br>
-                    </div>
+                <h2 id="header">Reset Password</h2>
+                <Form className="reset-password-form" id="form">
+                    <FormGroup>
+                        <Label className="password" id="password">New Password</Label>
+                        <Input type="password" placeholder="Enter new password" 
+                            value={this.state.password} onChange={this.onChangePassword}
+                            disabled={this.state.disabled}>
+                        </Input>
+                    </FormGroup>
+                    <Button className="btn-light btn-block" onClick={this.onSubmit} disabled={this.state.disabled}>Save</Button>
                 </Form>
             </div>
         );

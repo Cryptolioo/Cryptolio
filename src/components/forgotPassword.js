@@ -48,18 +48,13 @@ export class ForgotPassword extends Component{
         return (
             <div className="forgot-password">
                 <a href="/"><img src={logo} className="logo align-top"/></a>
-                <Form class="form" id="form" onSubmit={this.onSubmit} >
-                    <div className="container">
-                        <header className="header">
-                            <Label id="header">Forgot password</Label>
-                        </header>
-                        <FormGroup>
-                            <Label className="email" id="email">Email</Label>
-                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} required></Input>
-                        </FormGroup>
-                        <Button  className="btn-lg btn-dark btn-block"  onSubmit={this.onSubmit}>Submit</Button>
-                        <br></br>
-                    </div>
+                <h2 id="header">Forgot password</h2>
+                <Form className="forgot-password-form" id="form" onSubmit={this.onSubmit} >
+                    <FormGroup>
+                        <Label className="email" id="email">Email</Label>
+                        <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} required></Input>
+                    </FormGroup>
+                    <Button className="btn-light btn-block" onSubmit={this.onSubmit}>Submit</Button>
                 </Form>
             </div>
         );

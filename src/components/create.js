@@ -5,6 +5,7 @@ import Link from 'react-router-dom/Link';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 
+// The Create class will be used to add new cryptos to portfolio
 export class Create extends React.Component {
 
     constructor() {
@@ -24,23 +25,27 @@ export class Create extends React.Component {
 
     buttonPopup = true;
 
+    // Closes the popup
     closePopup() {
         this.buttonPopup = false;
         this.props.changeHandler(false);
     }
 
+    // When ticker is changed, set the states ticker to the new one
     onChangeTicker(e) {
         this.setState({
             Ticker: e.target.value
         });
     }
 
+    // When holdings is changed, set the states holdings to the new one
     onChangeHoldings(e) {
         this.setState({
             Holdings: e.target.value
         });
     }
 
+    // When form is submitted, make a post request to the server and pass newCrypto
     onSubmit(e) {
         e.preventDefault();
 
@@ -66,6 +71,9 @@ export class Create extends React.Component {
             });
     }
 
+    // Inside this render() function we create a form. This form has
+    // two input boxes for the ticker and holdings. There is also
+    // a check icon at the bottom. Once clicked the data is sent to server
     render() {
         return (
             <Popup trigger={this.buttonPopup}>

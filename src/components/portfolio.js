@@ -8,32 +8,44 @@ import { Create } from './create';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 
+// The Portfolio class reads in the stored cryptos and sends them to the cryptos component which
+// returns them back to Portfolio where all data on the users portfolio is displayed
 export class Portfolio extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state = {
-            userID: '',
-            portfolioValue: 0,
-            showCreate: false,
-            cryptos: []
-        };
+
         this.ReloadData = this.ReloadData.bind(this);
+
+        this.state = {
+            userID: '', // User's unique id
+            cryptos: [], // empty array to store cryptos to be displayed
+            portfolioValue: 0,
+            showCreate: false // Visibility of create popup
+        };
     }
 
+    // Gets all data in users portfolio using an axios request to the server
+    // using the users id as a parameter
     componentDidMount() {
+        // Get users id
         this.state.userID = localStorage.getItem("userID");
 
         axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
         .then((response) => {
             this.setState({ cryptos: response.data });
-            this.getPortfolioValue(response);
-            setInterval(this.ReloadData, 30000);
+            this.getPortfolioValue(response); // Set portfolio value
+            setInterval(this.ReloadData, 30000); // Update portfolio every 30 seconds
         })
         .catch((error) => {
             console.log(error)
         });
     }
 
+    // This function uses axios to create a lifecycle hook that returns the JSON data.
+    // Similar to componentDidMount which only gets ran once. This function gets ran whenever
+    // a movie is deleted/edited to update the portfolio. It is also called every 30 seconds
+    // to ensure the prices are constantly updating.
     ReloadData() {
         this.state.userID = localStorage.getItem("userID");
 
@@ -47,25 +59,36 @@ export class Portfolio extends React.Component {
         });
     }
 
+    // This function gets the total portfolio value of our portfolio, by iterating
+    // through the cryptos array and adding the total value of each crypto to the
+    // portfolioValue variable. Updated every 30 seconds
     getPortfolioValue(cryptos) {
         this.state.portfolioValue = 0;
         cryptos.data.forEach(crypto => {
             this.state.portfolioValue += crypto.price * crypto.holdings;
         });
+        // Set the portfolioValueID label to the current portfolio value
         document.getElementById('portfolioValueID').innerHTML = '$' + parseFloat(this.state.portfolioValue).toFixed(2);//Math.round(this.state.portfolioValue);
     }
 
+    // Enable the visibility of the create popup
     addCrypto(show) {
         this.setState({
             showCreate: show
         });
     }
 
+    // This function logs the user out by removing their token
+    // that is stored in localstorage which identifies if a user is
+    // logged in or not
     logout() {
         localStorage.removeItem("token");
         this.props.history.push('/')
     }
 
+    // This function creates our user interface for the portfolio component. 
+    // Each crypto is then read in from the cryptos component and displayed
+    // in the table.
     render() {
         return (
             <div className="portfolio">

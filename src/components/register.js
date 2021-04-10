@@ -4,11 +4,13 @@ import '../styles/register.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
 
+// The register class allows the user to sign up to our platform
 export class Register extends React.Component {
 
     constructor() {
         super();
 
+        // Bind new data to corresponding variables
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeFname = this.onChangeFname.bind(this);
         this.onChangeSname = this.onChangeSname.bind(this);
@@ -23,6 +25,8 @@ export class Register extends React.Component {
         }
     }
 
+    // When the form is submitted, a post request is made to the server
+    // containing the details input by the user
     onSubmit(e) {
         e.preventDefault();
 
@@ -35,26 +39,26 @@ export class Register extends React.Component {
 
         axios.post('http://localhost:4000/register', newUser)
             .then((res) => {
-                if (res.status == 200) {
-                    this.props.history.push('/login');
+                if (res.status == 200) { // Registered successfully
+                    this.props.history.push('/login'); // Redirect to the login page
                 }
             })
-            .catch((err) => {
+            .catch((err) => { // Could not register
                 if(err.response.status == 422) {
                     err.response.data.errors.forEach(error => {
-                        if(error.param == 'fname')
+                        if(error.param == 'fname') // Invalid first name
                         {
                             document.getElementById("fname").innerHTML = error.msg;
                         }
-                        else if(error.param == 'sname')
+                        else if(error.param == 'sname') // Invalid last name
                         {
                             document.getElementById("sname").innerHTML = error.msg;
                         }
-                        else if(error.param == 'email')
+                        else if(error.param == 'email') // Invalid email
                         {
                             document.getElementById("email").innerHTML = error.msg;
                         }
-                        else if(error.param == 'password')
+                        else if(error.param == 'password') // Invalid email
                         {
                             document.getElementById("password").innerHTML = error.msg;
                         }
@@ -63,6 +67,7 @@ export class Register extends React.Component {
             });
     }
 
+    // When first name is changed, set the states fname to the new one
     onChangeFname(e) {
         this.setState({
             fname: e.target.value
@@ -70,6 +75,7 @@ export class Register extends React.Component {
         document.getElementById("fname").innerHTML = "First Name";
     }
 
+    // When last name is changed, set the states sname to the new one
     onChangeSname(e) {
         this.setState({
             sname: e.target.value
@@ -77,6 +83,7 @@ export class Register extends React.Component {
         document.getElementById("sname").innerHTML = "Last Name";
     }
 
+    // When email is changed, set the states email to the new one
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
@@ -84,6 +91,7 @@ export class Register extends React.Component {
         document.getElementById("email").innerHTML = "Email";
     }
 
+    // When password is changed, set the states password to the new one
     onChangePassword(e) {
         this.setState({
             password: e.target.value
@@ -91,6 +99,9 @@ export class Register extends React.Component {
         document.getElementById("password").innerHTML = "Password";
     }
 
+    // This render() method contains a form with 4 input boxes where the user can
+    // enter in their details to create an account. There is also a link at the bottom
+    // to login if you already have an account
     render() {
         return (
             <div className="register">

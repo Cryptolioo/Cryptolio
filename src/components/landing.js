@@ -1,12 +1,12 @@
 import React from 'react';
 import '../styles/landing.css';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import logo from '../images/logo.png';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-
+// The Landing class is the main page the user is brought to when they enter the site.
+// This page has navigation to login/register or to simple use the calculator or to contact support.
 export class Landing extends React.Component {
     render() {
         return(
@@ -23,7 +23,6 @@ export class Landing extends React.Component {
                     <Nav.Link as={Link} to="/contact-us" className="contact-link">Contact Us</Nav.Link>
                     <Nav.Link as={Link} to="/login" className="login-btn btn btn-success ml-auto">Login</Nav.Link>
                 </Navbar>
-                
                 <h1 id="intro">
                     Track all your Crypto in the one place from <br></br>anywhere in the world.
                 </h1>

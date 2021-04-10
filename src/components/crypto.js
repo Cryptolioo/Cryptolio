@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Edit } from './edit';
 import Link from 'react-router-dom/Link';
 
+// This class creates a custom table to display each crypto
 export class Crypto extends React.Component {
 
     constructor() {
@@ -14,6 +15,7 @@ export class Crypto extends React.Component {
         this.DeleteCrypto = this.DeleteCrypto.bind(this);
     }
 
+    // This function deletes a crypto from the database, it is called upon by the trashcan icon
     DeleteCrypto(e) {
         e.preventDefault();
 
@@ -32,12 +34,16 @@ export class Crypto extends React.Component {
         .catch();
     }
 
+    // This function enabled the visibility of the edit popup, which allows
+    // the user to edit a particular crypto in their portfolio
     editCrypto(show) {
         this.setState({
             showEdit: show
         })
     }
     
+    // Inside this render() function we create our custom table to display all
+    // the crypto details in a nice organised table.
     render() {
         return (
             <div>

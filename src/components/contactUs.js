@@ -5,11 +5,14 @@ import logo from '../images/logo.png';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
+// The contact us class allows the user to contact support regarding numerous issues.
+// This class can be accessed from the landing page or from the portfolio page
 export class ContactUs extends React.Component {
 
     constructor() {
         super()
 
+        // Bind new data to corresponding variables
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeIssue = this.onChangeIssue.bind(this);
@@ -22,6 +25,8 @@ export class ContactUs extends React.Component {
         }
     }
 
+    // When the form is submitted, a post request is made to the server containing
+    // the form contacts which is then emailed to support
     onSubmit(e) {
         e.preventDefault()
 
@@ -36,13 +41,14 @@ export class ContactUs extends React.Component {
                 console.log(res);
             })
             .catch((err) => {
-                if(err.response.status == 422)
+                if(err.response.status == 422) // Email address was invalid
                 {
                     document.getElementById("email-text").innerHTML = err.response.data.error;
                 }
             });
     }
 
+    // When email is changed, set the states email to the new one
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
@@ -50,18 +56,22 @@ export class ContactUs extends React.Component {
         document.getElementById("email-text").innerHTML = "Email address";
     }
 
+    // When issue is changed, set the states issue to the new one
     onChangeIssue(e) {
         this.setState({
             issue: e.target.value
         })
     }
 
+    // When details is changed, set the states details to the new one
     onChangeDetails(e) {
         this.setState({
             details: e.target.value
         })
     }
 
+    // This render() method contains a form where the user can enter their email address,
+    // their issue by choosing from a dropdown box and also details about the issue.
     render() {
         return(
             <div className="contact-us">

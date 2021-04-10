@@ -5,6 +5,7 @@ import Link from 'react-router-dom/Link';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 
+// The Edit class will be used to edit existing crypto details
 export class Edit extends React.Component {
 
     constructor() {
@@ -21,8 +22,13 @@ export class Edit extends React.Component {
         }
     }
 
+    // Gets the details of the specified crypto on page by using the props id to
+    // identify which crypto the user would like to edit
     componentDidMount() {
         const userID = localStorage.getItem("userID");
+
+        // Create a request object and append some parameters to it which will
+        // be passed with the axios.get request
         var params = new URLSearchParams();
         params.append("userID", userID);
         params.append("id", this.props.id);
@@ -46,18 +52,20 @@ export class Edit extends React.Component {
 
     buttonPopup = true;
 
+    // Closes the popup
     closePopup() {
         this.buttonPopup = false;
         this.props.changeHandler(false);
     }
 
-
+    // When holdings is changed, set the states holdings to the new one
     onChangeHoldings(e) {
         this.setState({
             Holdings: e.target.value
         });
     }
 
+    // When form is submitted, make a put request to the server and pass newCrypto
     onSubmit(e) {
         e.preventDefault();
         
@@ -78,6 +86,11 @@ export class Edit extends React.Component {
             document.getElementById('holdings-text').innerHTML = "Holdings must be greater than 0!";
         });
     }
+
+    // Inside this render() function we create a form. This form has
+    // one input box to edit the holdings. There is also
+    // a check icon at the bottom. Once clicked the information is sent
+    // to the server.
     render() {
         return (
             <Popup trigger={this.buttonPopup}>

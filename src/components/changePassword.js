@@ -1,8 +1,5 @@
 import React from 'react';
 import '../styles/change-password.css';
-import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
@@ -10,11 +7,14 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 
+// The change password class allows the user to change their password. It is accessed
+// from the profile component
 export class ChangePassword extends React.Component {
 
     constructor() {
         super();
 
+        // Bind new data to corresponding variables
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangePswd = this.onChangePswd.bind(this);
         this.onChangePswd1 = this.onChangePswd1.bind(this);
@@ -22,14 +22,16 @@ export class ChangePassword extends React.Component {
 
         this.state = {
             id: '',
-            password: '',
-            pswd1: '',
-            pswd2: '',
+            password: '', // Current Password
+            pswd1: '', // New Password 1
+            pswd2: '', // New Password 2
             disabled: false,
             hidden: true
         }
     }
 
+    // Gets the users id from local storage which is used
+    // to set the state of id
     componentDidMount() {
         const userID = localStorage.getItem("userID");
         this.setState({
@@ -37,9 +39,11 @@ export class ChangePassword extends React.Component {
         })
     }
 
+    // Submit the form and try to change the users password
     onSubmit(e) {
         e.preventDefault()
 
+        // If passwords match then allow the user to change password
         if(this.state.pswd1 == this.state.pswd2)
         {
             const user = {
@@ -47,26 +51,28 @@ export class ChangePassword extends React.Component {
                 newPassword: this.state.pswd1
             }
     
+            // Make post request to server and pass the users id and the new password as an object
             axios.post('http://localhost:4000/api/change-password', user)
                 .then((res) => {
                     if (res.status == 200) {
-                        this.props.history.push('/profile')
+                        this.props.history.push('/profile') // Redirect back to the profile component
                     }
                 })
                 .catch((err) => {
-                    if(err.response.status = "422")
+                    if(err.response.status = "422") // Password does not meet the requirements
                     {
                         document.getElementById("pswd1").innerHTML = err.response.data.errors[0].msg;
                         document.getElementById("pswd2").innerHTML = err.response.data.errors[0].msg;
                     }
                 });
         }
-        else {
+        else { // Passwords entered do not match
             document.getElementById("pswd1").innerHTML = "Passwords don't match!";
             document.getElementById("pswd2").innerHTML = "Passwords don't match!";
         }
     }
 
+    // When current password is changed, set the states password to the new one
     onChangePswd(e) {
         this.setState({
             password: e.target.value
@@ -74,6 +80,7 @@ export class ChangePassword extends React.Component {
         document.getElementById("password-text").innerHTML = "Please enter your current password";
     }
 
+    // When new password 2 is changed, set the states pswd1 to the new one
     onChangePswd1(e) {
         this.setState({
             pswd1: e.target.value
@@ -81,6 +88,7 @@ export class ChangePassword extends React.Component {
         document.getElementById("pswd1").innerHTML = "Please enter your new password";
      }
 
+    // When new password 2 password is changed, set the states pswd2 to the new one
     onChangePswd2(e) {
         this.setState({
             pswd2: e.target.value
@@ -88,28 +96,34 @@ export class ChangePassword extends React.Component {
         document.getElementById("pswd2").innerHTML = "Confirm your new password";
     }
 
+    // This function verifies the password the user enters as their current password
+    // is their actual password by checking the database using a post request
     verifyPassword() {
         const user = {
             id: this.state.id,
             password: this.state.password
         }
 
+        // Make post request to server to check if the password matches
         axios.post('http://localhost:4000/api/check-password', user)
         .then((res) => {
-            if(res.status == 200) {
+            if(res.status == 200) { // Password matched
                 this.setState({
-                    disabled: true,
-                    hidden: false
+                    disabled: true, // Disable current password input box
+                    hidden: false // Enable the second form that user can enter new password in
                 })
             }
         })
         .catch((err) => {
-            if(err.response.status == 401) {
+            if(err.response.status == 401) { // Password did not match users password
                 document.getElementById("password-text").innerHTML = "Invalid password entered. Please try again";
             }
         });
     }
 
+    // This render() function contains an input group and a form. The form is hidden by default.
+    // When a valid password is entered in the input group the visibility of the form will be enabled
+    // and the input group will be disabled
     render() {
         return (
             <div className="changePassword" >

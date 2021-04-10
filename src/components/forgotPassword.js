@@ -4,10 +4,15 @@ import logo from '../images/logo.png';
 import axios from 'axios';
 import '../styles/forgot-password.css';
 
+// The forgot password class allows the user to enter their email address
+// and if it exists an email is sent to the user containing a link they
+// can click which allows them to reset their password
 export class ForgotPassword extends Component{
 
     constructor() {
         super()
+
+        // Bind new data to corresponding variables
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
 
@@ -16,6 +21,8 @@ export class ForgotPassword extends Component{
         }
     }
 
+    // When the form is submitted, a post request is made to the server
+    // containing the email input by the user
     onSubmit(e) {
         e.preventDefault();
 
@@ -27,16 +34,18 @@ export class ForgotPassword extends Component{
             .then((res) => {
                 if(res.status == 200)
                 {
+                    // Alert the user that they have received an email
                     document.getElementById("header-txt").innerHTML = "Check your email!";
                 }
             })
             .catch((err) => {
-                if(err.response.status == 422) {
+                if(err.response.status == 422) { // Invalid email entered
                     document.getElementById("email").innerHTML = err.response.data.error;
                 }
             });
     }
 
+    // When email is changed, set the states email to the new one
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
@@ -44,6 +53,7 @@ export class ForgotPassword extends Component{
         document.getElementById("email").innerHTML = "Email";
     }
 
+    // Inside this render() method the user can enter their email address
     render() {
         return (
             <div className="forgot-password">

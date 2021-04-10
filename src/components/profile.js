@@ -1,26 +1,27 @@
 import React from 'react';
 import '../styles/profile.css';
-import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
+// The profile class is only accessibleby a logged in user from the
+// dropdown menu from the portfolio page. The user can edit their name
+// or email here. They can also click change password which redirects them
+// to the change password component
 export class Profile extends React.Component {
 
     constructor() {
         super();
 
+        // Gets all data in users portfolio using an axios request to the server
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeFname = this.onChangeFname.bind(this);
         this.onChangeSname = this.onChangeSname.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
 
         this.state = {
-            id: '',
+            id: '', // Users unique id
             fname: '',
             sname: '',
             email: '',
@@ -28,18 +29,20 @@ export class Profile extends React.Component {
         }
     }
 
+    // Make a get request to server using the users id as a paramater and
+    // return back the users details
     componentDidMount() {
         const userID = localStorage.getItem("userID");
-        console.log("Get stuff")
+
         axios.get('http://localhost:4000/api/profile/' + userID)
         .then((res) => {
-            this.setState({
+            this.setState({ // Set the state with returned details
                 id: userID,
                 fname: res.data.fname,
                 sname: res.data.sname,
                 email: res.data.email,
                 password: res.data.password,
-                disabled: true
+                disabled: true // Disable the input boxes
             })
         })
         .catch((error) => {
@@ -47,12 +50,15 @@ export class Profile extends React.Component {
         });
     }
 
+    // Enable the input boxes
     enableEdit() {
         this.setState({
             disabled: false
         })
     }
 
+    // When the form is submitted, make a post request to the server and
+    // try to change the users details with the details entered
     onSubmit(e) {
         e.preventDefault();
 
@@ -68,21 +74,21 @@ export class Profile extends React.Component {
             .then((res) => {
                 console.log(res);
                 this.setState({
-                    disabled: true
+                    disabled: true // Disable the input boxes
                 })
             })
-            .catch((err) => {
+            .catch((err) => { // Couldn't edit user details
                 if(err.response.status == 422) {
                     err.response.data.errors.forEach(error => {
-                        if(error.param == 'fname')
+                        if(error.param == 'fname') // First Name was invalid
                         {
                             document.getElementById("fname").innerHTML = error.msg;
                         }
-                        else if(error.param == 'sname')
+                        else if(error.param == 'sname') // Last Name was invalid
                         {
                             document.getElementById("sname").innerHTML = error.msg;
                         }
-                        else if(error.param == 'email')
+                        else if(error.param == 'email')// Email was invalid
                         {
                             document.getElementById("email").innerHTML = error.msg;
                         }
@@ -91,6 +97,7 @@ export class Profile extends React.Component {
             });
     }
 
+    // When first name is changed, set the states fname to the new one
     onChangeFname(e) {
         this.setState({
             fname: e.target.value
@@ -98,6 +105,7 @@ export class Profile extends React.Component {
         document.getElementById("fname").innerHTML = "First Name";
     }
 
+    // When last name is changed, set the states sname to the new one
     onChangeSname(e) {
         this.setState({
             sname: e.target.value
@@ -105,6 +113,7 @@ export class Profile extends React.Component {
         document.getElementById("sname").innerHTML = "Last Name";
     }
 
+    // When email is changed, set the states email to the new one
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
@@ -112,6 +121,9 @@ export class Profile extends React.Component {
         document.getElementById("email").innerHTML = "Email";
     }
 
+    // This render() method contains a form where the user can edit their details. By default the form is disabled.
+    // When the user clicks the edit details button the form is enabled. The user can edit their details and click the 
+    // save changes button and if successful the form will be disabled again
     render() {
         return (
             <div className="profile" onSubmit={this.onSubmit}>

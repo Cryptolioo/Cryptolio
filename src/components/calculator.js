@@ -1,18 +1,18 @@
 import React from 'react';
 import '../styles/calculator.css';
-import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import logo from '../images/logo.png';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
+// The Calculator class calculates the position size the user should use in a trade
+// by using a simple formular with the users input as parameters
 export class Calculator extends React.Component {
 
     constructor() {
         super()
         
+        // Bind new data to corresponding variables
         this.onChangeCapital = this.onChangeCapital.bind(this);
         this.onChangeRisk = this.onChangeRisk.bind(this);
         this.onChangeEntry = this.onChangeEntry.bind(this);
@@ -27,30 +27,35 @@ export class Calculator extends React.Component {
         }
     }
 
+    // When capital is changed, set the states capital to the new one
     onChangeCapital(e) {
         this.setState({
             capital: e.target.value
         })
     }
 
+    // When risk is changed, set the states risk to the new one
     onChangeRisk(e) {
         this.setState({
             risk: e.target.value
         })
     }
 
+    // When entry is changed, set the states entry to the new one
     onChangeEntry(e) {
         this.setState({
             entry: e.target.value
         })
     }
 
+    // When stop-loss is changed, set the states stop-loss to the new one
     onChangeStopLoss(e) {
         this.setState({
             stopLoss: e.target.value
         })
     }
 
+    // This function calculates the position size whenever the user has filled in all inputs
     calculatePositionSize() {
         if(this.state.capital > 0 && this.state.risk > 0 && this.state.entry > 0 && this.state.stopLoss > 0)
         {
@@ -61,6 +66,9 @@ export class Calculator extends React.Component {
         }
     }
 
+    // Inside the render() function we create a form. The user can fill in the input boxes. 
+    // The last input box is readonly as this is where the user gets the answer to his
+    // calculation.
     render() {
         return(
             <div className="calculator">

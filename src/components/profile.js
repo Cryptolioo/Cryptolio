@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/profile.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The profile class is only accessibleby a logged in user from the
 // dropdown menu from the portfolio page. The user can edit their name
@@ -126,28 +126,36 @@ export class Profile extends React.Component {
     // save changes button and if successful the form will be disabled again
     render() {
         return (
-            <div className="profile" onSubmit={this.onSubmit}>
-                <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
-                <h2>My Profile</h2>
-                <Form className="profile-form">
-                    <Form.Group controlId="formFName">
-                        <Form.Label id="fname">First Name</Form.Label>
-                        <Form.Control type="text" value={this.state.fname} disabled={this.state.disabled} onChange={this.onChangeFname} required/>
-                    </Form.Group>
-                    <Form.Group controlId="formLName">
-                        <Form.Label id="sname">Last Name</Form.Label>
-                        <Form.Control type="text" value={this.state.sname} disabled={this.state.disabled} onChange={this.onChangeSname}/>
-                    </Form.Group>
-                    <Form.Group controlId="formEmail">
-                        <Form.Label id="email">Email address</Form.Label>
-                        <Form.Control type="email" value={this.state.email} disabled={this.state.disabled} onChange={this.onChangeEmail}/>
-                    </Form.Group>
-                    <Button variant="light" onClick={this.enableEdit.bind(this)} disabled={!this.state.disabled}>Edit Details</Button>
-                    <Button variant="light" type="submit" onClick={this.onSubmit} disabled={this.state.disabled}>Save Changes</Button>
-                    <br></br><br></br>
-                    <Button variant="light" href="/change-password">Change Password</Button>
-                </Form>
-            </div>
+            <Container className="container">
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
+                        <h2>My Profile</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
+                        <Form>
+                            <Form.Group controlId="formFName">
+                                <Form.Label id="fname">First Name</Form.Label>
+                                <Form.Control type="text" value={this.state.fname} disabled={this.state.disabled} onChange={this.onChangeFname} required/>
+                            </Form.Group>
+                            <Form.Group controlId="formLName">
+                                <Form.Label id="sname">Last Name</Form.Label>
+                                <Form.Control type="text" value={this.state.sname} disabled={this.state.disabled} onChange={this.onChangeSname}/>
+                            </Form.Group>
+                            <Form.Group controlId="formEmail">
+                                <Form.Label id="email">Email address</Form.Label>
+                                <Form.Control type="email" value={this.state.email} disabled={this.state.disabled} onChange={this.onChangeEmail}/>
+                            </Form.Group>
+                            <Button variant="light" onClick={this.enableEdit.bind(this)} disabled={!this.state.disabled}>Edit Details</Button>
+                            <Button variant="light" type="submit" onClick={this.onSubmit} disabled={this.state.disabled}>Save Changes</Button>
+                            <br></br><br></br>
+                            <Button variant="light" href="/change-password">Change Password</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }

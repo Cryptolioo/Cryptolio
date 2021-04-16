@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import '../styles/reset-password.css';
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import logo from '../images/logo.png';
 import axios from 'axios';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The reset password class allows the user to enter a new password
 // A token is passed in the URL when the user clicks the link in their email
@@ -85,20 +85,28 @@ export class ResetPassword extends Component {
     // token are valid this form is enabled and the user can change their password
     render() {
         return (
-            <div className="reset-password">
-                <a href="/forgot-password"><img src={logo} className="logo align-top"/></a>
-                <h2 id="header-txt">Reset Password</h2>
-                <Form className="reset-password-form" id="form">
-                    <FormGroup>
-                        <Label className="password" id="password">New Password</Label>
-                        <Input type="password" placeholder="Enter new password" 
-                            value={this.state.password} onChange={this.onChangePassword}
-                            disabled={this.state.disabled}>
-                        </Input>
-                    </FormGroup>
-                    <Button className="btn-light btn-block" onClick={this.onSubmit} disabled={this.state.disabled}>Save</Button>
-                </Form>
-            </div>
-        );
+            <Container className="container">
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/forgot-password"><img src={logo} className="logo align-top"/></a>
+                        <h2 id="header-txt">Reset Password</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
+                        <Form id="form">
+                            <FormGroup>
+                                <Label className="password" id="password">New Password</Label>
+                                <Input type="password" placeholder="Enter new password" 
+                                    value={this.state.password} onChange={this.onChangePassword}
+                                    disabled={this.state.disabled}>
+                                </Input>
+                            </FormGroup>
+                            <Button className="btn-light btn-block" onClick={this.onSubmit} disabled={this.state.disabled}>Save</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        )
     }
 }

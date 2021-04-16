@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/calculator.css';
 import Button from 'react-bootstrap/Button';
 import logo from '../images/logo.png';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The Calculator class calculates the position size the user should use in a trade
 // by using a simple formular with the users input as parameters
@@ -70,11 +70,16 @@ export class Calculator extends React.Component {
     // The last input box is readonly as this is where the user gets the answer to his
     // calculation.
     render() {
-        return(
-            <div className="calculator">
-                <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
-                <h2>Position Size Calculator</h2>
-                <div className="input">
+        return (
+            <Container className="container">
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
+                        <h2>Position Size Calculator</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
                     <label htmlFor="basic-url">What is your total account capital?</label>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -143,8 +148,10 @@ export class Calculator extends React.Component {
                         />
                     </InputGroup>
                     <Button variant="light" className="calc-button" onClick={this.calculatePositionSize()} hidden="true">Calculate</Button>
-                </div>
-            </div>
-        );
+                
+                    </Col>
+                </Row>
+            </Container>
+        )
     }
 }

@@ -1,8 +1,14 @@
+body {
+    background-color: black;
+}
+
+.portfolio {
+    background-color: black;
+}
 
 .logo {
     width: 70px;
     height: 70px;
-    margin: 20px 0px 20px 0px;
 }
 
 #dropdown-menu { 

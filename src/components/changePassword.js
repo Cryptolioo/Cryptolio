@@ -1,11 +1,11 @@
 import React from 'react';
-import '../styles/change-password.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The change password class allows the user to change their password. It is accessed
 // from the profile component
@@ -126,36 +126,42 @@ export class ChangePassword extends React.Component {
     // and the input group will be disabled
     render() {
         return (
-            <div className="changePassword" >
-                <a href="/profile"><img src={logo} className="logo align-top"/></a>
-                <h2>Change Password</h2>
-                <div className="change-password-input">
-                    <label htmlFor="basic-url" id="password-text">Please enter your current password</label>
-                    <InputGroup className="mb-3">
-                        <FormControl type="password" onChange={this.onChangePswd}
-                            placeholder="Current password"
-                            aria-label="Current password"
-                            aria-describedby="basic-addon2"
-                            disabled={this.state.disabled}
-                        />
-                        <InputGroup.Append>
-                            <Button variant="light" onClick={this.verifyPassword.bind(this)} disabled={this.state.disabled}>Verify</Button>
-                        </InputGroup.Append>
-                    </InputGroup>
-                    <br></br>
-                    <Form className="change-password-form" hidden={this.state.hidden}>
-                        <Form.Group controlId="formPswd1">
-                            <Form.Label id="pswd1">Please enter your new password</Form.Label>
-                            <Form.Control type="password" id="pswd" onChange={this.onChangePswd1}/>
-                        </Form.Group>
-                        <Form.Group controlId="formPswd2">
-                            <Form.Label id="pswd2">Confirm your new password</Form.Label>
-                            <Form.Control type="password" onChange={this.onChangePswd2}/>
-                        </Form.Group>
-                        <Button variant="light" type="submit" onClick={this.onSubmit}>Change Password</Button>
-                    </Form>
-                </div>
-            </div>
+            <Container className="container">
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/profile"><img src={logo} className="logo align-top"/></a>
+                        <h2>Change Password</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
+                        <label htmlFor="basic-url" id="password-text">Please enter your current password</label>
+                        <InputGroup className="mb-3">
+                            <FormControl type="password" onChange={this.onChangePswd}
+                                placeholder="Current password"
+                                aria-label="Current password"
+                                aria-describedby="basic-addon2"
+                                disabled={this.state.disabled}
+                            />
+                            <InputGroup.Append>
+                                <Button variant="light" onClick={this.verifyPassword.bind(this)} disabled={this.state.disabled}>Verify</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                        <br></br>
+                        <Form className="change-password-form" hidden={this.state.hidden}>
+                            <Form.Group controlId="formPswd1">
+                                <Form.Label id="pswd1">Please enter your new password</Form.Label>
+                                <Form.Control type="password" id="pswd" onChange={this.onChangePswd1}/>
+                            </Form.Group>
+                            <Form.Group controlId="formPswd2">
+                                <Form.Label id="pswd2">Confirm your new password</Form.Label>
+                                <Form.Control type="password" onChange={this.onChangePswd2}/>
+                            </Form.Group>
+                            <Button variant="light" type="submit" onClick={this.onSubmit}>Change Password</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }

@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import '../styles/register.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The register class allows the user to sign up to our platform
 export class Register extends React.Component {
@@ -104,33 +105,41 @@ export class Register extends React.Component {
     // to login if you already have an account
     render() {
         return (
-            <div className="register">
-                <a href="/"><img src={logo} className="logo align-top"/></a>
-                <h2>Create Account</h2>
-                <Form className="register-form" id="form" onSubmit={this.onSubmit}>
-                    <FormGroup class = "form-control" >
-                        <Label className="fname" id="fname">First Name</Label>
-                        <Input type="text" placeholder="First Name" value={this.state.fname} onChange={this.onChangeFname}></Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label className="sname" id="sname">Last Name</Label>
-                        <Input type="text" placeholder="Last Name" value={this.state.sname} onChange={this.onChangeSname}></Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label className="email" id = "email">Email</Label>
-                        <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label className="password" id = "password">Password</Label>
-                        <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
-                    </FormGroup>
-                    <Button className="btn-light btn-block" onClick={this.onSubmit}>Register</Button>
-                    <div className="text-center">
-                        <p>Already have an account?<a href="/login" className="link"> Log in</a></p>
-                    </div>
-                </Form>
-            </div>
-        );
+            <Container className="login">
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/"><img src={logo} className="logo align-top"/></a>
+                        <h2>Create Account</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
+                        <Form id="form" onSubmit={this.onSubmit}>
+                            <FormGroup class="form-control" >
+                                <Label className="fname" id="fname">First Name</Label>
+                                <Input type="text" placeholder="First Name" value={this.state.fname} onChange={this.onChangeFname}></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label className="sname" id="sname">Last Name</Label>
+                                <Input type="text" placeholder="Last Name" value={this.state.sname} onChange={this.onChangeSname}></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label className="email" id = "email">Email</Label>
+                                <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label className="password" id = "password">Password</Label>
+                                <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
+                            </FormGroup>
+                            <Button className="btn-light btn-block" onClick={this.onSubmit}>Register</Button>
+                            <div className="text-center">
+                                <p>Already have an account?<a href="/login" className="link"> Log in</a></p>
+                            </div>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        )
     }
 }
 

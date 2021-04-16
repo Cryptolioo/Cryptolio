@@ -86,7 +86,7 @@ export class Login extends React.Component {
     // password if it is forgotten
     render() {
         return (
-            <Container>
+            <Container className="login">
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/"><img src={logo} className="logo align-top"/></a>

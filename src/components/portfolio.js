@@ -7,6 +7,7 @@ import Link from 'react-router-dom/Link';
 import { Create } from './create';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The Portfolio class reads in the stored cryptos and sends them to the cryptos component which
 // returns them back to Portfolio where all data on the users portfolio is displayed

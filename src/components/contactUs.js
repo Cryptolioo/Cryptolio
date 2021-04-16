@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import logo from '../images/logo.png';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The contact us class allows the user to contact support regarding numerous issues.
 // This class can be accessed from the landing page or from the portfolio page
@@ -73,36 +74,44 @@ export class ContactUs extends React.Component {
     // This render() method contains a form where the user can enter their email address,
     // their issue by choosing from a dropdown box and also details about the issue.
     render() {
-        return(
-            <div className="contact-us">
-                <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
-                <h2>Contact Us!</h2>
-                <Form className="contact-form" onSubmit={this.onSubmit}>
-                    <Form.Group controlId="formEmail">
-                        <Form.Label id="email-text">Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={this.onChangeEmail}/>
-                        <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Group controlId="formIssue">
-                        <Form.Label>What is this about?</Form.Label>
-                        <Form.Control as="select" onChange={this.onChangeIssue}>
-                            <option>Choose...</option>
-                            <option>Login</option>
-                            <option>Register</option>
-                            <option>Crypto Request</option>
-                            <option>Bug</option>
-                            <option>Other</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formDetails">
-                        <Form.Label>Tell us more</Form.Label>
-                        <Form.Control type="textarea" placeholder="Go ahead. We're listening..." onChange={this.onChangeDetails}/>
-                    </Form.Group>
-                    <Button className="contact-btn" variant="light" type="submit" onClick={this.onSubmit}>Submit</Button>
-                </Form>
-            </div>
-        );
+        return (
+            <Container className="container">
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/portfolio"><img src={logo} className="logo align-top"/></a>
+                        <h2>Contact Us!</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
+                        <Form onSubmit={this.onSubmit}>
+                            <Form.Group controlId="formEmail">
+                                <Form.Label id="email-text">Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" onChange={this.onChangeEmail}/>
+                                <Form.Text className="text-muted">
+                                We'll never share your email with anyone else.
+                                </Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId="formIssue">
+                                <Form.Label>What is this about?</Form.Label>
+                                <Form.Control as="select" onChange={this.onChangeIssue}>
+                                    <option>Choose...</option>
+                                    <option>Login</option>
+                                    <option>Register</option>
+                                    <option>Crypto Request</option>
+                                    <option>Bug</option>
+                                    <option>Other</option>
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="formDetails">
+                                <Form.Label>Tell us more</Form.Label>
+                                <Form.Control type="textarea" placeholder="Go ahead. We're listening..." onChange={this.onChangeDetails}/>
+                            </Form.Group>
+                            <Button className="contact-btn" variant="light" type="submit" onClick={this.onSubmit}>Submit</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        )
     }
 }

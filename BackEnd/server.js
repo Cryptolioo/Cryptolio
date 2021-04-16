@@ -244,6 +244,7 @@ app.get('/api/cryptos/:id', (req, res) => {
         data.forEach(crypto => { // For each crypto in database, get their current price in USD
             client.getQuotes({ symbol: crypto.ticker, option: 'USD' })
                 .then((res) => {
+                    console.log(res)
                     let ticker = "res.data." + crypto.ticker + ".quote.USD.price"
                     let tickerPrice = parseFloat(eval(ticker)).toFixed(3) // Round to 3 decimel places
                     // Update the crypto with their updated price

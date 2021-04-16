@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import '../styles/login.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
+import { Container, Row, Col} from 'react-bootstrap';
 
 // The login class allows user the login by validating the input
 // entered and if it matches the database records, the user is logged in
@@ -85,26 +86,34 @@ export class Login extends React.Component {
     // password if it is forgotten
     render() {
         return (
-            <div className="login">
-                <a href="/"><img src={logo} className="logo align-top"/></a>
-                <h2>Sign In</h2>
-                <Form className="login-form" id="form" onSubmit={this.onSubmit} >
-                    <FormGroup>
-                        <Label className="email" id="email" >Email</Label>
-                        <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label className="password" id="password">Password</Label>
-                        <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
-                    </FormGroup>
-                    <Button className="btn-light btn-block"  onSubmit={this.onSubmit} >Log in</Button>
-                    <div className="text-center">
-                        <a href="/register" className="link"> Sign up</a>
-                        <span className="p-2">|</span>
-                        <a href="/forgot-password" className="link">Forgot Password</a>
-                    </div>
-                </Form>
-            </div>
-        );
+            <Container>
+                <Row className="show-grid">
+                    <Col xs={12} md={12}>
+                        <a href="/"><img src={logo} className="logo align-top"/></a>
+                        <h2>Sign In</h2>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={12} md={6}>
+                        <Form id="form" onSubmit={this.onSubmit} >
+                            <FormGroup>
+                                <Label className="email" id="email" >Email</Label>
+                                <Input type="email" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label className="password" id="password">Password</Label>
+                                <Input type="password" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}></Input>
+                            </FormGroup>
+                            <Button className="btn-light btn-block"  onSubmit={this.onSubmit} >Log in</Button>
+                            <div>
+                                <a href="/register" className="link"> Sign up</a>
+                                <span className="p-2">|</span>
+                                <a href="/forgot-password" className="link">Forgot Password</a>
+                            </div>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        )
     }
 }

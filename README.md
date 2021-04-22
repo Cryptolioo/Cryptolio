@@ -4,7 +4,7 @@ Cryptolio is a Cryptocurrency portfolio tracker and position size calculator. We
 
 ## Cryptolio
 When you enter our site, you will be brought to the main page. From here you can choose to login to your account or register to our platform if you wish to start tracking your crypto portfolio. All users are able to use our position size calculator or contact us whether you have an account with our platform or not.
-![](Website_Images/Landing.PNG)
+![](Website_Images/Landing.PNG =100x60)
 
 ## Register
 Before you are able to gain access to our full website you must register. To do so you are required to add in a valid first name, surname, email and password.

@@ -6,6 +6,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The change password class allows the user to change their password. It is accessed
 // from the profile component
@@ -127,6 +128,10 @@ export class ChangePassword extends React.Component {
     render() {
         return (
             <Container className="container">
+                <Helmet>
+                    <title>Change Password</title>
+                    <meta name="password" content="Change Password" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/profile"><img src={logo} className="logo align-top"/></a>

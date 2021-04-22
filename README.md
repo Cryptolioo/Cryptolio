@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Welcome to Cryptolio!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Cryptolio is a Cryptocurrency portfolio tracker and position size calculator. We were founded in December of 2021, so are currently in beta stage. We hope to support many more cryptocurrencies on the platform in 2021 and have plans to add numerous new features which will enhance the users experience. 
 
-## Available Scripts
+## Cryptolio
+When you enter our site, you will be brought to the main page. From here you can choose to login to your account or register to our platform if you wish to start tracking your crypto portfolio. All users are able to use our position size calculator or contact us whether you have an account with our platform or not.
 
-In the project directory, you can run:
+## Logging in
 
-### `npm start`
+## Adding Crypto to Portfolio
+To add a cryptocurrency to the portfolio, click the plus icon at the bottom of the page. Once clicked you will be brought to a new page where you can add your desired cryptocurrency. There are two input boxes, one for the ticker (BTC, ETH, e.t.c) and also your holdings (how much of the cryptocurrency you hold). All the other details such as the logo, fullname and price will be added to the cryptocurrencies data in the database once successfully created.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If you add a cryptocurrency that already exists, the holdings on the original cryptocurrency will be updated.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+If a ticker you entered is not currently supported, you will be notified. You can email our support team at support@cryptolog.com and we will add your desired cryptocurrency to our database.
 
-### `npm test`
+## Editing Crypto
+To edit a cryptocurrency, just click the pencil icon to the right hand side of the cryptocurrency you wish to edit. Once clicked you will be brought to a new page where you can edit your holdings. The ticker is not editable. Once a cryptocurrency has been successfully edited you will be redirected back to the portfolio page where your changes will be visible.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Deleting Crypto
+To delete a cryptocurrency, just click the trashcan icon to the right hand side of the cryptocurrency you wish to delete. After this icon has been clicked the cryptocurrency will be removed from your portfolio immediately.
 
-### `npm run build`
+## Supported Cryptocurrencies
+1. Bitcoin (BTC)
+2. Ethereum (ETH)
+3. XRP (XRP)
+4. Tether (USDT)
+5. Cardano (ADA)
+6. Link (LINK)
+7. Bitcoin Cash (BCH)
+8. Litecoin (LTC)
+9. Polkadot (DOT)
+10. Ocean Protocol (OCEAN)
+11. Binance Coin (BNB)
+12. Stellar (XLM)
+13. USD Coin (USDC)
+14. EOS (EOS)
+15. Tron (TRX)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+More cryptocurrencies will be supported in the future.

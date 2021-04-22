@@ -20,6 +20,7 @@ If the user happens to forget their password, they must click the forgot passwor
 
 ## Reset Password 
 This Page is only accessible to the user through a link in their email once theyve filled in forgot password form. Once the password has been reset the user can now login with their new credentials
+![](Website_Images/Reset_Password.PNG)
 
 ## Adding Crypto to Portfolio
 To add a cryptocurrency to the portfolio, click the plus icon at the bottom of the page. Once clicked you will be brought to a new page where you can add your desired cryptocurrency. There are two input boxes, one for the ticker (BTC, ETH, e.t.c) and also your holdings (how much of the cryptocurrency you hold). All the other details such as the logo, fullname and price will be added to the cryptocurrencies data in the database once successfully created.
@@ -33,6 +34,31 @@ To edit a cryptocurrency, just click the pencil icon to the right hand side of t
 
 ## Deleting Crypto
 To delete a cryptocurrency, just click the trashcan icon to the right hand side of the cryptocurrency you wish to delete. After this icon has been clicked the cryptocurrency will be removed from your portfolio immediately.
+![](Website_Images/portfolio.PNG)
+
+## Drop Down Menu
+If the user wishes to access other features of our website they can click on our drop down menu in the right hand corner where they can access a contact us page, their profile page , a position size calculator or logout.
+![](Website_Images/Drop_Down_Menu.PNG)
+
+## Edit email
+If the user wishes to change their email, they can go to our profile option in the drop down menu. An edit credentials form will be presented to the user where if they wish can change their first name , surname , or email.
+![](Website_Images/New_email.PNG)
+
+## Edit password
+If the user decides they wish to edit their password, they can go to our profile option in the drop down menu. They must first enter in their current email for other input fields to be accessible.
+![](Website_Images/New_password.PNG)
+
+## Contact us
+If the user has any enquiries, issues etc and want to contact the team, they can go to the drop down menu and select our contact us option which will bring them to a form where they can select an issue from our drop down menu and specify it further below.
+![](Website_Images/Contact_us.PNG)
+
+## Position Size Calculator
+
+
+## Logout
+
+
+
 
 ## Supported Cryptocurrencies
 1. Bitcoin (BTC)

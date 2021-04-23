@@ -38,7 +38,7 @@ export class ContactUs extends React.Component {
             details: this.state.details
         }
 
-        axios.post('http://localhost:4000/api/contact-us', contactForm)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/contact-us', contactForm)
             .then((res) => {
                 console.log(res);
             })

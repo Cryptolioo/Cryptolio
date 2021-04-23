@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const port = 4000
+const port = process.env.PORT || 4000
 const bodyParser = require("body-parser")
 const mongoose = require('mongoose')
 const { body, validationResult, check } = require('express-validator');
@@ -506,5 +506,5 @@ check('newPassword').notEmpty().isLength({ min: 5 }), // Password must be 5 chra
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`App deployed at Port ${port}`)
 })

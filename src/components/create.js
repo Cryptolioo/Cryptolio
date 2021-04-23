@@ -56,7 +56,7 @@ export class Create extends React.Component {
             holdings: this.state.Holdings
         }
 
-        axios.post('http://localhost:4000/api/cryptos/', newCrypto)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/cryptos/', newCrypto)
             .then((res) => {
                 this.props.ReloadData();
                 this.closePopup();

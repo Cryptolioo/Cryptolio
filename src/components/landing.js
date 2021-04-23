@@ -2,7 +2,6 @@ import React from 'react';
 import '../styles/landing.css';
 import { Link } from 'react-router-dom';
 import logo from '../images/logoWithBrand.png';
-import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Container, Row, Col} from 'react-bootstrap';
 import {Helmet} from 'react-helmet';

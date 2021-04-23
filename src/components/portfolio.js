@@ -32,7 +32,7 @@ export class Portfolio extends React.Component {
         // Get users id
         this.state.userID = localStorage.getItem("userID");
 
-        axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
+        axios.get('https://backend-311615.uc.r.appspot.com/api/cryptos/' + this.state.userID)
         .then((response) => {
             this.setState({ cryptos: response.data });
             this.getPortfolioValue(response); // Set portfolio value
@@ -50,7 +50,7 @@ export class Portfolio extends React.Component {
     ReloadData() {
         this.state.userID = localStorage.getItem("userID");
 
-        axios.get('http://localhost:4000/api/cryptos/' + this.state.userID)
+        axios.get('https://backend-311615.uc.r.appspot.com/api/cryptos/' + this.state.userID)
         .then((response) => {
             this.setState({ cryptos: response.data });
             this.getPortfolioValue(response);

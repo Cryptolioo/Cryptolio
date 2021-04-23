@@ -34,7 +34,7 @@ export class Login extends React.Component {
             password: this.state.password
         }
 
-        axios.post('http://localhost:4000/api/login', newUser)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/login', newUser)
             .then((res) => {
                 if (res.status == 200) { // Logged in successfully
                     const token = res.data.token;

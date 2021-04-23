@@ -27,7 +27,7 @@ export class Crypto extends React.Component {
             params: params
         };
 
-        axios.delete("http://localhost:4000/api/cryptos/", request)
+        axios.delete("https://backend-311615.uc.r.appspot.com/api/cryptos/", request)
         .then(() => {
             this.props.ReloadData();
         })

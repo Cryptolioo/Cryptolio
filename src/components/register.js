@@ -39,7 +39,7 @@ export class Register extends React.Component {
             password: this.state.password
         }
 
-        axios.post('http://localhost:4000/register', newUser)
+        axios.post('https://backend-311615.uc.r.appspot.com/register', newUser)
             .then((res) => {
                 if (res.status == 200) { // Registered successfully
                     this.props.history.push('/login'); // Redirect to the login page

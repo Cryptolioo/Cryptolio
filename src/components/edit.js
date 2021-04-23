@@ -36,7 +36,7 @@ export class Edit extends React.Component {
             params: params
         };
         
-        axios.get('http://localhost:4000/api/cryptos/', request)
+        axios.get('https://backend-311615.uc.r.appspot.com/api/cryptos/', request)
         .then((response) => {
             this.setState({
                 _id: response.data._id,
@@ -76,7 +76,7 @@ export class Edit extends React.Component {
             _id: this.state._id
         }
         
-        axios.put('http://localhost:4000/api/cryptos/' + this.state._id, newCrypto)
+        axios.put('https://backend-311615.uc.r.appspot.com/api/cryptos/' + this.state._id, newCrypto)
         .then(res => {
             console.log(res);
             this.closePopup();

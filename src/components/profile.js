@@ -35,7 +35,7 @@ export class Profile extends React.Component {
     componentDidMount() {
         const userID = localStorage.getItem("userID");
 
-        axios.get('http://localhost:4000/api/profile/' + userID)
+        axios.get('https://backend-311615.uc.r.appspot.com/api/profile/' + userID)
         .then((res) => {
             this.setState({ // Set the state with returned details
                 id: userID,
@@ -71,7 +71,7 @@ export class Profile extends React.Component {
             password: this.state.password
         }
 
-        axios.post('http://localhost:4000/api/profile', user)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/profile', user)
             .then((res) => {
                 console.log(res);
                 this.setState({

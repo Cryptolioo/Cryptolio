@@ -53,7 +53,7 @@ export class ChangePassword extends React.Component {
             }
     
             // Make post request to server and pass the users id and the new password as an object
-            axios.post('http://localhost:4000/api/change-password', user)
+            axios.post('https://backend-311615.uc.r.appspot.com/api/change-password', user)
                 .then((res) => {
                     if (res.status == 200) {
                         this.props.history.push('/profile') // Redirect back to the profile component
@@ -62,8 +62,8 @@ export class ChangePassword extends React.Component {
                 .catch((err) => {
                     if(err.response.status = "422") // Password does not meet the requirements
                     {
-                        document.getElementById("pswd1").innerHTML = err.response.data.errors[0].msg;
-                        document.getElementById("pswd2").innerHTML = err.response.data.errors[0].msg;
+                        document.getElementById("pswd1").innerHTML = err.response.data.error;
+                        document.getElementById("pswd2").innerHTML = err.response.data.error;
                     }
                 });
         }
@@ -106,7 +106,7 @@ export class ChangePassword extends React.Component {
         }
 
         // Make post request to server to check if the password matches
-        axios.post('http://localhost:4000/api/check-password', user)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/check-password', user)
         .then((res) => {
             if(res.status == 200) { // Password matched
                 this.setState({

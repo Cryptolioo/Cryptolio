@@ -2,6 +2,16 @@
 
 Cryptolio is a Cryptocurrency portfolio tracker and position size calculator. We were founded in January of 2021, so are currently in beta stage. We hope to support many more cryptocurrencies on the platform in 2021 and have plans to add numerous new features which will enhance the users experience. 
 
+## Get Started
+For you to run the project you must install all dependencies that are required to run our applications. To install them follow the steps below.
+1.	You must clone the repository from GitHub to your machine.
+2.	Open the project in command prompt and enter ‘npm install’.
+3.	Cd into backend folder and repeat step 2.
+4.	Have a text/script editor installed. For example, Visual Studio Code
+5.	In the cmd type ’npm start’ to run app in the browser.
+6.	In the backend cmd type nodemon server.js
+
+
 ## Cryptolio
 When you enter our site, you will be brought to the landing page. From here you can choose to login to your account or register to our platform if you wish to start tracking your crypto portfolio. All users are able to use our position size calculator and/or contact us whether you have an account with our platform or not.
 ![](Website_Images/Landing.PNG =100x60)

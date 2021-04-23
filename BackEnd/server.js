@@ -205,7 +205,7 @@ app.post('/api/forgot-password', (req, res) => {
                         from: "no-reply@cryptolioo.com",
                         subject: "Password reset",
                         html: `<p>You requested password reset</p>
-                            <h5>Click this <a href="http://localhost:3000/reset-password/${token}">
+                            <h5>Click this <a href="http://www.cryptolioo.com/reset-password/${token}">
                             link </a> for password reset</h5>`
                     })
                     res.sendStatus(200) // Success

@@ -12,7 +12,7 @@ For you to run the project you must install all dependencies that are required t
 6.	In the backend cmd type nodemon server.js
 
 
-## Cryptolio
+## www.cryptolio.com
 When you enter our site, you will be brought to the landing page. From here you can choose to login to your account or register to our platform if you wish to start tracking your crypto portfolio. All users are able to use our position size calculator and/or contact us whether you have an account with our platform or not.
 ![](Website_Images/Landing.PNG =100x60)
 

@@ -12,9 +12,9 @@ For you to run the project you must install all dependencies that are required t
 6.	In the backend cmd type nodemon server.js
 
 
-## www.cryptolio.com
+## www.cryptolioo.com
 When you enter our site, you will be brought to the landing page. From here you can choose to login to your account or register to our platform if you wish to start tracking your crypto portfolio. All users are able to use our position size calculator and/or contact us whether you have an account with our platform or not.
-![](Website_Images/Landing.PNG =100x60)
+![](Website_Images/Landing.PNG)
 
 ## Register
 Before you are able to gain access to our full website you must register. To do so you are required to add in a valid first name, surname, email and password. All data is protected and we will never pass your information on to 3rd party sites.
@@ -51,11 +51,11 @@ Once logged in, there is a drop down menu in the top right hand corner which all
 ![](Website_Images/Drop_Down_Menu.PNG)
 
 ## Edit email/name
-If you wish to change your email/name, you can go to your profile in the drop down menu. This will bring you to a page where you can edit your first name, surname  and email. You can then click save changes once you are happy with your new details and once they are validated, your details will be updated.
+If you wish to change your email/name, you can go to your profile in the drop down menu. This will bring you to a page where you can edit your first name, surname  and email. You can then click save changes once you are happy with your new details and once they are validated, your details will be updated.<br/>
 ![](Website_Images/New_email.PNG)
 
 ## Edit password
-If you decide to edit your password, you can go to your profile in the drop down menu. You will then have to click the `Change Password` button at the bottom of the page which will bring you to the change password page. You can then enter in your current password and click the verify button. Once verified two input boxes will be displayed where you can enter your new password. If these passwords match and are valid, the users credentials will be updated.
+If you decide to edit your password, you can go to your profile in the drop down menu. You will then have to click the `Change Password` button at the bottom of the page which will bring you to the change password page. You can then enter in your current password and click the verify button. Once verified two input boxes will be displayed where you can enter your new password. If these passwords match and are valid, the users credentials will be updated.<br/>
 ![](Website_Images/New_password.PNG)
 
 ## Contact us

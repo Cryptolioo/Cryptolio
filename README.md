@@ -65,6 +65,7 @@ If you have any enquiries, issues etc and want to contact the team, you can go t
 ## Position Size Calculator
 To use the position size calculator, enter  your account size, and the percentage of your account you wish to risk along with your entry and stop-loss. Our position sizing calculator will suggest position sizes based on the information you provide.<br/>
 For example: If you have a $1000 account and wish to risk 1% of your account on an Ethereum trade where your entry price is $2500 and your stop-loss is at $2000. The maximum amount of Ethereum you can buy is 0.02 ETH. This means that if you bought at $2500 and price went to $2000 which hit your stop-loss, you would have lost $10 which is 1% of your account overall.
+![](Website_Images/Calculator.PNG)
 
 ## Logout
 Once you are logged in and wish to logout, you can simply select the logout option from the dropdown menu which will log you out.

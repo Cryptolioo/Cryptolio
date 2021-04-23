@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import logo from '../images/logo.png';
 import axios from 'axios';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The forgot password class allows the user to enter their email address
 // and if it exists an email is sent to the user containing a link they
@@ -30,7 +31,7 @@ export class ForgotPassword extends Component{
             email: this.state.email
         }
 
-        axios.post('http://localhost:4000/api/forgot-password', newEmail)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/forgot-password', newEmail)
             .then((res) => {
                 if(res.status == 200)
                 {
@@ -57,6 +58,10 @@ export class ForgotPassword extends Component{
     render() {
         return (
             <Container className="login">
+                <Helmet>
+                    <title>Forgot Password</title>
+                    <meta name="password" content="Forgot Password" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/"><img src={logo} className="logo align-top"/></a>

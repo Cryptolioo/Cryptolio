@@ -4,6 +4,7 @@ import logo from '../images/logo.png';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The Calculator class calculates the position size the user should use in a trade
 // by using a simple formular with the users input as parameters
@@ -72,6 +73,10 @@ export class Calculator extends React.Component {
     render() {
         return (
             <Container className="container">
+                <Helmet>
+                    <title>Calculator</title>
+                    <meta name="calculator" content="Position Size Calculator" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/portfolio"><img src={logo} className="logo align-top"/></a>

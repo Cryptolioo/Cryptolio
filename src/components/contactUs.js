@@ -5,6 +5,7 @@ import logo from '../images/logo.png';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The contact us class allows the user to contact support regarding numerous issues.
 // This class can be accessed from the landing page or from the portfolio page
@@ -37,7 +38,7 @@ export class ContactUs extends React.Component {
             details: this.state.details
         }
 
-        axios.post('http://localhost:4000/api/contact-us', contactForm)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/contact-us', contactForm)
             .then((res) => {
                 console.log(res);
             })
@@ -76,6 +77,10 @@ export class ContactUs extends React.Component {
     render() {
         return (
             <Container className="container">
+                <Helmet>
+                    <title>Contact Us</title>
+                    <meta name="contact" content="Contact Us" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/portfolio"><img src={logo} className="logo align-top"/></a>

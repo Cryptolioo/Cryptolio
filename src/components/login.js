@@ -4,6 +4,7 @@ import '../styles/login.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The login class allows user the login by validating the input
 // entered and if it matches the database records, the user is logged in
@@ -33,7 +34,7 @@ export class Login extends React.Component {
             password: this.state.password
         }
 
-        axios.post('http://localhost:4000/api/login', newUser)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/login', newUser)
             .then((res) => {
                 if (res.status == 200) { // Logged in successfully
                     const token = res.data.token;
@@ -87,6 +88,10 @@ export class Login extends React.Component {
     render() {
         return (
             <Container className="login">
+                <Helmet>
+                    <title>Login</title>
+                    <meta name="login" content="Login Page" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/"><img src={logo} className="logo align-top"/></a>

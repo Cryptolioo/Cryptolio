@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import logo from '../images/logo.png';
 import axios from 'axios';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The reset password class allows the user to enter a new password
 // A token is passed in the URL when the user clicks the link in their email
@@ -29,7 +30,7 @@ export class ResetPassword extends Component {
     componentDidMount() {
       const resetToken = this.props.match.params.token;
 
-      axios.get('http://localhost:4000/api/reset-password/' + resetToken)
+      axios.get('https://backend-311615.uc.r.appspot.com/api/reset-password/' + resetToken)
         .then((res) => {
             if(res.status == 200) { // User can change password
                 this.setState({
@@ -53,7 +54,7 @@ export class ResetPassword extends Component {
             newPassword: this.state.password
         }
 
-        axios.post('http://localhost:4000/api/change-password', user)
+        axios.post('https://backend-311615.uc.r.appspot.com/api/change-password', user)
             .then((res) => {
                 if(res.status == 200) // Changed password successfully
                 {
@@ -86,6 +87,10 @@ export class ResetPassword extends Component {
     render() {
         return (
             <Container className="container">
+                <Helmet>
+                    <title>Reset Password</title>
+                    <meta name="password" content="Reset Password"/>
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/forgot-password"><img src={logo} className="logo align-top"/></a>

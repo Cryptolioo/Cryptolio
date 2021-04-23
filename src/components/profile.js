@@ -4,6 +4,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The profile class is only accessibleby a logged in user from the
 // dropdown menu from the portfolio page. The user can edit their name
@@ -127,6 +128,10 @@ export class Profile extends React.Component {
     render() {
         return (
             <Container className="container">
+                <Helmet>
+                    <title>My Profile</title>
+                    <meta name="profile" content="My Profile" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/portfolio"><img src={logo} className="logo align-top"/></a>

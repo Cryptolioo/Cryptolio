@@ -7,7 +7,7 @@ import Link from 'react-router-dom/Link';
 import { Create } from './create';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The Portfolio class reads in the stored cryptos and sends them to the cryptos component which
 // returns them back to Portfolio where all data on the users portfolio is displayed
@@ -93,6 +93,10 @@ export class Portfolio extends React.Component {
     render() {
         return (
             <div className="portfolio">
+                <Helmet>
+                    <title>Portfolio</title>
+                    <meta name="portfolio" content="My Portfolio" />
+                </Helmet>  
                 <img src={logo} className="logo d-inline-block align-top"/>
                 <Dropdown id="dropdown-menu">
                     <Dropdown.Toggle variant="light" id="dropdown-basic">

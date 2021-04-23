@@ -4,6 +4,7 @@ import '../styles/register.css';
 import logo from '../images/logo.png';
 import axios from 'axios';
 import { Container, Row, Col} from 'react-bootstrap';
+import {Helmet} from 'react-helmet';
 
 // The register class allows the user to sign up to our platform
 export class Register extends React.Component {
@@ -106,6 +107,10 @@ export class Register extends React.Component {
     render() {
         return (
             <Container className="login">
+                <Helmet>
+                    <title>Register</title>
+                    <meta name="register" content="Rgister Page" />
+                </Helmet>  
                 <Row className="show-grid">
                     <Col xs={12} md={12}>
                         <a href="/"><img src={logo} className="logo align-top"/></a>

@@ -34,7 +34,7 @@ app.use(bodyParser.json())
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: "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"
+        api_key: ""
     }
 }))
 
